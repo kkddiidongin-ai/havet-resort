@@ -1,0 +1,231 @@
+/* ─────────────────────────────────────────────────────────────
+   HAVET × DIGITALNOW PMS 연동 UI 스타일
+   ───────────────────────────────────────────────────────────── */
+
+/* 로딩 상태 */
+.dina-loading {
+  text-align: center;
+  color: #999;
+  font-size: 0.85rem;
+  padding: 2rem 0;
+  letter-spacing: 0.05em;
+}
+
+/* 요금표 */
+.dina-rate-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.dina-rate-note {
+  font-size: 0.75rem;
+  color: #999;
+  margin-bottom: 1rem;
+  letter-spacing: 0.03em;
+}
+
+.dina-rate-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.dina-rate-table thead tr {
+  border-bottom: 1px solid #C4A472;
+}
+
+.dina-rate-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #C4A472;
+}
+
+.dina-rate-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(196, 164, 114, 0.15);
+  color: #3a3028;
+  vertical-align: middle;
+}
+
+.dina-rate-table .price-cell {
+  font-weight: 600;
+  color: #1a1a18;
+}
+
+.btn-rate-book {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  background: #1a1a18;
+  color: #F5F0E8;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-rate-book:hover {
+  background: #C4A472;
+  color: #1a1a18;
+}
+
+.btn-book-inline {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  background: #C4A472;
+  color: #1a1a18;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-book-inline:hover {
+  background: #1a1a18;
+  color: #F5F0E8;
+}
+
+.dina-rate-notice {
+  text-align: center;
+  padding: 2rem 0;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* 스페셜 오퍼 카드 (DINA 동적 생성) */
+.dina-offer-card {
+  background: #fff;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dina-offer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.dina-offer-card .offer-card-img {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.dina-offer-card .offer-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(26,26,24,0.5));
+}
+
+.dina-offer-card .offer-card-body {
+  padding: 1.5rem;
+}
+
+.dina-offer-card .offer-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #C4A472;
+  font-weight: 600;
+}
+
+.dina-offer-card .offer-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: #1a1a18;
+  margin: 0.5rem 0 0.25rem;
+  font-weight: 500;
+}
+
+.dina-offer-card .offer-room {
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.dina-offer-card .offer-desc {
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.dina-offer-card .offer-btn {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #1a1a18;
+  color: #1a1a18;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.dina-offer-card .offer-btn:hover {
+  background: #1a1a18;
+  color: #F5F0E8;
+}
+
+/* 스페셜 오퍼 배지 (객실 카드 위) */
+.offer-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #C4A472;
+  color: #1a1a18;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  z-index: 2;
+}
+
+/* 요금 탭 */
+#dina-room-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rate-tab {
+  padding: 0.4rem 1rem;
+  border: 1px solid #C4A472;
+  background: transparent;
+  color: #666;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.rate-tab:hover,
+.rate-tab.active {
+  background: #1a1a18;
+  color: #F5F0E8;
+  border-color: #1a1a18;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .dina-rate-table th,
+  .dina-rate-table td {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .dina-offer-card .offer-card-img {
+    height: 180px;
+  }
+}
