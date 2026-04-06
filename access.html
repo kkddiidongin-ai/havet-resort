@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACCESS — HAVET RESORT</title>
+  <meta name="description" content="하벳 리조트 오시는 길. 경북 영덕군 병곡면 흰돌로 46. 자가용, 버스, 기차 이용 안내." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .access-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+    @media (max-width: 900px) {
+      .access-layout { grid-template-columns: 1fr; }
+    }
+    .map-container {
+      width: 100%;
+      height: 450px;
+      background: #1E1E1C;
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      position: relative;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(30%) invert(5%);
+    }
+    .access-info-section h3 {
+      font-family: var(--font-sans-en);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 16px;
+      margin-top: 40px;
+    }
+    .access-info-section h3:first-child { margin-top: 0; }
+    .access-info-block {
+      background: #1E1E1C;
+      border: 1px solid var(--color-border);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .access-info-block h4 {
+      font-family: var(--font-sans-en);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+    }
+    .access-info-block p {
+      font-family: var(--font-sans-ko);
+      font-size: 0.85rem;
+      color: var(--color-secondary);
+      line-height: 1.9;
+    }
+    .address-block {
+      background: #1E1E1C;
+      border: 1px solid var(--color-border);
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    .address-block .address-label {
+      font-family: var(--font-sans-en);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .address-block .address-text {
+      font-family: var(--font-sans-ko);
+      font-size: 1rem;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+    .address-block .address-tel {
+      font-family: var(--font-serif-en);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--color-accent);
+      text-decoration: none;
+      display: block;
+      margin-top: 16px;
+    }
+    .copy-btn {
+      font-family: var(--font-sans-en);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      background: transparent;
+      border: 1px solid var(--color-border);
+      padding: 8px 16px;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: all 0.3s;
+    }
+    .copy-btn:hover {
+      color: var(--color-text);
+      border-color: var(--color-accent);
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-transition"></div>
+
+<nav id="nav" class="scrolled">
+  <div class="nav-logo">
+    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a></li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY — SUMMER</a></li>
+    <li><a href="enjoy_winter.html">ENJOY — WINTER</a></li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+  </ul>
+  <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- Page Header -->
+<div style="padding: 140px 40px 60px; text-align: center; border-bottom: 1px solid var(--color-border);">
+  <span class="section-label fade-up">Location</span>
+  <h1 class="section-title fade-up fade-up-delay-1" style="font-size: clamp(2rem, 5vw, 3.5rem);">오시는 길</h1>
+  <p class="section-desc fade-up fade-up-delay-2">경북 영덕군 병곡면 흰돌로 46</p>
+</div>
+
+<!-- Map + Info -->
+<div class="access-layout">
+
+  <!-- Map -->
+  <div class="fade-in">
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3173.0!2d129.4!3d36.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565b2c2b2c2b2c2%3A0x0!2z6rK96riw64+Z7IucIOugiOuCqOq1rCDrs7TqtZDrjIDroZwgNDY!5e0!3m2!1sko!2skr!4v1000000000000!5m2!1sko!2skr"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="HAVET Resort 위치"
+      ></iframe>
+    </div>
+    <div class="address-block" style="margin-top: 2px;">
+      <span class="address-label">Address</span>
+      <p class="address-text">
+        경북 영덕군 병곡면 흰돌로 46<br>
+        (병곡리 360)
+      </p>
+      <a href="tel:+82054732020" class="address-tel">+82-054-732-0200</a>
+      <button class="copy-btn" onclick="copyAddress()">주소 복사</button>
+    </div>
+  </div>
+
+  <!-- Directions -->
+  <div class="access-info-section fade-up">
+
+    <h3>자가용 이용 시</h3>
+    <div class="access-info-block">
+      <h4>서울 출발</h4>
+      <p>
+        서울 → 중앙고속도로 → 영덕IC 하차 → 7번 국도 북쪽 방향 → 병곡면 방향 약 20분 → 하벳 리조트<br>
+        소요 시간: 약 3시간 30분 (고속도로 기준)
+      </p>
+    </div>
+    <div class="access-info-block">
+      <h4>대구/부산 출발</h4>
+      <p>
+        대구 → 중앙고속도로 → 영덕IC 하차 → 7번 국도 북쪽 방향 → 병곡면 방향 약 20분<br>
+        소요 시간: 대구 약 1시간 30분 / 부산 약 2시간 30분
+      </p>
+    </div>
+
+    <h3>대중교통 이용 시</h3>
+    <div class="access-info-block">
+      <h4>기차 이용</h4>
+      <p>
+        서울 청량리역 → 영덕역 (KTX/무궁화호, 약 3~4시간)<br>
+        영덕역 → 하벳 리조트: 택시 약 25분 (약 15km)
+      </p>
+    </div>
+    <div class="access-info-block">
+      <h4>버스 이용</h4>
+      <p>
+        서울 동서울터미널 → 영덕 버스터미널 (고속버스, 약 3시간 30분)<br>
+        영덕 버스터미널 → 하벳 리조트: 택시 약 25분 (약 15km)
+      </p>
+    </div>
+
+    <h3>주차 안내</h3>
+    <div class="access-info-block">
+      <h4>무료 주차</h4>
+      <p>
+        리조트 내 무료 주차장 운영<br>
+        객실 1실당 1대 기준<br>
+        전기차 완속 충전기 2대 운영 (사전 예약 필요)
+      </p>
+    </div>
+
+    <h3>체크인 / 체크아웃</h3>
+    <div class="access-info-block">
+      <h4>이용 시간</h4>
+      <p>
+        체크인: 15:00 이후<br>
+        체크아웃: 11:00 이전<br>
+        얼리 체크인 / 레이트 체크아웃: 사전 문의 (별도 요금)
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 15:00 / 체크아웃 11:00
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="floating-book">예약하기</a>
+
+<script src="js/main.js"></script>
+<script>
+  function copyAddress() {
+    const addr = '경북 영덕군 병곡면 흰돌로 46';
+    navigator.clipboard.writeText(addr).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '복사 완료!';
+      setTimeout(() => { btn.textContent = '주소 복사'; }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

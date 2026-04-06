@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESERVATION — HAVET RESORT</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;font-family:'Noto Sans KR',sans-serif;font-weight:300;background:#F5F0E8;color:#1A1A18;}
+    /* reservation 페이지: nav 항상 어두운 배경 (텍스트 가시성 확보) */
+    #nav { background: rgba(26, 26, 24, 0.97) !important; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212,197,169,0.25); }
+    #nav .nav-logo-text { color: #F5F0E8 !important; }
+    #nav .nav-menu > li > a { color: #F5F0E8 !important; }
+    #nav .nav-menu > li > a:hover { color: #C4A472 !important; }
+    #nav .nav-tel { color: #D4C5A9 !important; }
+    /* NAV */
+
+    .resv-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:72px;background:#1A1A18;}
+    .resv-nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:0.2em;color:#C4A472;text-decoration:none;line-height:1.1;}
+    .resv-nav-logo span{display:block;font-size:0.5rem;letter-spacing:0.35em;color:rgba(196,164,114,0.6);text-transform:uppercase;margin-top:2px;}
+    .resv-nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+    .resv-nav-links a{font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.18em;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+    .resv-nav-links a:hover,.resv-nav-links a.active{color:#C4A472;}
+    .resv-nav-book{font-family:'Montserrat',sans-serif;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#1A1A18;background:#C4A472;border:none;padding:10px 22px;text-decoration:none;transition:background 0.3s;white-space:nowrap;}
+    .resv-nav-book:hover{background:#b8945e;}
+    /* SPLIT */
+    .resv-split{display:flex;height:100vh;padding-top:var(--nav-height, 72px);}
+    /* LEFT */
+    .resv-left{width:42%;min-width:400px;background:#F5F0E8;overflow-y:auto;padding:52px 52px 80px;scrollbar-width:thin;scrollbar-color:#C4A472 transparent;}
+    .resv-left::-webkit-scrollbar{width:4px;}
+    .resv-left::-webkit-scrollbar-thumb{background:#C4A472;border-radius:2px;}
+    .resv-back{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:0.15em;color:#888;text-decoration:none;text-transform:uppercase;margin-bottom:36px;transition:color 0.3s;}
+    .resv-back:hover{color:#1A1A18;}
+    .resv-back::before{content:'←';font-size:0.8rem;}
+    .resv-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:#1A1A18;margin-bottom:6px;}
+    .resv-subtitle{font-size:0.72rem;color:#999;font-weight:300;margin-bottom:26px;}
+    .resv-divider{width:40px;height:1px;background:#C4A472;margin-bottom:36px;}
+    /* CTA */
+    .resv-cta-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:44px;}
+    .resv-btn-book{display:block;width:100%;padding:17px 24px;background:#1A1A18;color:#C4A472;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;text-align:center;transition:background 0.3s;}
+    .resv-btn-book:hover{background:#2a2a26;}
+    .resv-btn-call{display:block;width:100%;padding:16px 24px;background:transparent;border:1px solid #C4A472;color:#1A1A18;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;text-align:center;transition:all 0.3s;}
+    .resv-btn-call:hover{background:#C4A472;color:#fff;}
+    /* SECTION LABEL */
+    .resv-sec-label{font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.3em;color:#C4A472;text-transform:uppercase;margin-bottom:18px;display:block;}
+    /* INFO TABLE */
+    .resv-info-table{width:100%;border-collapse:collapse;margin-bottom:44px;}
+    .resv-info-table tr{border-bottom:1px solid rgba(26,26,24,0.08);}
+    .resv-info-table td{padding:13px 0;font-size:0.8rem;line-height:1.6;vertical-align:top;}
+    .resv-info-table td:first-child{color:#888;font-weight:300;width:110px;}
+    .resv-info-table td:last-child{color:#1A1A18;font-weight:400;}
+    .resv-info-table small{display:block;font-size:0.68rem;color:#aaa;margin-top:2px;}
+    /* SEASON */
+    .resv-season-wrap{margin-bottom:44px;}
+    .resv-season-row{display:flex;align-items:flex-start;gap:18px;padding:13px 0;border-bottom:1px solid rgba(26,26,24,0.08);}
+    .resv-season-badge{display:inline-block;padding:4px 10px;font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.08em;border:1px solid #1A1A18;color:#1A1A18;white-space:nowrap;min-width:58px;text-align:center;}
+    .resv-season-badge.peak{background:#1A1A18;color:#F5F0E8;}
+    .resv-season-badge.gold{border-color:#C4A472;color:#C4A472;}
+    .resv-season-desc{font-size:0.78rem;color:#555;line-height:1.7;}
+    /* RATES */
+    .resv-rates-wrap{margin-bottom:44px;}
+    .resv-rates-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:#1A1A18;margin-bottom:6px;}
+    .resv-rates-note{font-size:0.7rem;color:#aaa;margin-bottom:18px;}
+    .resv-room-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px;}
+    .resv-room-tab{padding:6px 13px;font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.08em;border:1px solid #ccc;background:transparent;color:#888;cursor:pointer;transition:all 0.2s;}
+    .resv-room-tab.active,.resv-room-tab:hover{background:#1A1A18;border-color:#1A1A18;color:#F5F0E8;}
+    .resv-rates-table{width:100%;border-collapse:collapse;}
+    .resv-rates-table th,.resv-rates-table td{padding:11px 7px;font-size:0.75rem;text-align:left;border-bottom:1px solid rgba(26,26,24,0.08);}
+    .resv-rates-table th{font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.08em;color:#aaa;font-weight:400;text-transform:uppercase;}
+    .resv-rates-table td{color:#555;}
+    .resv-rates-table td.peak{color:#C4A472;}
+    .resv-rates-footer{font-size:0.68rem;color:#aaa;margin-top:10px;}
+    /* ACCORDION */
+    .resv-accordion{margin-bottom:44px;}
+    .resv-accordion-item{border-bottom:1px solid rgba(26,26,24,0.1);}
+    .resv-accordion-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:17px 0;background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;font-weight:400;color:#1A1A18;text-align:left;}
+    .resv-accordion-icon{font-size:1.1rem;color:#C4A472;transition:transform 0.3s;flex-shrink:0;}
+    .resv-accordion-item.open .resv-accordion-icon{transform:rotate(45deg);}
+    .resv-accordion-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+    .resv-accordion-item.open .resv-accordion-body{max-height:600px;}
+    .resv-accordion-content{padding:0 0 18px;font-size:0.78rem;color:#666;line-height:2;}
+    .resv-accordion-content p{margin-bottom:7px;}
+    .resv-accordion-content strong{color:#1A1A18;font-weight:500;}
+    /* CONTACT */
+    .resv-contact-block{background:#1A1A18;padding:30px 34px;margin-top:8px;}
+    .resv-contact-block p{font-size:0.75rem;color:rgba(255,255,255,0.55);line-height:2;}
+    .resv-contact-block a{color:#C4A472;text-decoration:none;}
+    .resv-contact-label{font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.25em;color:#C4A472;text-transform:uppercase;margin-bottom:13px;display:block;}
+    /* RIGHT */
+    .resv-right{flex:1;position:relative;overflow:hidden;}
+    .resv-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 0.9s ease;}
+    .resv-slide.active{opacity:1;}
+    .resv-slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.05) 50%);}
+    .resv-slide-caption{position:absolute;bottom:48px;left:48px;color:#fff;}
+    .resv-slide-caption-label{font-family:'Montserrat',sans-serif;font-size:0.55rem;letter-spacing:0.3em;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:8px;}
+    .resv-slide-caption-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;letter-spacing:0.08em;text-transform:uppercase;line-height:1.1;}
+    .resv-slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.3s;z-index:10;}
+    .resv-slider-btn:hover{background:rgba(255,255,255,0.3);}
+    .resv-slider-btn.prev{left:20px;}
+    .resv-slider-btn.next{right:20px;}
+    .resv-slider-dots{position:absolute;bottom:20px;right:24px;display:flex;gap:6px;z-index:10;}
+    .resv-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:background 0.3s;}
+    .resv-dot.active{background:#C4A472;}
+    @media(max-width:900px){html,body{overflow:auto;}.resv-split{flex-direction:column;height:auto;}.resv-left{width:100%;min-width:unset;padding:36px 22px 56px;}.resv-right{height:60vw;min-height:300px;position:relative;}.resv-nav-links{display:none;}}
+  </style>
+</head>
+<body>
+<div id="page-transition"></div>
+<nav id="nav">
+  <div class="nav-logo">
+    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a></li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY — SUMMER</a></li>
+    <li><a href="enjoy_winter.html">ENJOY — WINTER</a></li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="community.html">COMMUNITY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+<div class="resv-split">
+  <div class="resv-left">
+    <a href="index.html" class="resv-back">HOME</a>
+    <h1 class="resv-title">Room Reservation</h1>
+    <p class="resv-subtitle">하벳 리조트 온라인 예약</p>
+    <div class="resv-divider"></div>
+    <div class="resv-cta-wrap">
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="resv-btn-book">BOOK NOW &mdash; 실시간 예약</a>
+      <a href="tel:+82054732020" class="resv-btn-call">CALL &mdash; 054-732-0200</a>
+    </div>
+    <span class="resv-sec-label">Basic Info</span>
+    <table class="resv-info-table">
+      <tr><td>체크인</td><td>PM 15:00</td></tr>
+      <tr><td>체크아웃</td><td>AM 11:00</td></tr>
+      <tr><td>기준 인원</td><td>2인</td></tr>
+      <tr><td>추가 인원</td><td>1인당 50,000원<small>최대 인원은 객실별 상이</small></td></tr>
+      <tr><td>영유아</td><td>24개월 미만 무료</td></tr>
+      <tr><td>반려동물</td><td>동반 불가</td></tr>
+      <tr><td>흡연</td><td>전 구역 금연<small>야외 지정 구역 가능</small></td></tr>
+      <tr><td>입금 계좌</td><td>국민은행 827937-04-007950<small>예금주: 장인호</small></td></tr>
+    </table>
+    <span class="resv-sec-label">Season Guide</span>
+    <div class="resv-season-wrap">
+      <div class="resv-season-row"><span class="resv-season-badge peak">성수기</span><span class="resv-season-desc">7/20 &ndash; 8/20</span></div>
+      <div class="resv-season-row"><span class="resv-season-badge">준성수기</span><span class="resv-season-desc">7/1 &ndash; 7/19, 8/21 &ndash; 8/31</span></div>
+      <div class="resv-season-row"><span class="resv-season-badge">비수기</span><span class="resv-season-desc">그 외 기간</span></div>
+      <div class="resv-season-row" style="border-bottom:none;"><span class="resv-season-badge gold">주말 요금</span><span class="resv-season-desc">금&middot;토&middot;일&middot;공휴일 전날 적용</span></div>
+    </div>
+    <div class="resv-rates-wrap">
+      <span class="resv-sec-label">Room Rates</span>
+      <h2 class="resv-rates-title">Room Rates</h2>
+      <p class="resv-rates-note">&#8251; 요금은 PMS 시스템과 실시간 연동됩니다</p>
+      <div class="resv-room-tabs">
+        <button class="resv-room-tab active">로얄 스위트</button>
+        <button class="resv-room-tab">그랜드 오션</button>
+        <button class="resv-room-tab">오션 A</button>
+        <button class="resv-room-tab">오션 B</button>
+        <button class="resv-room-tab">스카이 A</button>
+        <button class="resv-room-tab">스카이 B</button>
+      </div>
+      <table class="resv-rates-table">
+        <thead><tr><th>기간</th><th>주중</th><th>금요일</th><th>토요일</th><th>일요일</th></tr></thead>
+        <tbody>
+          <tr><td>비수기</td><td>문의</td><td>문의</td><td>문의</td><td>문의</td></tr>
+          <tr><td>준성수기</td><td>문의</td><td>문의</td><td>문의</td><td>문의</td></tr>
+          <tr><td class="peak">성수기</td><td class="peak">문의</td><td class="peak">문의</td><td class="peak">문의</td><td class="peak">문의</td></tr>
+        </tbody>
+      </table>
+      <p class="resv-rates-footer">정확한 요금은 실시간 예약 시스템에서 확인하세요.</p>
+    </div>
+    <span class="resv-sec-label">Policy</span>
+    <h2 class="resv-rates-title" style="margin-bottom:22px;">Cancellation Policy</h2>
+    <div class="resv-accordion">
+      <div class="resv-accordion-item">
+        <button class="resv-accordion-btn">취소 및 환불 규정<span class="resv-accordion-icon">+</span></button>
+        <div class="resv-accordion-body"><div class="resv-accordion-content">
+          <p><strong>체크인 7일 전</strong> &mdash; 전액 환불</p>
+          <p><strong>체크인 3~6일 전</strong> &mdash; 50% 환불</p>
+          <p><strong>체크인 1~2일 전</strong> &mdash; 환불 불가</p>
+          <p><strong>당일 취소 / 노쇼</strong> &mdash; 환불 불가</p>
+          <p style="margin-top:10px;color:#aaa;">성수기(7/20~8/20)는 별도 취소 규정이 적용될 수 있습니다.</p>
+        </div></div>
+      </div>
+      <div class="resv-accordion-item">
+        <button class="resv-accordion-btn">이용 규정 및 주의 사항<span class="resv-accordion-icon">+</span></button>
+        <div class="resv-accordion-body"><div class="resv-accordion-content">
+          <p><strong>반려동물</strong> &mdash; 동반 입실 불가</p>
+          <p><strong>흡연</strong> &mdash; 전 구역 금연 (야외 지정 구역 가능)</p>
+          <p><strong>파티·소음</strong> &mdash; 22:00 이후 정숙 유지 필수</p>
+          <p><strong>수영장</strong> &mdash; 시즌 운영 (5월~10월), 안전 수칙 준수</p>
+          <p><strong>히노끼탕</strong> &mdash; 전 객실 제공, 청결 유지 부탁드립니다</p>
+        </div></div>
+      </div>
+      <div class="resv-accordion-item">
+        <button class="resv-accordion-btn">예약 방법 안내<span class="resv-accordion-icon">+</span></button>
+        <div class="resv-accordion-body"><div class="resv-accordion-content">
+          <p><strong>온라인 예약</strong> &mdash; 상단 BOOK NOW 버튼을 통해 실시간 예약 가능</p>
+          <p><strong>전화 예약</strong> &mdash; 054-732-0200 (09:00~18:00)</p>
+          <p><strong>입금 계좌</strong> &mdash; 국민은행 827937-04-007950 (예금주: 장인호)</p>
+          <p style="margin-top:10px;color:#aaa;">예약 확정은 입금 확인 후 문자로 안내드립니다.</p>
+        </div></div>
+      </div>
+    </div>
+    <div class="resv-contact-block">
+      <span class="resv-contact-label">Contact</span>
+      <p>경북 영덕군 병곡면 흰돌로 46 (병곡리 360)</p>
+      <p>TEL. <a href="tel:+82054732020">054-732-0200</a></p>
+      <p>체크인 PM 15:00 &nbsp;/&nbsp; 체크아웃 AM 11:00</p>
+    </div>
+  </div>
+  <div class="resv-right">
+    <div id="resvSlide0" class="resv-slide active" style="background-image:url('http://gonylab7.speedgabia.com/havet/final/room/1/0.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 101</p><h3 class="resv-slide-caption-title">Royal Suite</h3></div></div>
+    <div id="resvSlide1" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/final/room/2/0.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 201</p><h3 class="resv-slide-caption-title">Grand Ocean Suite</h3></div></div>
+    <div id="resvSlide2" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/final/room/3/0.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 301</p><h3 class="resv-slide-caption-title">Ocean Suite A</h3></div></div>
+    <div id="resvSlide3" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/final/room/4/0.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 302</p><h3 class="resv-slide-caption-title">Ocean Suite B</h3></div></div>
+    <div id="resvSlide4" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/final/room/5/0.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Loft 401</p><h3 class="resv-slide-caption-title">Sky Loft A</h3></div></div>
+    <div id="resvSlide5" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/final/room/6/0.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Loft 402</p><h3 class="resv-slide-caption-title">Sky Loft B</h3></div></div>
+    <button class="resv-slider-btn prev" id="resvPrev">&#8592;</button>
+    <button class="resv-slider-btn next" id="resvNext">&#8594;</button>
+    <div class="resv-slider-dots" id="resvDots">
+      <div class="resv-dot active"></div><div class="resv-dot"></div><div class="resv-dot"></div>
+      <div class="resv-dot"></div><div class="resv-dot"></div><div class="resv-dot"></div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.resv-accordion-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.resv-accordion-item').forEach(i=>i.classList.remove('open'));
+    if(!isOpen)item.classList.add('open');
+  });
+});
+document.querySelectorAll('.resv-room-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{document.querySelectorAll('.resv-room-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');});
+});
+const slides=document.querySelectorAll('.resv-slide');
+const dots=document.querySelectorAll('.resv-dot');
+let cur=0,timer;
+function goTo(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=(n+slides.length)%slides.length;slides[cur].classList.add('active');dots[cur].classList.add('active');}
+function startAuto(){timer=setInterval(()=>goTo(cur+1),5000);}
+document.getElementById('resvPrev').addEventListener('click',()=>{clearInterval(timer);goTo(cur-1);startAuto();});
+document.getElementById('resvNext').addEventListener('click',()=>{clearInterval(timer);goTo(cur+1);startAuto();});
+dots.forEach((d,i)=>d.addEventListener('click',()=>{clearInterval(timer);goTo(i);startAuto();}));
+startAuto();
+</script>
+</body>
+</html>

@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAVET RESORT — 동해안 유일의 럭셔리 리조트</title>
+  <meta name="description" content="경북 영덕 동해안, 하벳 리조트. 전객실 오션뷰, 중정풀, 히노끼탕, 레스토랑 베르데." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== MAIN PAGE SPECIFIC STYLES ===== */
+
+    /* Hero */
+    .main-hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    /* Video Hero */
+    .hero-video-wrap {
+      position: absolute; inset: 0;
+      z-index: 0;
+    }
+    .hero-video-wrap iframe {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 56.25vw; /* 16:9 */
+      min-height: 100vh;
+      min-width: 177.78vh; /* 100/56.25 */
+      pointer-events: none;
+      border: none;
+    }
+    .main-hero-slides {
+      position: absolute; inset: 0;
+    }
+    .main-hero-slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      background-size: cover;
+      background-position: center;
+    }
+    .main-hero-slide.active { opacity: 1; }
+    .main-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.5) 100%);
+      z-index: 1;
+    }
+    .main-hero-content {
+      position: absolute; inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .main-hero-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .main-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .main-hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.2em;
+      margin-bottom: 40px;
+    }
+    .main-hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero-btn-primary {
+      display: inline-block;
+      padding: 14px 40px;
+      background: #C4A472;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .hero-btn-primary:hover { background: #a8895a; }
+    .hero-btn-outline {
+      display: inline-block;
+      padding: 13px 40px;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .hero-btn-outline:hover { background: rgba(255,255,255,0.15); }
+    .main-hero-dots {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+    }
+    .hero-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .hero-dot.active { background: #C4A472; }
+    .main-hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      right: 40px;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+    }
+    .main-hero-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.4);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { transform: scaleY(1); opacity: 0.4; }
+      50% { transform: scaleY(0.5); opacity: 1; }
+    }
+
+    /* Weather widget */
+    .weather-widget {
+      position: absolute;
+      bottom: 32px;
+      left: 40px;
+      z-index: 3;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      padding: 12px 18px;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .weather-location {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 4px;
+    }
+    .weather-temp {
+      font-size: 1.4rem;
+      font-weight: 300;
+    }
+    .weather-desc {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 2px;
+    }
+
+    /* ===== WELCOME SECTION ===== */
+    .welcome-section {
+      padding: 120px 40px;
+      background: #F5F0E8;
+      text-align: center;
+    }
+    .welcome-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .welcome-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      color: #1a1a1a;
+      line-height: 1.2;
+      margin-bottom: 32px;
+    }
+    .welcome-divider {
+      width: 60px;
+      height: 1px;
+      background: #C4A472;
+      margin: 0 auto 32px;
+    }
+    .welcome-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: #555;
+      line-height: 2.2;
+      max-width: 760px;
+      margin: 0 auto 20px;
+    }
+    .welcome-tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: #999;
+      text-transform: uppercase;
+      margin-top: 32px;
+    }
+
+    /* ===== SEASONAL BANNER ===== */
+    .seasonal-banner {
+      position: relative;
+      height: 60vh;
+      min-height: 400px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .seasonal-banner-bg {
+      position: absolute; inset: 0;
+      background-image: url('http://gonylab7.speedgabia.com/havet/final/images/main/main_pool.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .seasonal-banner:hover .seasonal-banner-bg { transform: scale(1); }
+    .seasonal-banner-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.45);
+    }
+    .seasonal-banner-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: #fff;
+      padding: 0 24px;
+    }
+    .seasonal-banner-season {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .seasonal-banner-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .seasonal-banner-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.8;
+    }
+
+    /* ===== EXPLORE SECTION ===== */
+    .explore-section {
+      padding: 100px 40px;
+      background: #FDFAF5;
+    }
+    .explore-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .explore-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .explore-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: #1a1a1a;
+    }
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .explore-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .explore-card-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease;
+    }
+    .explore-card:hover .explore-card-bg { transform: scale(1.06); }
+    .explore-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%);
+      transition: background 0.4s;
+    }
+    .explore-card:hover .explore-card-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%);
+    }
+    .explore-card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 32px 28px;
+      color: #fff;
+    }
+    .explore-card-cat {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .explore-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .explore-card-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+    .explore-card-arrow {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: #C4A472;
+      text-transform: uppercase;
+      border-bottom: 1px solid #C4A472;
+      padding-bottom: 2px;
+      transition: letter-spacing 0.3s;
+    }
+    .explore-card:hover .explore-card-arrow { letter-spacing: 0.3em; }
+
+    /* ===== SPECIAL OFFERS SECTION ===== */
+    .offers-section {
+      padding: 100px 40px;
+      background: #F5F0E8;
+    }
+    .offers-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .offer-card {
+      background: #FDFAF5;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .offer-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .offer-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .offer-card:hover .offer-card-img { transform: scale(1.04); }
+    .offer-card-img-wrap {
+      overflow: hidden;
+    }
+    .offer-card-body {
+      padding: 24px;
+    }
+    .offer-card-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: #C4A472;
+      margin-bottom: 8px;
+    }
+    .offer-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #1a1a1a;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .offer-card-link {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: #C4A472;
+      text-transform: uppercase;
+      border-bottom: 1px solid #C4A472;
+      padding-bottom: 2px;
+    }
+    .offers-more {
+      text-align: center;
+      margin-top: 48px;
+    }
+    .offers-more a {
+      display: inline-block;
+      padding: 13px 40px;
+      border: 1px solid #1a1a1a;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .offers-more a:hover { background: #1a1a1a; color: #fff; }
+
+    /* ===== VERDE SECTION ===== */
+    .verde-section {
+      background: #0f1a0f;
+      color: #fff;
+    }
+    .verde-hero {
+      position: relative;
+      height: 80vh;
+      min-height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .verde-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('http://gonylab7.speedgabia.com/havet/final/rst/rst_main.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .verde-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.1) 100%);
+    }
+    .verde-hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 80px;
+      max-width: 700px;
+    }
+    .verde-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .verde-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .verde-hero-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      line-height: 2;
+      margin-bottom: 36px;
+    }
+    .verde-hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .verde-btn-gold {
+      display: inline-block;
+      padding: 13px 36px;
+      background: #C4A472;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .verde-btn-gold:hover { background: #a8895a; }
+    .verde-btn-ghost {
+      display: inline-block;
+      padding: 12px 36px;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .verde-btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+    /* Verde Info Strip */
+    .verde-info-strip {
+      background: #0f1a0f;
+      padding: 60px 80px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .verde-info-item {
+      text-align: center;
+    }
+    .verde-info-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .verde-info-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+    }
+
+    /* Verde Menu Cards */
+    .verde-menu-section {
+      background: #F5F0E8;
+      padding: 100px 40px;
+    }
+    .verde-menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 60px auto 0;
+    }
+    .verde-menu-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .verde-menu-card-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s ease;
+    }
+    .verde-menu-card:hover .verde-menu-card-bg { transform: scale(1.06); }
+    .verde-menu-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 60%);
+    }
+    .verde-menu-card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 28px 24px;
+      color: #fff;
+    }
+    .verde-menu-card-type {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .verde-menu-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .verde-menu-card-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+
+    /* Verde Story */
+    .verde-story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+    .verde-story-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .verde-story-img-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease;
+    }
+    .verde-story:hover .verde-story-img-bg { transform: scale(1.04); }
+    .verde-story-content {
+      background: #1a1a1a;
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #fff;
+    }
+    .verde-story-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 32px;
+    }
+    .verde-story-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      line-height: 2;
+      margin-bottom: 40px;
+    }
+
+    /* ===== ROOMS SECTION ===== */
+    .rooms-section {
+      padding: 100px 40px;
+      background: #FDFAF5;
+    }
+    .rooms-slider-wrap {
+      position: relative;
+      overflow: hidden;
+      max-width: 1400px;
+      margin: 60px auto 0;
+    }
+    .rooms-slider-track {
+      display: flex;
+      gap: 2px;
+      transition: transform 0.6s ease;
+    }
+    .room-slide {
+      flex: 0 0 calc(33.333% - 2px);
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      text-decoration: none;
+    }
+    .room-slide-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s ease;
+    }
+    .room-slide:hover .room-slide-bg { transform: scale(1.05); }
+    .room-slide-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.05) 55%);
+    }
+    .room-slide-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 28px 24px;
+      color: #fff;
+    }
+    .room-slide-type {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .room-slide-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .room-slide-info {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.05em;
+    }
+    .rooms-slider-nav {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .rooms-slider-btn {
+      width: 48px; height: 48px;
+      border: 1px solid #ddd;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #1a1a1a;
+      transition: all 0.3s;
+    }
+    .rooms-slider-btn:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+    /* ===== EAT & DRINK SECTION ===== */
+    .eatdrink-section {
+      background: #0a0a0a;
+      color: #fff;
+    }
+    .eatdrink-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 450px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .eatdrink-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('http://gonylab7.speedgabia.com/havet/final/rst/bar.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .eatdrink-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%);
+    }
+    .eatdrink-hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 60px 80px;
+      width: 100%;
+    }
+    .eatdrink-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .eatdrink-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    .eatdrink-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      max-width: 600px;
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+    .eatdrink-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #1a1a1a;
+    }
+    .eatdrink-card {
+      background: #111;
+      padding: 48px 40px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .eatdrink-card:hover { background: #161616; }
+    .eatdrink-card-icon {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .eatdrink-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .eatdrink-card-time {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: #C4A472;
+      margin-bottom: 16px;
+    }
+    .eatdrink-card-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .eatdrink-card-btn {
+      display: inline-block;
+      padding: 10px 28px;
+      border: 1px solid rgba(196,164,114,0.5);
+      color: #C4A472;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .eatdrink-card-btn:hover { background: #C4A472; color: #fff; border-color: #C4A472; }
+
+    /* ===== GALLERY SECTION ===== */
+    .gallery-section {
+      padding: 100px 40px;
+      background: #F5F0E8;
+    }
+    .gallery-masonry {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 4px;
+      max-width: 1400px;
+      margin: 60px auto 0;
+    }
+    .gallery-item {
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(6) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+      min-height: 200px;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0);
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-item:hover .gallery-item-overlay { background: rgba(0,0,0,0.3); }
+    .gallery-item-overlay span {
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-item-overlay span { opacity: 1; }
+    .gallery-view-all {
+      text-align: center;
+      margin-top: 48px;
+    }
+    .gallery-view-all a {
+      display: inline-block;
+      padding: 13px 48px;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .gallery-view-all a:hover { background: #C4A472; }
+
+    /* ===== DUAL CTA ===== */
+    .dual-cta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .dual-cta-panel {
+      position: relative;
+      padding: 100px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 400px;
+    }
+    .dual-cta-panel-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease;
+    }
+    .dual-cta-panel:hover .dual-cta-panel-bg { transform: scale(1.04); }
+    .dual-cta-panel-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+    .dual-cta-panel-content {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+    .dual-cta-panel-cat {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .dual-cta-panel-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .dual-cta-panel-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+      margin-bottom: 32px;
+      max-width: 400px;
+    }
+    .dual-cta-btn {
+      display: inline-block;
+      padding: 13px 36px;
+      background: #C4A472;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .dual-cta-btn:hover { background: #a8895a; }
+
+    /* ===== NEWSLETTER ===== */
+    .newsletter-section {
+      padding: 80px 40px;
+      background: #1a1a1a;
+      text-align: center;
+    }
+    .newsletter-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      color: #C4A472;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .newsletter-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .newsletter-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 36px;
+    }
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .newsletter-input {
+      flex: 1;
+      padding: 14px 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-right: none;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      outline: none;
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
+    .newsletter-submit {
+      padding: 14px 28px;
+      background: #C4A472;
+      border: none;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .newsletter-submit:hover { background: #a8895a; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .explore-grid { grid-template-columns: repeat(2, 1fr); }
+      .offers-grid { grid-template-columns: repeat(2, 1fr); }
+      .verde-info-strip { grid-template-columns: repeat(2, 1fr); padding: 40px; }
+      .verde-menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .verde-story { grid-template-columns: 1fr; }
+      .verde-story-img { height: 400px; }
+      .rooms-slider-track .room-slide { flex: 0 0 calc(50% - 2px); }
+      .eatdrink-cards { grid-template-columns: 1fr; }
+      .gallery-masonry { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
+      .gallery-item:nth-child(6) { grid-column: span 1; }
+      .dual-cta { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .welcome-section { padding: 80px 24px; }
+      .explore-section, .offers-section, .verde-menu-section, .rooms-section, .gallery-section { padding: 80px 24px; }
+      .explore-grid { grid-template-columns: 1fr; gap: 2px; }
+      .explore-card { aspect-ratio: 4/3; }
+      .offers-grid { grid-template-columns: 1fr; }
+      .verde-hero-content { padding: 0 24px; }
+      .verde-info-strip { grid-template-columns: 1fr 1fr; padding: 32px 24px; }
+      .verde-menu-grid { grid-template-columns: 1fr; }
+      .rooms-slider-track .room-slide { flex: 0 0 100%; }
+      .eatdrink-hero-content { padding: 40px 24px; }
+      .gallery-masonry { grid-template-columns: 1fr 1fr; }
+      .dual-cta-panel { padding: 60px 32px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { border-right: 1px solid rgba(255,255,255,0.15); border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-transition"></div>
+
+<!-- Navigation -->
+<nav id="nav">
+  <div class="nav-logo">
+    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a></li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY — SUMMER</a></li>
+    <li><a href="enjoy_winter.html">ENJOY — WINTER</a></li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="community.html">COMMUNITY</a></li>
+    <li><a href="access.html">ACCESS</a></li>
+  </ul>
+  <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="main-hero" id="main-hero">
+  <!-- 하벳 실제 영상 (mbus.tv) -->
+  <div class="hero-video-wrap">
+    <iframe
+      src="https://play.mbus.tv/hls/18f74ca2618c602c?autoplay&repeat&background=1"
+      width="100%" height="100%"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      title="HAVET Resort Video"
+    ></iframe>
+  </div>
+  <!-- 영상 로딩 전 폴백 슬라이드 -->
+  <div class="main-hero-slides" id="heroSlides" style="z-index: 0; opacity: 0; transition: opacity 2s ease;">
+    <div class="main-hero-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/thumb/main/1.jpg')"></div>
+    <div class="main-hero-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/thumb/main/2.jpg')"></div>
+    <div class="main-hero-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/main/3.jpg')"></div>
+    <div class="main-hero-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/main/4.jpg')"></div>
+  </div>
+  <div class="main-hero-overlay"></div>
+  <div class="main-hero-content">
+    <p class="main-hero-eyebrow">경북 영덕 · 동해안</p>
+    <h1 class="main-hero-title">HAVET</h1>
+    <p class="main-hero-sub">RESORT · YEONGDEOK</p>
+    <div class="main-hero-btns">
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="hero-btn-primary">BOOK NOW</a>
+      <a href="restaurant.html" class="hero-btn-outline">RESTAURANT VERDE</a>
+    </div>
+  </div>
+  <!-- 영상 모드에서는 dots 숨김 -->
+  <div class="weather-widget" id="weatherWidget">
+    <div class="weather-location">경북 영덕 · 동해</div>
+    <div class="weather-temp" id="weatherTemp">—°C</div>
+    <div class="weather-desc" id="weatherDesc">날씨 로딩 중</div>
+  </div>
+  <div class="main-hero-scroll">
+    <div class="main-hero-scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- ===== WELCOME ===== -->
+<section class="welcome-section">
+  <p class="welcome-eyebrow fade-up">HAVET RESORT · YEONGDEOK</p>
+  <h2 class="welcome-title fade-up fade-up-delay-1">Welcome to<br>HAVET RESORT</h2>
+  <div class="welcome-divider fade-up fade-up-delay-2"></div>
+  <p class="welcome-text fade-up fade-up-delay-2">
+    하벳(HAVET)은 스칸디나비아어로 '바다(The Sea)'를 의미합니다. 경북 영덕 병곡 앞바다, 동해의 청정한 물결과 마주한 이곳에서 하벳은 자연과 럭셔리의 경계를 허뭅니다. 이집트 써니베이지 스톤의 따뜻한 질감, 90년산 기소산 히노끼 원목의 향기, 스페인 알함브라 정원에서 영감을 받은 중정풀— 하벳의 모든 요소는 동해의 자연과 세계의 미학이 만나는 지점에서 탄생했습니다.
+  </p>
+  <p class="welcome-text fade-up fade-up-delay-2">
+    영덕의 신선한 제철 식재료로 완성한 레스토랑 베르데에서 하벳의 하루를 완성하세요.
+  </p>
+  <p class="welcome-tagline fade-up fade-up-delay-3">Stay · Dine · Experience — HAVET</p>
+</section>
+
+<!-- ===== SEASONAL BANNER ===== -->
+<div class="seasonal-banner">
+  <div class="seasonal-banner-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/main/1.jpg')"></div>
+  <div class="seasonal-banner-overlay"></div>
+  <div class="seasonal-banner-content fade-in">
+    <p class="seasonal-banner-season">2026 SEASON OPEN</p>
+    <h2 class="seasonal-banner-title">수영장 시즌 오픈<br>& 베르데 스프링 메뉴</h2>
+    <p class="seasonal-banner-desc">동해의 봄이 시작됩니다. 중정풀과 해수풀이 문을 열고, 레스토랑 베르데에서는 영덕의 봄 제철 식재료로 완성한 새 시즌 메뉴를 선보입니다.</p>
+    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="hero-btn-primary">지금 예약하기</a>
+  </div>
+</div>
+
+<!-- ===== EXPLORE ===== -->
+<section class="explore-section">
+  <div class="explore-header">
+    <span class="explore-label fade-up">Discover HAVET</span>
+    <h2 class="explore-title fade-up fade-up-delay-1">EXPLORE</h2>
+  </div>
+  <div class="explore-grid fade-in">
+    <!-- VERDE -->
+    <a href="restaurant.html" class="explore-card">
+      <div class="explore-card-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_01.jpg')"></div>
+      <div class="explore-card-overlay"></div>
+      <div class="explore-card-content">
+        <span class="explore-card-cat">Dining</span>
+        <h3 class="explore-card-title">Restaurant<br>Verde</h3>
+        <p class="explore-card-desc">Steak · Pizza · Pasta · Salad<br>Cocktail · Wine · Coffee</p>
+        <span class="explore-card-arrow">Explore →</span>
+      </div>
+    </a>
+    <!-- ROOMS -->
+    <a href="rooms.html" class="explore-card">
+      <div class="explore-card-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/1/1.jpg')"></div>
+      <div class="explore-card-overlay"></div>
+      <div class="explore-card-content">
+        <span class="explore-card-cat">Accommodation</span>
+        <h3 class="explore-card-title">Rooms &<br>Suites</h3>
+        <p class="explore-card-desc">Royal Suite · Grand Ocean Suite<br>Ocean Suite · Sky Loft</p>
+        <span class="explore-card-arrow">Explore →</span>
+      </div>
+    </a>
+    <!-- EAT & DRINK -->
+    <a href="restaurant.html#bar" class="explore-card">
+      <div class="explore-card-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_02_03.jpg')"></div>
+      <div class="explore-card-overlay"></div>
+      <div class="explore-card-content">
+        <span class="explore-card-cat">Bar & Lounge</span>
+        <h3 class="explore-card-title">Eat &<br>Drink</h3>
+        <p class="explore-card-desc">칵테일 바 · 위스키 · 와인<br>커피 · 티 · 풀사이드 바</p>
+        <span class="explore-card-arrow">Explore →</span>
+      </div>
+    </a>
+    <!-- GALLERY -->
+    <a href="gallery.html" class="explore-card">
+      <div class="explore-card-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/exterior/1.jpg')"></div>
+      <div class="explore-card-overlay"></div>
+      <div class="explore-card-content">
+        <span class="explore-card-cat">Gallery</span>
+        <h3 class="explore-card-title">Moments<br>at HAVET</h3>
+        <p class="explore-card-desc">객실 · 레스토랑 · 수영장<br>외관 · 시설 · 시즌</p>
+        <span class="explore-card-arrow">Explore →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ===== SPECIAL OFFERS ===== -->
+<section class="offers-section">
+  <div class="offers-header">
+    <span class="explore-label fade-up">Packages & Promotions</span>
+    <h2 class="explore-title fade-up fade-up-delay-1">Special Offers</h2>
+  </div>
+  <div class="offers-grid fade-in">
+    <a href="http://www.havet.co.kr/board/bbs/board.php?bo_table=special_offer&wr_id=79" target="_blank" rel="noopener" class="offer-card">
+      <div class="offer-card-img-wrap">
+        <img src="http://www.havet.co.kr/board/data/file/special_offer/thumb-78_copy_79_2039141823_dlVH6pCb_6f99695cb7cb6a2c19c5f7d939659374f1cd090d_800x410.png" alt="히노끼 스파 패키지" class="offer-card-img" loading="lazy" />
+      </div>
+      <div class="offer-card-body">
+        <p class="offer-card-num">001</p>
+        <h3 class="offer-card-title">전 객실 히노끼 스파, 200% 알아보기</h3>
+        <span class="offer-card-link">자세히 보기 →</span>
+      </div>
+    </a>
+    <a href="http://www.havet.co.kr/board/bbs/board.php?bo_table=special_offer&wr_id=119" target="_blank" rel="noopener" class="offer-card">
+      <div class="offer-card-img-wrap">
+        <img src="http://www.havet.co.kr/board/data/editor/2602/thumb-18ac7c4d695a589b67c9ba9a20278ad3_1771772301_3585_800x410.png" alt="디너 크레딧 패키지" class="offer-card-img" loading="lazy" />
+      </div>
+      <div class="offer-card-body">
+        <p class="offer-card-num">002</p>
+        <h3 class="offer-card-title">하벳 디너 크레딧 패키지</h3>
+        <span class="offer-card-link">자세히 보기 →</span>
+      </div>
+    </a>
+    <a href="http://www.havet.co.kr/board/bbs/board.php?bo_table=special_offer&wr_id=120" target="_blank" rel="noopener" class="offer-card">
+      <div class="offer-card-img-wrap">
+        <img src="http://www.havet.co.kr/board/data/editor/2602/thumb-a735e7ba2bf76cbf40cc7b8e91c94a89_1771773196_9825_800x410.png" alt="브런치 크레딧 패키지" class="offer-card-img" loading="lazy" />
+      </div>
+      <div class="offer-card-body">
+        <p class="offer-card-num">003</p>
+        <h3 class="offer-card-title">하벳 브런치 크레딧 패키지</h3>
+        <span class="offer-card-link">자세히 보기 →</span>
+      </div>
+    </a>
+    <a href="http://www.havet.co.kr/board/bbs/board.php?bo_table=special_offer&wr_id=87" target="_blank" rel="noopener" class="offer-card">
+      <div class="offer-card-img-wrap">
+        <img src="http://www.havet.co.kr/board/data/file/special_offer/thumb-2039141823_7HuBkwCx_60b185332b368ea209360db624e12920cd159ce8_800x410.jpg" alt="특별한 아침" class="offer-card-img" loading="lazy" />
+      </div>
+      <div class="offer-card-body">
+        <p class="offer-card-num">004</p>
+        <h3 class="offer-card-title">레스토랑 베르데가 새롭게 준비한 특별한 아침</h3>
+        <span class="offer-card-link">자세히 보기 →</span>
+      </div>
+    </a>
+    <a href="http://www.havet.co.kr/board/bbs/board.php?bo_table=special_offer&wr_id=88" target="_blank" rel="noopener" class="offer-card">
+      <div class="offer-card-img-wrap">
+        <img src="http://www.havet.co.kr/board/data/file/special_offer/thumb-2039141823_iaReWhtC_8e4eea3804e13eaa382327f6ffe19bbf1f4afca2_800x410.jpg" alt="야외 셀프 바비큐" class="offer-card-img" loading="lazy" />
+      </div>
+      <div class="offer-card-body">
+        <p class="offer-card-num">005</p>
+        <h3 class="offer-card-title">베르데 야외가든 셀프 바비큐</h3>
+        <span class="offer-card-link">자세히 보기 →</span>
+      </div>
+    </a>
+    <a href="http://www.havet.co.kr/board/bbs/board.php?bo_table=special_offer&wr_id=89" target="_blank" rel="noopener" class="offer-card">
+      <div class="offer-card-img-wrap">
+        <img src="http://www.havet.co.kr/board/data/file/special_offer/thumb-80_copy_82_46_copy_80_2039141823_KCW2ZBjo_0f8a0615cb204c262457d527b435df233c443466_800x410.jpg" alt="이탈리안 레스토랑 메뉴" class="offer-card-img" loading="lazy" />
+      </div>
+      <div class="offer-card-body">
+        <p class="offer-card-num">007</p>
+        <h3 class="offer-card-title">VERDE 이탈리안 레스토랑 메뉴</h3>
+        <span class="offer-card-link">자세히 보기 →</span>
+      </div>
+    </a>
+  </div>
+  <div class="offers-more fade-up">
+    <a href="http://www.havet.co.kr/special_offer.html" target="_blank" rel="noopener">전체 스페셜 오퍼 보기</a>
+  </div>
+</section>
+
+<!-- ===== VERDE SECTION ===== -->
+<section class="verde-section">
+  <!-- Verde Hero -->
+  <div class="verde-hero">
+    <div class="verde-hero-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_01.jpg')"></div>
+    <div class="verde-hero-overlay"></div>
+    <div class="verde-hero-content fade-in">
+      <p class="verde-eyebrow">HAVET BOUTIQUE RESTAURANT</p>
+      <h2 class="verde-hero-title">Restaurant<br>Verde</h2>
+      <p class="verde-hero-desc">
+        영해의 만세 시장, 후포리 수산물 시장 등 조선시대부터 이름 높은 경북 최고의 장이 근거리에 서는 이곳, 영덕. 베르데 레스토랑은 그 풍요로운 식재료를 바탕으로 신선한 제철 요리를 선보이며, 전국 셰프들의 부러움을 사고 있습니다.
+      </p>
+      <div class="verde-hero-btns">
+        <a href="restaurant.html" class="verde-btn-gold">메뉴 보기</a>
+        <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="verde-btn-ghost">다이닝 예약</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Verde Info Strip -->
+  <div class="verde-info-strip">
+    <div class="verde-info-item">
+      <p class="verde-info-label">Food</p>
+      <p class="verde-info-value">Steak · Pizza<br>Pasta · Salad</p>
+    </div>
+    <div class="verde-info-item">
+      <p class="verde-info-label">Beverage</p>
+      <p class="verde-info-value">Coffee · Tea<br>Fresh Juice</p>
+    </div>
+    <div class="verde-info-item">
+      <p class="verde-info-label">Alcohol</p>
+      <p class="verde-info-value">Cocktail · Whisky<br>Wine · Beer</p>
+    </div>
+    <div class="verde-info-item">
+      <p class="verde-info-label">Location</p>
+      <p class="verde-info-value">경북 영덕군<br>병곡면 흰돌로 46</p>
+    </div>
+  </div>
+</section>
+
+<!-- Verde Menu Cards -->
+<section class="verde-menu-section">
+  <div style="text-align: center;">
+    <span class="explore-label fade-up">Verde's Best</span>
+    <h2 class="explore-title fade-up fade-up-delay-1" style="color: #1a1a1a;">Signature Menu</h2>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: #888; margin-top: 16px; font-weight: 300;" class="fade-up fade-up-delay-2">영덕의 자연이 담긴 시그니처 요리. 투숙 시 사전 예약을 권장합니다.</p>
+  </div>
+  <div class="verde-menu-grid fade-in">
+    <div class="verde-menu-card">
+      <div class="verde-menu-card-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_02_01.jpg')"></div>
+      <div class="verde-menu-card-overlay"></div>
+      <div class="verde-menu-card-content">
+        <p class="verde-menu-card-type">Breakfast</p>
+        <h3 class="verde-menu-card-name">하벳 모닝 코스</h3>
+        <p class="verde-menu-card-desc">동해 일출을 바라보며 즐기는 아침 코스. 신선한 과일, 에그 베네딕트, 수제 빵 포함.</p>
+      </div>
+    </div>
+    <div class="verde-menu-card">
+      <div class="verde-menu-card-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_02_02.jpg')"></div>
+      <div class="verde-menu-card-overlay"></div>
+      <div class="verde-menu-card-content">
+        <p class="verde-menu-card-type">Main</p>
+        <h3 class="verde-menu-card-name">스테이크 & 파스타</h3>
+        <p class="verde-menu-card-desc">영덕 앞바다의 신선한 해산물과 엄선된 한우로 완성한 베르데의 시그니처 메인 요리.</p>
+      </div>
+    </div>
+    <div class="verde-menu-card">
+      <div class="verde-menu-card-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_02_03.jpg')"></div>
+      <div class="verde-menu-card-overlay"></div>
+      <div class="verde-menu-card-content">
+        <p class="verde-menu-card-type">Bar & Cocktail</p>
+        <h3 class="verde-menu-card-name">칵테일 & 와인</h3>
+        <p class="verde-menu-card-desc">소믈리에가 추천하는 와인과 시그니처 칵테일. 동해의 노을과 함께하는 특별한 한 잔.</p>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 48px;" class="fade-up">
+    <a href="restaurant.html" style="display: inline-block; padding: 13px 48px; background: #1a1a1a; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: background 0.3s;" onmouseover="this.style.background='#C4A472'" onmouseout="this.style.background='#1a1a1a'">레스토랑 베르데 자세히 보기</a>
+  </div>
+</section>
+
+<!-- Verde Story -->
+<div class="verde-story">
+  <div class="verde-story-img">
+    <div class="verde-story-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/special/1.jpg')"></div>
+  </div>
+  <div class="verde-story-content fade-in">
+    <p class="verde-eyebrow" style="margin-bottom: 24px;">The Verde Experience</p>
+    <p class="verde-story-quote">"하벳에서의 식사는<br>그 자체로 하나의 여행입니다"</p>
+    <p class="verde-story-text">
+      레스토랑 베르데는 단순한 식사 공간이 아닙니다. 동해의 노을이 창문을 물들이는 저녁, 영덕의 신선한 식재료로 완성된 요리, 그리고 소믈리에가 추천하는 와인 한 잔— 이 모든 것이 하벳 투숙의 완성입니다.
+    </p>
+    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="verde-btn-gold" style="align-self: flex-start;">식사 예약하기</a>
+  </div>
+</div>
+
+<!-- ===== ROOMS SECTION ===== -->
+<section class="rooms-section">
+  <div style="text-align: center; margin-bottom: 0;">
+    <span class="explore-label fade-up">Accommodation</span>
+    <h2 class="explore-title fade-up fade-up-delay-1" style="color: #1a1a1a;">Rooms & Suites</h2>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: #888; margin-top: 16px; font-weight: 300;" class="fade-up fade-up-delay-2">6가지 타입의 럭셔리 스위트. 전 객실 오션뷰 · 히노끼탕.</p>
+  </div>
+  <div class="rooms-slider-wrap fade-in">
+    <div class="rooms-slider-track" id="roomsTrack">
+      <a href="room_royal.html" class="room-slide">
+        <div class="room-slide-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/1/0.jpg')"></div>
+        <div class="room-slide-overlay"></div>
+        <div class="room-slide-content">
+          <p class="room-slide-type">Suite</p>
+          <h3 class="room-slide-name">Royal Suite</h3>
+          <p class="room-slide-info">로얄 스위트 빌라 · 전용 풀 · 오션뷰</p>
+        </div>
+      </a>
+      <a href="room_grand.html" class="room-slide">
+        <div class="room-slide-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/2/0.jpg')"></div>
+        <div class="room-slide-overlay"></div>
+        <div class="room-slide-content">
+          <p class="room-slide-type">Suite</p>
+          <h3 class="room-slide-name">Grand Ocean Suite</h3>
+          <p class="room-slide-info">그랜드 오션 스위트 · 오션뷰</p>
+        </div>
+      </a>
+      <a href="room_ocean_a.html" class="room-slide">
+        <div class="room-slide-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/3/0.jpg')"></div>
+        <div class="room-slide-overlay"></div>
+        <div class="room-slide-content">
+          <p class="room-slide-type">Suite</p>
+          <h3 class="room-slide-name">Ocean Suite A</h3>
+          <p class="room-slide-info">오션 스위트 A · 오션뷰</p>
+        </div>
+      </a>
+      <a href="room_ocean_b.html" class="room-slide">
+        <div class="room-slide-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/4/0.jpg')"></div>
+        <div class="room-slide-overlay"></div>
+        <div class="room-slide-content">
+          <p class="room-slide-type">Suite</p>
+          <h3 class="room-slide-name">Ocean Suite B</h3>
+          <p class="room-slide-info">오션 스위트 B · 오션뷰</p>
+        </div>
+      </a>
+      <a href="room_skyloft_a.html" class="room-slide">
+        <div class="room-slide-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/5/0.jpg')"></div>
+        <div class="room-slide-overlay"></div>
+        <div class="room-slide-content">
+          <p class="room-slide-type">Loft</p>
+          <h3 class="room-slide-name">Sky Loft A</h3>
+          <p class="room-slide-info">스카이 로프트 A · 오션뷰</p>
+        </div>
+      </a>
+      <a href="room_skyloft_b.html" class="room-slide">
+        <div class="room-slide-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/6/0.jpg')"></div>
+        <div class="room-slide-overlay"></div>
+        <div class="room-slide-content">
+          <p class="room-slide-type">Loft</p>
+          <h3 class="room-slide-name">Sky Loft B</h3>
+          <p class="room-slide-info">스카이 로프트 B · 오션뷰</p>
+        </div>
+      </a>
+    </div>
+    <div class="rooms-slider-nav">
+      <button class="rooms-slider-btn" id="roomsPrev">←</button>
+      <button class="rooms-slider-btn" id="roomsNext">→</button>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 32px;" class="fade-up">
+    <a href="rooms.html" style="display: inline-block; padding: 13px 48px; border: 1px solid #1a1a1a; color: #1a1a1a; font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: all 0.3s;" onmouseover="this.style.background='#1a1a1a';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#1a1a1a'">전체 객실 보기</a>
+  </div>
+</section>
+
+<!-- ===== EAT & DRINK ===== -->
+<section class="eatdrink-section">
+  <div class="eatdrink-hero">
+    <div class="eatdrink-hero-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/special/3/3.jpg')"></div>
+    <div class="eatdrink-hero-overlay"></div>
+    <div class="eatdrink-hero-content fade-in">
+      <p class="eatdrink-eyebrow">Restaurant Verde</p>
+      <h2 class="eatdrink-title">Eat & Drink</h2>
+      <p class="eatdrink-desc">조식부터 디너, 칵테일 바까지. 하벳에서의 모든 식음 경험은 영덕의 신선한 제철 식재료와 함께합니다.</p>
+      <a href="restaurant.html" class="verde-btn-gold">메뉴 전체 보기</a>
+    </div>
+  </div>
+  <div class="eatdrink-cards">
+    <div class="eatdrink-card">
+      <span class="eatdrink-card-icon">☀</span>
+      <h3 class="eatdrink-card-name">Breakfast</h3>
+      <p class="eatdrink-card-time">08:00 – 10:30</p>
+      <p class="eatdrink-card-desc">동해 일출을 바라보며 즐기는 조식 코스. 투숙 고객 전용, 사전 예약 필수.</p>
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="eatdrink-card-btn">예약하기</a>
+    </div>
+    <div class="eatdrink-card">
+      <span class="eatdrink-card-icon">🍽</span>
+      <h3 class="eatdrink-card-name">Lunch & Dinner</h3>
+      <p class="eatdrink-card-time">12:00 – 14:30 / 18:00 – 21:30</p>
+      <p class="eatdrink-card-desc">영덕 제철 식재료로 완성한 이탈리안 코스. 스테이크, 파스타, 피자, 샐러드.</p>
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="eatdrink-card-btn">예약하기</a>
+    </div>
+    <div class="eatdrink-card">
+      <span class="eatdrink-card-icon">🍸</span>
+      <h3 class="eatdrink-card-name">Bar & Cocktail</h3>
+      <p class="eatdrink-card-time">18:00 – 22:00</p>
+      <p class="eatdrink-card-desc">시그니처 칵테일, 위스키, 와인. 동해의 밤을 완성하는 베르데 바의 한 잔.</p>
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="eatdrink-card-btn">예약하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery-section">
+  <div style="text-align: center;">
+    <span class="explore-label fade-up">Gallery</span>
+    <h2 class="explore-title fade-up fade-up-delay-1" style="color: #1a1a1a;">Moments at HAVET</h2>
+  </div>
+  <div class="gallery-masonry fade-in">
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/1.jpg" alt="하벳 외관" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_01.jpg" alt="레스토랑 베르데" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/room/1/1.jpg" alt="로얄 스위트" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/special/1/1.jpg" alt="하벳 수영장" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_02_01.jpg" alt="베르데 인테리어" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/3.jpg" alt="하벳 전경" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/room/2/1.jpg" alt="그랜드 오션 스위트" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_02_02.jpg" alt="베르데 바" loading="lazy" />
+      <div class="gallery-item-overlay"><span>VIEW</span></div>
+    </div>
+  </div>
+  <div class="gallery-view-all fade-up">
+    <a href="gallery.html">갤러리 전체 보기</a>
+  </div>
+</section>
+
+<!-- ===== DUAL CTA ===== -->
+<div class="dual-cta">
+  <div class="dual-cta-panel">
+    <div class="dual-cta-panel-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/room/1/1.jpg')"></div>
+    <div class="dual-cta-panel-overlay"></div>
+    <div class="dual-cta-panel-content fade-in">
+      <p class="dual-cta-panel-cat">Accommodation</p>
+      <h3 class="dual-cta-panel-title">객실 예약</h3>
+      <p class="dual-cta-panel-desc">6가지 타입의 럭셔리 스위트. 전 객실 오션뷰 · 히노끼탕. 원하는 날짜를 지금 확인하세요.</p>
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="dual-cta-btn">BOOK ROOM →</a>
+    </div>
+  </div>
+  <div class="dual-cta-panel">
+    <div class="dual-cta-panel-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/images/rst/t_img_01.jpg')"></div>
+    <div class="dual-cta-panel-overlay"></div>
+    <div class="dual-cta-panel-content fade-in">
+      <p class="dual-cta-panel-cat">Dining</p>
+      <h3 class="dual-cta-panel-title">레스토랑 예약</h3>
+      <p class="dual-cta-panel-desc">조식 · 런치 · 디너 코스. 투숙 고객 우선 예약 — 성수기 조기 마감 주의.</p>
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="dual-cta-btn">BOOK DINING →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter-section">
+  <p class="newsletter-label fade-up">Stay Connected</p>
+  <h2 class="newsletter-title fade-up fade-up-delay-1">하벳의 새로운 소식을<br>가장 먼저 받아보세요</h2>
+  <p class="newsletter-desc fade-up fade-up-delay-2">레스토랑 베르데의 시즌 메뉴, 스페셜 오퍼, 이벤트 소식을 뉴스레터로 전달합니다.</p>
+  <form class="newsletter-form fade-up fade-up-delay-3" onsubmit="return false;">
+    <input type="email" class="newsletter-input" placeholder="이메일 주소를 입력하세요" />
+    <button type="submit" class="newsletter-submit">SEND</button>
+  </form>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 15:00 / 체크아웃 11:00
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+          <li><a href="enjoy_summer.html">Enjoy — Summer</a></li>
+          <li><a href="enjoy_winter.html">Enjoy — Winter</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="reservation.html">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright © HAVET Resort. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="community.html">공지사항</a>
+        <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener">예약하기</a>
+        <a href="access.html">오시는 길</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating Book Button -->
+<a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="floating-book" id="floatingBook">예약하기</a>
+
+<script src="js/main.js"></script>
+<script>
+// ===== HERO VIDEO FALLBACK =====
+// 영상이 로드되면 폴백 슬라이드 숨김
+(function() {
+  const slidesWrap = document.getElementById('heroSlides');
+  const iframe = document.querySelector('.hero-video-wrap iframe');
+  // 영상 iframe이 있으면 폴백 슬라이드는 숨김 유지
+  if (iframe) {
+    if (slidesWrap) slidesWrap.style.opacity = '0';
+  } else {
+    // 영상 없을 때 폴백 슬라이드 표시
+    if (slidesWrap) slidesWrap.style.opacity = '1';
+    const slides = document.querySelectorAll('.main-hero-slide');
+    let current = 0;
+    function next() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }
+    setInterval(next, 5000);
+  }
+})();
+
+// ===== ROOMS SLIDER =====
+(function() {
+  const track = document.getElementById('roomsTrack');
+  const prevBtn = document.getElementById('roomsPrev');
+  const nextBtn = document.getElementById('roomsNext');
+  if (!track) return;
+
+  let current = 0;
+  const slides = track.querySelectorAll('.room-slide');
+  const total = slides.length;
+
+  function getVisible() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function update() {
+    const visible = getVisible();
+    const max = total - visible;
+    if (current > max) current = max;
+    if (current < 0) current = 0;
+    const slideWidth = track.parentElement.offsetWidth / visible;
+    track.style.transform = `translateX(-${current * (slideWidth + 2)}px)`;
+  }
+
+  prevBtn.addEventListener('click', () => { current--; update(); });
+  nextBtn.addEventListener('click', () => { current++; update(); });
+  window.addEventListener('resize', update);
+})();
+
+// ===== WEATHER =====
+(function() {
+  const tempEl = document.getElementById('weatherTemp');
+  const descEl = document.getElementById('weatherDesc');
+  if (!tempEl) return;
+
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  let season = month >= 6 && month <= 8 ? '여름 · 맑음' :
+               month >= 9 && month <= 11 ? '가을 · 맑음' :
+               month >= 12 || month <= 2 ? '겨울 · 맑음' : '봄 · 맑음';
+
+  const temps = { 1:3, 2:5, 3:10, 4:15, 5:20, 6:24, 7:27, 8:28, 9:23, 10:17, 11:10, 12:5 };
+  tempEl.textContent = (temps[month] || 15) + '°C';
+  descEl.textContent = season;
+})();
+
+// ===== SCROLL ANIMATIONS =====
+(function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

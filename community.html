@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COMMUNITY — HAVET RESORT</title>
+  <meta name="description" content="하벳 리조트 공지사항 및 커뮤니티. 최신 소식과 이벤트를 확인하세요." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .notice-list {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+    .notice-item {
+      border-bottom: 1px solid var(--color-border);
+      padding: 24px 0;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .notice-item:hover .notice-title { color: var(--color-accent); }
+    .notice-badge {
+      font-family: var(--font-sans-en);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      padding: 3px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .notice-badge.notice { color: var(--color-secondary); border-color: var(--color-border); }
+    .notice-content { flex: 1; }
+    .notice-title {
+      font-family: var(--font-sans-ko);
+      font-size: 0.95rem;
+      color: var(--color-text);
+      margin-bottom: 6px;
+      transition: color 0.3s;
+    }
+    .notice-date {
+      font-family: var(--font-sans-en);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--color-secondary);
+    }
+    .notice-number {
+      font-family: var(--font-sans-en);
+      font-size: 0.65rem;
+      color: var(--color-secondary);
+      width: 30px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-transition"></div>
+
+<nav id="nav" class="scrolled">
+  <div class="nav-logo">
+    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a></li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY — SUMMER</a></li>
+    <li><a href="enjoy_winter.html">ENJOY — WINTER</a></li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+  </ul>
+  <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- Page Header -->
+<div style="padding: 140px 40px 60px; text-align: center; border-bottom: 1px solid var(--color-border);">
+  <span class="section-label fade-up">Community</span>
+  <h1 class="section-title fade-up fade-up-delay-1" style="font-size: clamp(2rem, 5vw, 3.5rem);">NOTICE &amp; NEWS</h1>
+  <p class="section-desc fade-up fade-up-delay-2">하벳의 최신 소식을 전합니다</p>
+</div>
+
+<!-- Notice List -->
+<div class="notice-list" style="margin-top: 60px;">
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">10</span>
+    <span class="notice-badge">이벤트</span>
+    <div class="notice-content">
+      <p class="notice-title">2026 여름 시즌 해수풀 운영 안내 및 여름 패키지 출시</p>
+      <p class="notice-date">2026.04.01</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">09</span>
+    <span class="notice-badge">이벤트</span>
+    <div class="notice-content">
+      <p class="notice-title">레스토랑 베르데 봄 시즌 메뉴 업데이트 안내</p>
+      <p class="notice-date">2026.03.15</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">08</span>
+    <span class="notice-badge notice">공지</span>
+    <div class="notice-content">
+      <p class="notice-title">전기차 충전기 2대 추가 설치 완료 안내</p>
+      <p class="notice-date">2026.02.20</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">07</span>
+    <span class="notice-badge">이벤트</span>
+    <div class="notice-content">
+      <p class="notice-title">2026 겨울 패키지 — 히노끼탕 & 캠프파이어 특가 이벤트</p>
+      <p class="notice-date">2025.12.01</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">06</span>
+    <span class="notice-badge notice">공지</span>
+    <div class="notice-content">
+      <p class="notice-title">연말 연시 예약 마감 안내 (2025.12.28 ~ 2026.01.02)</p>
+      <p class="notice-date">2025.11.15</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">05</span>
+    <span class="notice-badge">이벤트</span>
+    <div class="notice-content">
+      <p class="notice-title">하벳 공식 인스타그램 팔로우 이벤트 — 숙박권 증정</p>
+      <p class="notice-date">2025.10.01</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">04</span>
+    <span class="notice-badge notice">공지</span>
+    <div class="notice-content">
+      <p class="notice-title">로얄 스위트 전용 바베큐 테라스 리뉴얼 완료</p>
+      <p class="notice-date">2025.09.01</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">03</span>
+    <span class="notice-badge">이벤트</span>
+    <div class="notice-content">
+      <p class="notice-title">2025 여름 시즌 성수기 예약 안내 및 조기 예약 할인</p>
+      <p class="notice-date">2025.05.15</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">02</span>
+    <span class="notice-badge notice">공지</span>
+    <div class="notice-content">
+      <p class="notice-title">하벳 리조트 홈페이지 리뉴얼 오픈 안내</p>
+      <p class="notice-date">2025.04.06</p>
+    </div>
+  </div>
+
+  <div class="notice-item fade-up">
+    <span class="notice-number">01</span>
+    <span class="notice-badge notice">공지</span>
+    <div class="notice-content">
+      <p class="notice-title">하벳 리조트 오픈 안내 — 동해안 유일의 럭셔리 리조트</p>
+      <p class="notice-date">2024.06.01</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 15:00 / 체크아웃 11:00
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="floating-book">예약하기</a>
+
+<script src="js/main.js"></script>
+</body>
+</html>
