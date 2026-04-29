@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROOMS — HAVET RESORT</title>
+  <meta name="description" content="하벳 리조트 전 객실 안내. 로얄 스위트, 그랜드 오션 스위트, 오션 스위트, 스카이 로프트 — 모든 객실 동해 오션뷰." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== ROOMS PAGE STYLES ===== */
+    .rooms-hero {
+      position: relative;
+      width: 100%;
+      height: 65vh;
+      min-height: 420px;
+      overflow: hidden;
+      background: #0a0a0a;
+      display: flex;
+      align-items: flex-end;
+    }
+    .rooms-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('http://gonylab7.speedgabia.com/havet/final/room/1/1.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      opacity: 0.5;
+    }
+    .rooms-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 60%, transparent 100%);
+    }
+    .rooms-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 clamp(24px, 6vw, 100px) 60px;
+      width: 100%;
+    }
+    .rooms-hero-eyebrow {
+      font-family: var(--font-sans-en);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+    .rooms-hero-title {
+      font-family: var(--font-serif-en);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      color: var(--color-text);
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    /* ===== ROOMS INTRO ===== */
+    .rooms-intro {
+      padding: clamp(50px, 6vw, 80px) clamp(24px, 6vw, 100px);
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .rooms-intro-text {
+      font-family: var(--font-sans-ko);
+      font-size: 0.95rem;
+      line-height: 2;
+      color: rgba(245,240,232,0.7);
+    }
+
+    /* ===== ROOMS GRID ===== */
+    .rooms-section {
+      padding: 0 clamp(24px, 6vw, 100px) clamp(80px, 10vw, 140px);
+    }
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .room-card {
+      position: relative;
+      overflow: hidden;
+      background: #111110;
+      text-decoration: none;
+      display: block;
+    }
+    .room-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+      opacity: 0.85;
+    }
+    .room-card:hover .room-card-img {
+      transform: scale(1.04);
+      opacity: 1;
+    }
+    .room-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.1) 60%, transparent 100%);
+      pointer-events: none;
+    }
+    .room-card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px;
+    }
+    .room-card-type {
+      font-family: var(--font-sans-en);
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 8px;
+    }
+    .room-card-name {
+      font-family: var(--font-serif-en);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 300;
+      color: var(--color-text);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .room-card-name-ko {
+      font-family: var(--font-sans-ko);
+      font-size: 0.75rem;
+      color: rgba(245,240,232,0.55);
+      margin-bottom: 16px;
+    }
+    .room-card-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .room-card-meta-item {
+      font-family: var(--font-sans-en);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+    }
+    .room-card-arrow {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(245,240,232,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.6);
+      transition: all 0.3s ease;
+    }
+    .room-card:hover .room-card-arrow {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #1A1A18;
+    }
+
+    /* Royal Suite - full width */
+    .room-card.featured {
+      grid-column: 1 / -1;
+    }
+    .room-card.featured .room-card-img {
+      aspect-ratio: 16/7;
+    }
+
+    /* ===== ROOM FEATURES ===== */
+    .rooms-features {
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 6vw, 100px);
+      background: #111110;
+    }
+    .rooms-features-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .rooms-features-eyebrow {
+      font-family: var(--font-sans-en);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+    .rooms-features-title {
+      font-family: var(--font-serif-en);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 300;
+      color: var(--color-text);
+    }
+    .rooms-features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .rooms-feature-item {
+      padding: 36px 24px;
+      background: #1A1A18;
+      text-align: center;
+    }
+    .rooms-feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .rooms-feature-name {
+      font-family: var(--font-sans-en);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 8px;
+    }
+    .rooms-feature-desc {
+      font-family: var(--font-sans-ko);
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.5);
+      line-height: 1.6;
+    }
+
+    /* ===== CTA ===== */
+    .rooms-cta {
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 6vw, 100px);
+      text-align: center;
+    }
+    .rooms-cta-title {
+      font-family: var(--font-serif-en);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      color: var(--color-text);
+      margin-bottom: 24px;
+    }
+    .rooms-cta-desc {
+      font-family: var(--font-sans-ko);
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.6);
+      margin-bottom: 40px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .rooms-grid {
+        grid-template-columns: 1fr;
+      }
+      .room-card.featured {
+        grid-column: 1;
+      }
+      .room-card.featured .room-card-img {
+        aspect-ratio: 4/3;
+      }
+      .rooms-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="page-transition"></div>
+<nav id="nav" class="scrolled">
+  <div class="nav-logo">
+    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html" class="active">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a></li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY — SUMMER</a></li>
+    <li><a href="enjoy_winter.html">ENJOY — WINTER</a></li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="community.html">COMMUNITY</a></li>
+    <li><a href="access.html">ACCESS</a></li>
+  </ul>
+  <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- Hero -->
+<section class="rooms-hero">
+  <div class="rooms-hero-bg"></div>
+  <div class="rooms-hero-overlay"></div>
+  <div class="rooms-hero-content">
+    <p class="rooms-hero-eyebrow">ACCOMMODATION</p>
+    <h1 class="rooms-hero-title">All Rooms<br><em>& Suites</em></h1>
+  </div>
+</section>
+
+<!-- Intro -->
+<section class="rooms-intro">
+  <div class="section-divider fade-up" style="margin: 0 auto 32px;"></div>
+  <p class="rooms-intro-text fade-up">
+    하벳의 모든 객실은 동해를 향해 열려 있습니다. 로얄 스위트의 프라이빗 풀부터 스카이 로프트의 파노라마 오션뷰까지 — 6가지 타입의 객실 중 당신만의 공간을 선택하세요.
+  </p>
+</section>
+
+<!-- Rooms Grid -->
+<section class="rooms-section">
+  <div class="rooms-grid">
+    <!-- Royal Suite - Featured -->
+    <a href="room_royal.html" class="room-card featured fade-up">
+      <img class="room-card-img" src="http://gonylab7.speedgabia.com/havet/final/room/1/1.jpg" alt="Royal Suite" loading="lazy" />
+      <div class="room-card-overlay"></div>
+      <div class="room-card-content">
+        <p class="room-card-type">Private Pool Villa</p>
+        <h2 class="room-card-name">ROYAL SUITE</h2>
+        <p class="room-card-name-ko">로얄 스위트</p>
+        <div class="room-card-meta">
+          <span class="room-card-meta-item">Max 4 Guests</span>
+          <span class="room-card-meta-item">Private Pool</span>
+          <span class="room-card-meta-item">Hinoki Spa</span>
+          <span class="room-card-meta-item">Ocean View</span>
+        </div>
+      </div>
+      <div class="room-card-arrow">→</div>
+    </a>
+
+    <!-- Grand Ocean Suite -->
+    <a href="room_grand.html" class="room-card fade-up">
+      <img class="room-card-img" src="http://gonylab7.speedgabia.com/havet/final/room/2/1.jpg" alt="Grand Ocean Suite" loading="lazy" />
+      <div class="room-card-overlay"></div>
+      <div class="room-card-content">
+        <p class="room-card-type">Grand Suite</p>
+        <h2 class="room-card-name">GRAND OCEAN SUITE</h2>
+        <p class="room-card-name-ko">그랜드 오션 스위트</p>
+        <div class="room-card-meta">
+          <span class="room-card-meta-item">Max 4 Guests</span>
+          <span class="room-card-meta-item">Hinoki Spa</span>
+          <span class="room-card-meta-item">Ocean View</span>
+        </div>
+      </div>
+      <div class="room-card-arrow">→</div>
+    </a>
+
+    <!-- Ocean Suite A -->
+    <a href="room_ocean_a.html" class="room-card fade-up">
+      <img class="room-card-img" src="http://gonylab7.speedgabia.com/havet/final/room/3/1.jpg" alt="Ocean Suite A" loading="lazy" />
+      <div class="room-card-overlay"></div>
+      <div class="room-card-content">
+        <p class="room-card-type">Ocean Suite</p>
+        <h2 class="room-card-name">OCEAN SUITE A</h2>
+        <p class="room-card-name-ko">오션 스위트 A</p>
+        <div class="room-card-meta">
+          <span class="room-card-meta-item">Max 4 Guests</span>
+          <span class="room-card-meta-item">Hinoki Spa</span>
+          <span class="room-card-meta-item">Ocean View</span>
+        </div>
+      </div>
+      <div class="room-card-arrow">→</div>
+    </a>
+
+    <!-- Ocean Suite B -->
+    <a href="room_ocean_b.html" class="room-card fade-up">
+      <img class="room-card-img" src="http://gonylab7.speedgabia.com/havet/final/room/4/1.jpg" alt="Ocean Suite B" loading="lazy" />
+      <div class="room-card-overlay"></div>
+      <div class="room-card-content">
+        <p class="room-card-type">Ocean Suite</p>
+        <h2 class="room-card-name">OCEAN SUITE B</h2>
+        <p class="room-card-name-ko">오션 스위트 B</p>
+        <div class="room-card-meta">
+          <span class="room-card-meta-item">Max 4 Guests</span>
+          <span class="room-card-meta-item">Hinoki Spa</span>
+          <span class="room-card-meta-item">Ocean View</span>
+        </div>
+      </div>
+      <div class="room-card-arrow">→</div>
+    </a>
+
+    <!-- Sky Loft A -->
+    <a href="room_skyloft_a.html" class="room-card fade-up">
+      <img class="room-card-img" src="http://gonylab7.speedgabia.com/havet/final/room/5/1.jpg" alt="Sky Loft Suite A" loading="lazy" />
+      <div class="room-card-overlay"></div>
+      <div class="room-card-content">
+        <p class="room-card-type">Sky Loft</p>
+        <h2 class="room-card-name">SKY LOFT SUITE A</h2>
+        <p class="room-card-name-ko">스카이 로프트 A</p>
+        <div class="room-card-meta">
+          <span class="room-card-meta-item">Max 4 Guests</span>
+          <span class="room-card-meta-item">Panorama View</span>
+          <span class="room-card-meta-item">Loft Style</span>
+        </div>
+      </div>
+      <div class="room-card-arrow">→</div>
+    </a>
+
+    <!-- Sky Loft B -->
+    <a href="room_skyloft_b.html" class="room-card fade-up">
+      <img class="room-card-img" src="http://gonylab7.speedgabia.com/havet/final/room/6/1.jpg" alt="Sky Loft Suite B" loading="lazy" />
+      <div class="room-card-overlay"></div>
+      <div class="room-card-content">
+        <p class="room-card-type">Sky Loft</p>
+        <h2 class="room-card-name">SKY LOFT SUITE B</h2>
+        <p class="room-card-name-ko">스카이 로프트 B</p>
+        <div class="room-card-meta">
+          <span class="room-card-meta-item">Max 4 Guests</span>
+          <span class="room-card-meta-item">Panorama View</span>
+          <span class="room-card-meta-item">Loft Style</span>
+        </div>
+      </div>
+      <div class="room-card-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- Room Features -->
+<section class="rooms-features">
+  <div class="rooms-features-header">
+    <p class="rooms-features-eyebrow fade-up">All Rooms Include</p>
+    <h2 class="rooms-features-title fade-up">모든 객실 공통 어메니티</h2>
+    <div class="section-divider fade-up" style="margin: 24px auto;"></div>
+  </div>
+  <div class="rooms-features-grid">
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">🌊</span>
+      <p class="rooms-feature-name">Ocean View</p>
+      <p class="rooms-feature-desc">전 객실 동해 오션뷰</p>
+    </div>
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">🛁</span>
+      <p class="rooms-feature-name">Hinoki Spa</p>
+      <p class="rooms-feature-desc">히노끼 원목 스파</p>
+    </div>
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">🍳</span>
+      <p class="rooms-feature-name">Full Kitchen</p>
+      <p class="rooms-feature-desc">풀옵션 주방</p>
+    </div>
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">📺</span>
+      <p class="rooms-feature-name">Smart TV</p>
+      <p class="rooms-feature-desc">대형 스마트 TV</p>
+    </div>
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">🅿️</span>
+      <p class="rooms-feature-name">Parking</p>
+      <p class="rooms-feature-desc">무료 주차</p>
+    </div>
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">⚡</span>
+      <p class="rooms-feature-name">EV Charger</p>
+      <p class="rooms-feature-desc">전기차 충전기</p>
+    </div>
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">🏊</span>
+      <p class="rooms-feature-name">Pool Access</p>
+      <p class="rooms-feature-desc">공용 수영장 이용</p>
+    </div>
+    <div class="rooms-feature-item fade-up">
+      <span class="rooms-feature-icon">🔥</span>
+      <p class="rooms-feature-name">Campfire</p>
+      <p class="rooms-feature-desc">캠프파이어 존</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="rooms-cta">
+  <h2 class="rooms-cta-title fade-up">지금 예약하세요</h2>
+  <p class="rooms-cta-desc fade-up">동해안 최고의 뷰를 독점하는 하벳 리조트에서 특별한 시간을 보내세요.</p>
+  <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn btn-primary fade-up">BOOK NOW</a>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 15:00 / 체크아웃 11:00
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+          <li><a href="enjoy_summer.html">Enjoy — Summer</a></li>
+          <li><a href="enjoy_winter.html">Enjoy — Winter</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="reservation.html">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright © HAVET Resort. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="community.html">공지사항</a>
+        <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener">예약하기</a>
+        <a href="access.html">오시는 길</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="floating-book" id="floatingBook">예약하기</a>
+<script src="js/main.js"></script>
+</body>
+</html>
