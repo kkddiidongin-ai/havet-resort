@@ -10,6 +10,16 @@
 
 ---
 
+## [2026-04-29] index.html 섹션 3개 삭제
+
+### 삭제됨 (Removed)
+- `index.html` EXPLORE 섹션 (`<section class="explore-section">`) 삭제
+- `index.html` Verde Story 블록 (`<!-- Verde Story -->`, THE VERDE EXPERIENCE) 삭제
+- `index.html` NEWSLETTER 섹션 (`<section class="newsletter-section">`) 삭제
+- 수정 파일: `index.html` 단 1개 / 다른 코드 일체 변경 없음
+
+---
+
 ## [2026-04-29] index.html rooms-section 위치 이동
 
 ### 변경됨 (Changed)
