@@ -10,6 +10,16 @@
 
 ---
 
+## [2026-04-29] index.html weather-widget 제거
+
+### 삭제됨 (Removed)
+- `index.html` `.weather-widget` HTML 요소 제거
+- `index.html` CSS `.weather-widget`, `.weather-location`, `.weather-temp`, `.weather-desc` 블록 제거
+- `index.html` JS `// ===== WEATHER =====` IIFE 함수 제거
+- 수정 파일: `index.html` 단 1개 / 다른 코드 변경 없음
+
+---
+
 ## [2026-04-29] index.html WELCOME 섹션 본문 텍스트 수정
 
 ### 변경됨 (Changed)
