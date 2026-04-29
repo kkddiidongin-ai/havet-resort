@@ -10,6 +10,16 @@
 
 ---
 
+## [2026-04-29] index.html SPECIAL OFFERS 섹션 위치 이동
+
+### 변경됨 (Changed)
+- `index.html` SPECIAL OFFERS 섹션을 GALLERY 바로 위로 이동
+- 변경 전 순서: ROOMS → **SPECIAL OFFERS** → VERDE → EAT&DRINK → GALLERY
+- 변경 후 순서: ROOMS → VERDE → EAT&DRINK → **SPECIAL OFFERS** → GALLERY
+- 수정 파일: `index.html` 단 1개 / 코드 내용 변경 없음 (블록 순서만 이동)
+
+---
+
 ## [2026-04-29] index.html 섹션 3개 삭제
 
 ### 삭제됨 (Removed)
