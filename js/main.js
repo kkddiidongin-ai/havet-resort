@@ -1,435 +1,524 @@
-/* =====================================================
-   HAVET RESORT — main.js
-   공통 JavaScript: 네비게이션, 슬라이더, 스크롤 애니메이션
-   ===================================================== */
+/* ============================================================
+   HAVET RESORT — Main JavaScript
+   Features: Navigation, Scroll Animations, Gallery Slider,
+             Room Slider, Weather Widget, Page Transitions,
+             Mobile Menu, Lightbox
+   ============================================================ */
 
-(function() {
-  'use strict';
+'use strict';
 
-  /* ===== PAGE TRANSITION ===== */
-  document.addEventListener('DOMContentLoaded', function() {
-    var pt = document.getElementById('page-transition');
-    if (pt) {
-      pt.style.opacity = '0';
-      setTimeout(function() { pt.style.display = 'none'; }, 600);
-    }
-  });
+/* ============================================================
+   PAGE TRANSITION
+   ============================================================ */
+const PageTransition = {
+  overlay: null,
 
-  // 페이지 이동 시 트랜지션
-  document.addEventListener('click', function(e) {
-    var link = e.target.closest('a[href]');
-    if (!link) return;
-    var href = link.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:') || link.target === '_blank') return;
-    e.preventDefault();
-    var pt = document.getElementById('page-transition');
-    if (pt) {
-      pt.style.display = 'block';
-      pt.style.opacity = '1';
-    }
-    setTimeout(function() { window.location.href = href; }, 350);
-  });
+  init() {
+    this.overlay = document.getElementById('page-transition');
+    if (!this.overlay) return;
 
-  /* ===== NAVIGATION ===== */
-  var nav = document.getElementById('nav');
-  var hamburger = document.getElementById('nav-hamburger');
-  var mobileNav = document.getElementById('mobile-nav');
-  var mobileOverlay = document.getElementById('mobile-nav-overlay');
-  var mobileClose = document.getElementById('mobile-nav-close');
+    // Fade in on load
+    window.addEventListener('load', () => {
+      this.overlay.style.opacity = '0';
+    });
 
-  // Scroll 이벤트 — nav 스타일 변경
-  function onScroll() {
-    if (!nav) return;
-    if (window.scrollY > 60) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-
-    // Floating book button
-    var floatingBook = document.getElementById('floatingBook');
-    if (floatingBook) {
-      if (window.scrollY > 300) {
-        floatingBook.classList.add('visible');
-      } else {
-        floatingBook.classList.remove('visible');
-      }
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // Mobile nav open
-  if (hamburger) {
-    hamburger.addEventListener('click', function() {
-      if (mobileNav) mobileNav.classList.add('open');
-      if (mobileOverlay) mobileOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
+    // Intercept internal links
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http') || link.target === '_blank') return;
+      e.preventDefault();
+      this.overlay.style.opacity = '1';
+      this.overlay.style.pointerEvents = 'all';
+      setTimeout(() => {
+        window.location.href = href;
+      }, 450);
     });
   }
+};
 
-  // Mobile nav close
-  function closeMobileNav() {
-    if (mobileNav) mobileNav.classList.remove('open');
-    if (mobileOverlay) mobileOverlay.classList.remove('open');
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+const Nav = {
+  nav: null,
+  hamburger: null,
+  mobileNav: null,
+  overlay: null,
+  closeBtn: null,
+
+  init() {
+    this.nav = document.getElementById('nav');
+    this.hamburger = document.getElementById('nav-hamburger');
+    this.mobileNav = document.getElementById('mobile-nav');
+    this.overlay = document.getElementById('mobile-nav-overlay');
+    this.closeBtn = document.getElementById('mobile-nav-close');
+
+    if (!this.nav) return;
+
+    this.handleScroll();
+    window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+
+    if (this.hamburger) {
+      this.hamburger.addEventListener('click', () => this.openMobile());
+    }
+    if (this.overlay) {
+      this.overlay.addEventListener('click', () => this.closeMobile());
+    }
+    if (this.closeBtn) {
+      this.closeBtn.addEventListener('click', () => this.closeMobile());
+    }
+  },
+
+  handleScroll() {
+    if (!this.nav) return;
+    const isHero = document.querySelector('.hero');
+    if (isHero) {
+      if (window.scrollY > 80) {
+        this.nav.classList.add('scrolled');
+        this.nav.classList.remove('transparent');
+      } else {
+        this.nav.classList.remove('scrolled');
+        this.nav.classList.add('transparent');
+      }
+    } else {
+      this.nav.classList.add('scrolled');
+    }
+  },
+
+  openMobile() {
+    if (this.mobileNav) this.mobileNav.classList.add('open');
+    if (this.overlay) this.overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  },
+
+  closeMobile() {
+    if (this.mobileNav) this.mobileNav.classList.remove('open');
+    if (this.overlay) this.overlay.classList.remove('open');
     document.body.style.overflow = '';
   }
+};
 
-  if (mobileClose) mobileClose.addEventListener('click', closeMobileNav);
-  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileNav);
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+const ScrollAnimations = {
+  observer: null,
 
-  /* ===== FADE-UP SCROLL ANIMATION ===== */
-  function initFadeUp() {
-    var elements = document.querySelectorAll('.fade-up');
+  init() {
+    const elements = document.querySelectorAll('.fade-up, .fade-in');
     if (!elements.length) return;
 
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          this.observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
 
-    elements.forEach(function(el) {
-      observer.observe(el);
+    elements.forEach(el => this.observer.observe(el));
+  }
+};
+
+/* ============================================================
+   GALLERY SLIDER (Main page)
+   ============================================================ */
+const GallerySlider = {
+  track: null,
+  slides: null,
+  prevBtn: null,
+  nextBtn: null,
+  currentIndex: 0,
+  autoplayTimer: null,
+  slideWidth: 402, // 400px + 2px gap
+
+  init() {
+    this.track = document.querySelector('.gallery-track');
+    if (!this.track) return;
+
+    this.slides = this.track.querySelectorAll('.gallery-slide');
+    this.prevBtn = document.querySelector('.gallery-btn-prev');
+    this.nextBtn = document.querySelector('.gallery-btn-next');
+
+    if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prev());
+    if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
+
+    this.startAutoplay();
+
+    // Touch support
+    let startX = 0;
+    this.track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    this.track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) diff > 0 ? this.next() : this.prev();
+    }, { passive: true });
+  },
+
+  getVisibleCount() {
+    const w = window.innerWidth;
+    if (w < 640) return 1;
+    if (w < 1024) return 2;
+    return 3;
+  },
+
+  next() {
+    const max = this.slides.length - this.getVisibleCount();
+    this.currentIndex = Math.min(this.currentIndex + 1, max);
+    this.update();
+    this.resetAutoplay();
+  },
+
+  prev() {
+    this.currentIndex = Math.max(this.currentIndex - 1, 0);
+    this.update();
+    this.resetAutoplay();
+  },
+
+  update() {
+    const slideW = this.slides[0] ? this.slides[0].offsetWidth + 2 : this.slideWidth;
+    this.track.style.transform = `translateX(-${this.currentIndex * slideW}px)`;
+  },
+
+  startAutoplay() {
+    this.autoplayTimer = setInterval(() => {
+      const max = this.slides.length - this.getVisibleCount();
+      if (this.currentIndex >= max) {
+        this.currentIndex = 0;
+      } else {
+        this.currentIndex++;
+      }
+      this.update();
+    }, 4000);
+  },
+
+  resetAutoplay() {
+    clearInterval(this.autoplayTimer);
+    this.startAutoplay();
+  }
+};
+
+/* ============================================================
+   ROOM SLIDER (room detail pages)
+   ============================================================ */
+const RoomSlider = {
+  track: null,
+  slides: null,
+  dots: null,
+  prevBtn: null,
+  nextBtn: null,
+  currentIndex: 0,
+
+  init() {
+    this.track = document.querySelector('.room-slider-track');
+    if (!this.track) return;
+
+    this.slides = this.track.querySelectorAll('.room-slide');
+    this.dots = document.querySelectorAll('.room-slider-dot');
+    this.prevBtn = document.querySelector('.room-slider-prev');
+    this.nextBtn = document.querySelector('.room-slider-next');
+
+    if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prev());
+    if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.next());
+
+    this.dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => this.goTo(i));
+    });
+
+    // Touch support
+    let startX = 0;
+    this.track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    this.track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) diff > 0 ? this.next() : this.prev();
+    }, { passive: true });
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') this.prev();
+      if (e.key === 'ArrowRight') this.next();
+    });
+  },
+
+  next() {
+    this.goTo((this.currentIndex + 1) % this.slides.length);
+  },
+
+  prev() {
+    this.goTo((this.currentIndex - 1 + this.slides.length) % this.slides.length);
+  },
+
+  goTo(index) {
+    this.currentIndex = index;
+    this.track.style.transform = `translateX(-${index * 100}%)`;
+    this.dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
     });
   }
+};
 
-  document.addEventListener('DOMContentLoaded', initFadeUp);
+/* ============================================================
+   WEATHER WIDGET
+   ============================================================ */
+const Weather = {
+  // OpenWeatherMap API Key — 발급 방법:
+  // 1. https://openweathermap.org/api 접속
+  // 2. 회원가입 후 API Keys 탭에서 키 생성
+  // 3. 아래 YOUR_API_KEY_HERE 를 발급받은 키로 교체
+  API_KEY: 'YOUR_API_KEY_HERE',
+  LAT: 36.4150,
+  LON: 129.3647,
 
-  /* ===== ROOM SLIDER (room_*.html) ===== */
-  function initRoomSlider() {
-    var track = document.querySelector('.room-slider-track');
-    if (!track) return;
+  weatherIcons: {
+    '01d': '☀️', '01n': '🌙',
+    '02d': '⛅', '02n': '⛅',
+    '03d': '☁️', '03n': '☁️',
+    '04d': '☁️', '04n': '☁️',
+    '09d': '🌧️', '09n': '🌧️',
+    '10d': '🌦️', '10n': '🌧️',
+    '11d': '⛈️', '11n': '⛈️',
+    '13d': '❄️', '13n': '❄️',
+    '50d': '🌫️', '50n': '🌫️',
+  },
 
-    var slides = track.querySelectorAll('.room-slide');
-    var dots = document.querySelectorAll('.room-slider-dot');
-    var prevBtn = document.querySelector('.room-slider-prev');
-    var nextBtn = document.querySelector('.room-slider-next');
-    var current = 0;
-    var total = slides.length;
-    var autoTimer = null;
+  weatherKo: {
+    'Clear': '맑음', 'Clouds': '구름', 'Rain': '비',
+    'Drizzle': '이슬비', 'Thunderstorm': '천둥번개',
+    'Snow': '눈', 'Mist': '안개', 'Fog': '안개',
+    'Haze': '연무', 'Dust': '황사', 'Sand': '황사',
+  },
 
-    function goTo(idx) {
-      if (idx < 0) idx = total - 1;
-      if (idx >= total) idx = 0;
-      current = idx;
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      dots.forEach(function(d, i) {
-        d.classList.toggle('active', i === current);
-      });
+  async init() {
+    const widget = document.getElementById('weather-widget');
+    if (!widget) return;
+
+    this.renderDate(widget);
+
+    if (this.API_KEY === 'YOUR_API_KEY_HERE') {
+      this.renderFallback(widget);
+      return;
     }
 
-    function startAuto() {
-      autoTimer = setInterval(function() { goTo(current + 1); }, 5000);
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.LAT}&lon=${this.LON}&appid=${this.API_KEY}&units=metric&lang=kr`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      this.renderWeather(widget, data);
+    } catch (e) {
+      this.renderFallback(widget);
     }
+  },
 
-    function stopAuto() {
-      clearInterval(autoTimer);
+  renderDate(widget) {
+    const dateEl = widget.querySelector('.weather-info');
+    if (!dateEl) return;
+    const now = new Date();
+    const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+    const months = now.getMonth() + 1;
+    const date = now.getDate();
+    const day = days[now.getDay()];
+    const year = now.getFullYear();
+    dateEl.textContent = `경북 영덕  ·  ${year}년 ${months}월 ${date}일 ${day}`;
+  },
+
+  renderWeather(widget, data) {
+    const iconCode = data.weather[0].icon;
+    const iconEl = widget.querySelector('.weather-icon');
+    const tempEl = widget.querySelector('.weather-temp');
+    const descEl = widget.querySelector('.weather-desc');
+
+    if (iconEl) iconEl.textContent = this.weatherIcons[iconCode] || '🌤️';
+    if (tempEl) tempEl.textContent = `${Math.round(data.main.temp)}°C`;
+    if (descEl) {
+      const main = data.weather[0].main;
+      descEl.textContent = this.weatherKo[main] || data.weather[0].description;
     }
+  },
 
-    if (prevBtn) prevBtn.addEventListener('click', function() { stopAuto(); goTo(current - 1); startAuto(); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { stopAuto(); goTo(current + 1); startAuto(); });
-
-    dots.forEach(function(dot, i) {
-      dot.addEventListener('click', function() { stopAuto(); goTo(i); startAuto(); });
-    });
-
-    // Touch/swipe
-    var touchStartX = 0;
-    var sliderEl = document.querySelector('.room-slider');
-    if (sliderEl) {
-      sliderEl.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-      sliderEl.addEventListener('touchend', function(e) {
-        var diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) {
-          stopAuto();
-          goTo(diff > 0 ? current + 1 : current - 1);
-          startAuto();
-        }
-      }, { passive: true });
-    }
-
-    goTo(0);
-    startAuto();
+  renderFallback(widget) {
+    const iconEl = widget.querySelector('.weather-icon');
+    const tempEl = widget.querySelector('.weather-temp');
+    const descEl = widget.querySelector('.weather-desc');
+    if (iconEl) iconEl.textContent = '🌊';
+    if (tempEl) tempEl.textContent = '동해';
+    if (descEl) descEl.textContent = '경북 영덕';
   }
+};
 
-  document.addEventListener('DOMContentLoaded', initRoomSlider);
+/* ============================================================
+   LIGHTBOX (Gallery page)
+   ============================================================ */
+const Lightbox = {
+  lightbox: null,
+  img: null,
+  images: [],
+  currentIndex: 0,
 
-  /* ===== LIGHTBOX ===== */
-  function initLightbox() {
-    var lightbox = document.getElementById('lightbox');
-    if (!lightbox) return;
+  init() {
+    this.lightbox = document.getElementById('lightbox');
+    if (!this.lightbox) return;
 
-    var lightboxImg = lightbox.querySelector('.lightbox-img');
-    var closeBtn = lightbox.querySelector('.lightbox-close');
-    var prevBtn = lightbox.querySelector('.lightbox-prev');
-    var nextBtn = lightbox.querySelector('.lightbox-next');
-    var galleryItems = document.querySelectorAll('.room-gallery-item');
-    var currentIdx = 0;
+    this.img = this.lightbox.querySelector('.lightbox-img');
+    const closeBtn = this.lightbox.querySelector('.lightbox-close');
+    const prevBtn = this.lightbox.querySelector('.lightbox-prev');
+    const nextBtn = this.lightbox.querySelector('.lightbox-next');
 
-    function openLightbox(idx) {
-      currentIdx = idx;
-      var src = galleryItems[idx].getAttribute('data-src') || galleryItems[idx].querySelector('img').src;
-      lightboxImg.src = src;
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    galleryItems.forEach(function(item, i) {
-      item.addEventListener('click', function() { openLightbox(i); });
+    const galleryItems = document.querySelectorAll('.gallery-masonry-item img, .room-gallery-item img');
+    galleryItems.forEach((imgEl, i) => {
+      this.images.push(imgEl.src);
+      imgEl.parentElement.addEventListener('click', () => this.open(i));
     });
 
-    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', function(e) {
-      if (e.target === lightbox) closeLightbox();
+    if (closeBtn) closeBtn.addEventListener('click', () => this.close());
+    if (prevBtn) prevBtn.addEventListener('click', () => this.prev());
+    if (nextBtn) nextBtn.addEventListener('click', () => this.next());
+
+    this.lightbox.addEventListener('click', (e) => {
+      if (e.target === this.lightbox) this.close();
     });
 
-    if (prevBtn) prevBtn.addEventListener('click', function() {
-      currentIdx = (currentIdx - 1 + galleryItems.length) % galleryItems.length;
-      var src = galleryItems[currentIdx].getAttribute('data-src') || galleryItems[currentIdx].querySelector('img').src;
-      lightboxImg.src = src;
+    document.addEventListener('keydown', (e) => {
+      if (!this.lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') this.close();
+      if (e.key === 'ArrowLeft') this.prev();
+      if (e.key === 'ArrowRight') this.next();
     });
+  },
 
-    if (nextBtn) nextBtn.addEventListener('click', function() {
-      currentIdx = (currentIdx + 1) % galleryItems.length;
-      var src = galleryItems[currentIdx].getAttribute('data-src') || galleryItems[currentIdx].querySelector('img').src;
-      lightboxImg.src = src;
-    });
+  open(index) {
+    this.currentIndex = index;
+    if (this.img) this.img.src = this.images[index];
+    this.lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  },
 
-    document.addEventListener('keydown', function(e) {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft' && prevBtn) prevBtn.click();
-      if (e.key === 'ArrowRight' && nextBtn) nextBtn.click();
-    });
+  close() {
+    this.lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  },
+
+  prev() {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    if (this.img) this.img.src = this.images[this.currentIndex];
+  },
+
+  next() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    if (this.img) this.img.src = this.images[this.currentIndex];
   }
+};
 
-  document.addEventListener('DOMContentLoaded', initLightbox);
+/* ============================================================
+   COMMUNITY TABS
+   ============================================================ */
+const CommunityTabs = {
+  init() {
+    const tabs = document.querySelectorAll('.community-tab');
+    if (!tabs.length) return;
 
-  /* ===== GALLERY PAGE LIGHTBOX ===== */
-  function initGalleryLightbox() {
-    var lightbox = document.getElementById('lightbox');
-    if (!lightbox) return;
-    var galleryGrid = document.querySelector('.gallery-grid');
-    if (!galleryGrid) return;
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
 
-    var lightboxImg = lightbox.querySelector('.lightbox-img');
-    var closeBtn = lightbox.querySelector('.lightbox-close');
-    var prevBtn = lightbox.querySelector('.lightbox-prev');
-    var nextBtn = lightbox.querySelector('.lightbox-next');
-    var items = galleryGrid.querySelectorAll('.gallery-item');
-    var currentIdx = 0;
-
-    function open(idx) {
-      currentIdx = idx;
-      var img = items[idx].querySelector('img');
-      if (img) lightboxImg.src = img.src;
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function close() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    items.forEach(function(item, i) {
-      item.style.cursor = 'pointer';
-      item.addEventListener('click', function() { open(i); });
-    });
-
-    if (closeBtn) closeBtn.addEventListener('click', close);
-    lightbox.addEventListener('click', function(e) { if (e.target === lightbox) close(); });
-    if (prevBtn) prevBtn.addEventListener('click', function() { open((currentIdx - 1 + items.length) % items.length); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { open((currentIdx + 1) % items.length); });
-  }
-
-  document.addEventListener('DOMContentLoaded', initGalleryLightbox);
-
-  /* ===== MAIN PAGE — EXPLORE CARDS HOVER ===== */
-  function initExploreCards() {
-    var cards = document.querySelectorAll('.explore-card');
-    cards.forEach(function(card) {
-      card.addEventListener('mouseenter', function() {
-        cards.forEach(function(c) { c.classList.remove('hovered'); });
-        card.classList.add('hovered');
-      });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', initExploreCards);
-
-  /* ===== MAIN PAGE — ROOMS SLIDER ===== */
-  function initMainRoomsSlider() {
-    var track = document.querySelector('.rooms-slider-track');
-    if (!track) return;
-
-    var cards = track.querySelectorAll('.rooms-slider-card');
-    var prevBtn = document.querySelector('.rooms-slider-prev');
-    var nextBtn = document.querySelector('.rooms-slider-next');
-    var current = 0;
-    var cardWidth = 0;
-    var visibleCount = 1;
-
-    function getVisibleCount() {
-      if (window.innerWidth >= 1200) return 3;
-      if (window.innerWidth >= 768) return 2;
-      return 1;
-    }
-
-    function updateSlider() {
-      visibleCount = getVisibleCount();
-      var containerWidth = track.parentElement.offsetWidth;
-      cardWidth = containerWidth / visibleCount;
-      cards.forEach(function(card) { card.style.minWidth = cardWidth + 'px'; });
-      var maxIdx = Math.max(0, cards.length - visibleCount);
-      if (current > maxIdx) current = maxIdx;
-      track.style.transform = 'translateX(-' + (current * cardWidth) + 'px)';
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', function() {
-      if (current > 0) { current--; updateSlider(); }
-    });
-
-    if (nextBtn) nextBtn.addEventListener('click', function() {
-      var maxIdx = Math.max(0, cards.length - getVisibleCount());
-      if (current < maxIdx) { current++; updateSlider(); }
-    });
-
-    window.addEventListener('resize', updateSlider);
-    updateSlider();
-  }
-
-  document.addEventListener('DOMContentLoaded', initMainRoomsSlider);
-
-  /* ===== SPECIAL OFFERS SLIDER ===== */
-  function initSpecialSlider() {
-    var track = document.querySelector('.special-track');
-    if (!track) return;
-
-    var cards = track.querySelectorAll('.special-card');
-    var prevBtn = document.querySelector('.special-prev');
-    var nextBtn = document.querySelector('.special-next');
-    var current = 0;
-
-    function getVisible() {
-      if (window.innerWidth >= 1200) return 3;
-      if (window.innerWidth >= 768) return 2;
-      return 1;
-    }
-
-    function update() {
-      var visible = getVisible();
-      var containerWidth = track.parentElement.offsetWidth;
-      var cardW = containerWidth / visible;
-      cards.forEach(function(c) { c.style.minWidth = cardW + 'px'; });
-      var maxIdx = Math.max(0, cards.length - visible);
-      if (current > maxIdx) current = maxIdx;
-      track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', function() { if (current > 0) { current--; update(); } });
-    if (nextBtn) nextBtn.addEventListener('click', function() {
-      var maxIdx = Math.max(0, cards.length - getVisible());
-      if (current < maxIdx) { current++; update(); }
-    });
-
-    window.addEventListener('resize', update);
-    update();
-  }
-
-  document.addEventListener('DOMContentLoaded', initSpecialSlider);
-
-  /* ===== RESERVATION PAGE — ROOM PHOTO SLIDER ===== */
-  function initReservationSlider() {
-    var track = document.querySelector('.res-slider-track');
-    if (!track) return;
-
-    var slides = track.querySelectorAll('.res-slide');
-    var dots = document.querySelectorAll('.res-dot');
-    var prevBtn = document.querySelector('.res-prev');
-    var nextBtn = document.querySelector('.res-next');
-    var current = 0;
-    var total = slides.length;
-
-    function goTo(idx) {
-      if (idx < 0) idx = total - 1;
-      if (idx >= total) idx = 0;
-      current = idx;
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
-    dots.forEach(function(dot, i) { dot.addEventListener('click', function() { goTo(i); }); });
-
-    setInterval(function() { goTo(current + 1); }, 4000);
-    goTo(0);
-  }
-
-  document.addEventListener('DOMContentLoaded', initReservationSlider);
-
-  /* ===== ENJOY PAGE — SEASON TOGGLE ===== */
-  function initSeasonToggle() {
-    var toggleBtns = document.querySelectorAll('.season-toggle-btn');
-    if (!toggleBtns.length) return;
-
-    toggleBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var target = btn.getAttribute('data-target');
-        if (target) window.location.href = target;
-      });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', initSeasonToggle);
-
-  /* ===== GALLERY PAGE — FILTER ===== */
-  function initGalleryFilter() {
-    var filterBtns = document.querySelectorAll('.gallery-filter-btn');
-    if (!filterBtns.length) return;
-
-    var items = document.querySelectorAll('.gallery-item');
-
-    filterBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        filterBtns.forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-
-        var filter = btn.getAttribute('data-filter');
-        items.forEach(function(item) {
-          if (filter === 'all' || item.getAttribute('data-category') === filter) {
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
+        document.querySelectorAll('.community-panel').forEach(panel => {
+          panel.style.display = panel.dataset.panel === target ? 'block' : 'none';
         });
       });
     });
   }
+};
 
-  document.addEventListener('DOMContentLoaded', initGalleryFilter);
+/* ============================================================
+   LAZY LOAD IMAGES
+   ============================================================ */
+const LazyLoad = {
+  init() {
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    if (!lazyImages.length) return;
 
-  /* ===== SMOOTH SCROLL FOR ANCHOR LINKS ===== */
-  document.addEventListener('click', function(e) {
-    var link = e.target.closest('a[href^="#"]');
-    if (!link) return;
-    var id = link.getAttribute('href').slice(1);
-    if (!id) return;
-    var target = document.getElementById(id);
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+          observer.unobserve(img);
+        }
+      });
+    }, { rootMargin: '200px' });
 
-})();
+    lazyImages.forEach(img => observer.observe(img));
+  }
+};
+
+/* ============================================================
+   PARALLAX (subtle, for hero sections)
+   ============================================================ */
+const Parallax = {
+  init() {
+    const heroes = document.querySelectorAll('.page-hero-bg');
+    if (!heroes.length) return;
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      heroes.forEach(hero => {
+        const rect = hero.closest('.page-hero').getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          hero.style.transform = `translateY(${scrollY * 0.3}px)`;
+        }
+      });
+    }, { passive: true });
+  }
+};
+
+/* ============================================================
+   NEWSLETTER FORM
+   ============================================================ */
+const Newsletter = {
+  init() {
+    const form = document.querySelector('.newsletter-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = form.querySelector('.newsletter-input');
+      if (!input || !input.value.trim()) return;
+
+      const btn = form.querySelector('.newsletter-btn');
+      if (btn) {
+        btn.textContent = '감사합니다!';
+        btn.style.background = 'var(--color-accent)';
+        setTimeout(() => {
+          btn.textContent = 'SEND';
+          btn.style.background = '';
+          input.value = '';
+        }, 3000);
+      }
+    });
+  }
+};
+
+/* ============================================================
+   INIT ALL
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  PageTransition.init();
+  Nav.init();
+  ScrollAnimations.init();
+  GallerySlider.init();
+  RoomSlider.init();
+  Weather.init();
+  Lightbox.init();
+  CommunityTabs.init();
+  LazyLoad.init();
+  Parallax.init();
+  Newsletter.init();
+});

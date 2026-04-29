@@ -4,273 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ABOUT — HAVET RESORT</title>
-  <meta name="description" content="경북 영덕 동해안, 하벳 리조트에 대하여. 자연과 럭셔리가 공존하는 공간의 이야기." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <meta name="description" content="하벳 리조트의 브랜드 스토리, 건축 & 디자인 철학, 그리고 동해안의 자연과 함께하는 공간 이야기." />
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    /* ===== ABOUT PAGE STYLES ===== */
-    .about-hero {
-      position: relative;
-      width: 100%;
-      height: 70vh;
-      min-height: 480px;
-      overflow: hidden;
-      background: #0a0a0a;
-      display: flex;
-      align-items: flex-end;
-    }
-    .about-hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('http://gonylab7.speedgabia.com/havet/final/room/1/1.jpg');
-      background-size: cover;
-      background-position: center 40%;
-      opacity: 0.55;
-      transform: scale(1.05);
-      transition: transform 8s ease;
-    }
-    .about-hero-bg.loaded { transform: scale(1); }
-    .about-hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 60%, transparent 100%);
-    }
-    .about-hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 0 clamp(24px, 6vw, 100px) 60px;
-      width: 100%;
-    }
-    .about-hero-eyebrow {
-      font-family: var(--font-sans-en);
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: 16px;
-    }
-    .about-hero-title {
-      font-family: var(--font-serif-en);
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 300;
-      color: var(--color-text);
-      line-height: 1.1;
-      margin: 0;
-    }
-
-    /* ===== ABOUT INTRO ===== */
-    .about-intro {
-      padding: clamp(60px, 8vw, 120px) clamp(24px, 6vw, 100px);
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .about-intro-quote {
-      font-family: var(--font-serif-en);
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--color-text);
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-    .about-intro-text {
-      font-family: var(--font-sans-ko);
-      font-size: 0.95rem;
-      line-height: 2;
-      color: rgba(245,240,232,0.75);
-    }
-
-    /* ===== ABOUT STORY SECTIONS ===== */
-    .about-story {
-      padding: clamp(40px, 6vw, 80px) clamp(24px, 6vw, 100px);
-    }
-    .about-story-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .about-story-grid.reverse {
-      direction: rtl;
-    }
-    .about-story-grid.reverse > * {
-      direction: ltr;
-    }
-    .about-story-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      display: block;
-    }
-    .about-story-text {
-      padding: 20px 0;
-    }
-    .about-story-eyebrow {
-      font-family: var(--font-sans-en);
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: 20px;
-    }
-    .about-story-title {
-      font-family: var(--font-serif-en);
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 300;
-      color: var(--color-text);
-      line-height: 1.3;
-      margin-bottom: 24px;
-    }
-    .about-story-desc {
-      font-family: var(--font-sans-ko);
-      font-size: 0.9rem;
-      line-height: 1.9;
-      color: rgba(245,240,232,0.7);
-    }
-
-    /* ===== VALUES ===== */
-    .about-values {
-      padding: clamp(60px, 8vw, 120px) clamp(24px, 6vw, 100px);
-      background: #111110;
-    }
-    .about-values-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .about-values-eyebrow {
-      font-family: var(--font-sans-en);
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: 16px;
-    }
-    .about-values-title {
-      font-family: var(--font-serif-en);
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 300;
-      color: var(--color-text);
-    }
-    .about-values-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .about-value-card {
-      text-align: center;
-      padding: 40px 24px;
-      border: 1px solid var(--color-border);
-    }
-    .about-value-icon {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      display: block;
-    }
-    .about-value-name {
-      font-family: var(--font-serif-en);
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: var(--color-text);
-      margin-bottom: 12px;
-    }
-    .about-value-desc {
-      font-family: var(--font-sans-ko);
-      font-size: 0.85rem;
-      line-height: 1.8;
-      color: rgba(245,240,232,0.6);
-    }
-
-    /* ===== NUMBERS ===== */
-    .about-numbers {
-      padding: clamp(60px, 8vw, 100px) clamp(24px, 6vw, 100px);
-    }
-    .about-numbers-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .about-number-item {
-      text-align: center;
-      padding: 40px 20px;
-      background: #111110;
-    }
-    .about-number-value {
-      font-family: var(--font-serif-en);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 300;
-      color: var(--color-accent);
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-    .about-number-label {
-      font-family: var(--font-sans-en);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,0.5);
-    }
-
-    /* ===== CTA ===== */
-    .about-cta {
-      padding: clamp(60px, 8vw, 120px) clamp(24px, 6vw, 100px);
-      text-align: center;
-      background: #111110;
-    }
-    .about-cta-title {
-      font-family: var(--font-serif-en);
-      font-size: clamp(1.8rem, 3.5vw, 3rem);
-      font-weight: 300;
-      color: var(--color-text);
-      margin-bottom: 24px;
-    }
-    .about-cta-desc {
-      font-family: var(--font-sans-ko);
-      font-size: 0.95rem;
-      color: rgba(245,240,232,0.65);
-      margin-bottom: 40px;
-    }
-    .about-cta-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .about-story-grid,
-      .about-story-grid.reverse {
-        grid-template-columns: 1fr;
-        direction: ltr;
-        gap: 32px;
-      }
-      .about-values-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      .about-numbers-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
 </head>
 <body>
+
 <div id="page-transition"></div>
+
+<!-- Navigation -->
 <nav id="nav" class="scrolled">
   <div class="nav-logo">
     <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
   </div>
   <ul class="nav-menu">
-    <li><a href="about.html" class="active">ABOUT</a></li>
+    <li><a href="about.html">ABOUT</a></li>
     <li><a href="rooms.html">ROOMS</a>
       <ul class="nav-dropdown">
         <li><a href="rooms.html">All Rooms</a></li>
@@ -292,6 +39,7 @@
     <li><a href="facility.html">FACILITY</a></li>
     <li><a href="reservation.html">RESERVATION</a></li>
     <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
   </ul>
   <div class="nav-right">
     <span class="nav-tel">+82-054-732-0200</span>
@@ -299,6 +47,7 @@
     <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
 <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
 <div class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
@@ -318,136 +67,106 @@
   <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
 </div>
 
-<!-- Hero -->
-<section class="about-hero">
-  <div class="about-hero-bg" id="aboutHeroBg"></div>
-  <div class="about-hero-overlay"></div>
-  <div class="about-hero-content">
-    <p class="about-hero-eyebrow">HAVET RESORT · YEONGDEOK</p>
-    <h1 class="about-hero-title">Where the Sea<br><em>Meets Silence</em></h1>
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/about/brand/1.jpg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-sub">Our Story</p>
+    <h1 class="page-hero-title">About HAVET</h1>
+    <p class="page-hero-desc">동해안의 자연과 고전미가 공존하는 공간, 하벳의 이야기</p>
+  </div>
+</div>
+
+<!-- Brand Story Section -->
+<section class="section">
+  <div class="section-inner" style="max-width: 860px; margin: 0 auto; text-align: center;">
+    <span class="section-label fade-up">Brand Story</span>
+    <h2 class="section-title fade-up fade-up-delay-1">HAVET — 동해의 정수</h2>
+    <div class="section-divider fade-up fade-up-delay-2" style="margin: 24px auto;"></div>
+    <p class="section-desc fade-up fade-up-delay-2" style="max-width: 700px; margin: 0 auto; font-size: 0.95rem; line-height: 2.2;">
+      하벳(HAVET)은 스칸디나비아어로 '바다(The Sea)'를 의미합니다. 경북 영덕 병곡 앞바다, 동해의 청정한 물결과 마주한 이곳에서 하벳은 자연과 럭셔리의 경계를 허뭅니다. 이집트 써니베이지 스톤의 따뜻한 질감, 90년산 기소산 히노끼 원목의 향기, 스페인 알함브라 정원에서 영감을 받은 중정풀— 하벳의 모든 요소는 동해의 자연과 세계의 미학이 만나는 지점에서 탄생했습니다.
+    </p>
   </div>
 </section>
 
-<!-- Intro -->
-<section class="about-intro">
-  <p class="about-intro-quote fade-up">"동해의 수평선이 시작되는 곳,<br>하벳은 그 경계에 서 있습니다."</p>
-  <div class="section-divider fade-up"></div>
-  <p class="about-intro-text fade-up">
-    경북 영덕 병곡면, 동해안 최북단의 청정 해안선 위에 자리한 하벳 리조트는 자연과 럭셔리가 완벽하게 공존하는 공간입니다.
-    '하벳(HAVET)'은 스칸디나비아어로 '바다(The Sea)'를 의미합니다. 바다의 고요함과 깊이를 담아, 일상에서 벗어난 진정한 휴식을 선사합니다.
-    전 객실 오션뷰, 히노끼 스파, 중정 수영장, 레스토랑 베르데까지 — 하벳에서의 모든 순간은 특별합니다.
-  </p>
-</section>
-
-<!-- Story 1: 공간 -->
-<section class="about-story">
-  <div class="about-story-grid fade-up">
-    <img class="about-story-img" src="http://gonylab7.speedgabia.com/havet/final/room/1/2.jpg" alt="HAVET 공간" loading="lazy" />
-    <div class="about-story-text">
-      <p class="about-story-eyebrow">The Space</p>
-      <h2 class="about-story-title">자연을 담은<br>건축의 미학</h2>
-      <p class="about-story-desc">
-        하벳의 모든 공간은 동해의 자연을 최대한 담아내도록 설계되었습니다. 이집트 써니베이지 스톤, 히노끼 원목, 그리고 바다를 향해 열린 대형 창 — 자연 소재와 정제된 디자인이 만나 독보적인 공간을 완성합니다.
+<!-- Design & Architecture -->
+<section style="padding: 0 0 2px;">
+  <div class="about-split fade-in">
+    <div class="about-split-img">
+      <div class="about-split-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/about/design/2.jpg')"></div>
+    </div>
+    <div class="about-split-content">
+      <span class="section-label">Architecture & Design</span>
+      <h2 class="section-title">건축 &amp; 디자인</h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">
+        하벳의 건축은 동해의 수평선을 닮은 수평적 구조와 이집트 써니베이지 스톤의 따뜻한 색감을 중심으로 설계되었습니다. 고전적인 아치와 현대적인 미니멀리즘이 공존하는 공간 속에서, 자연광이 하루 종일 다른 표정을 만들어냅니다.
       </p>
-      <br>
-      <p class="about-story-desc">
-        6개의 독립된 객실 타입은 각각의 개성을 지니면서도, 하벳만의 일관된 럭셔리 감성을 공유합니다. 프라이빗 풀 빌라부터 스카이 로프트까지, 어떤 공간에서도 동해의 일출을 마주할 수 있습니다.
+      <p class="section-desc" style="margin-top: 16px;">
+        스페인 알함브라 궁전의 정원에서 영감을 받은 중정풀은 하벳 건축의 심장부입니다. 아치형 회랑과 수면이 만들어내는 빛의 반영은 하루 중 어느 시간에도 특별한 풍경을 선사합니다.
       </p>
     </div>
   </div>
-</section>
 
-<!-- Story 2: 자연 -->
-<section class="about-story" style="background: #111110;">
-  <div class="about-story-grid reverse fade-up">
-    <img class="about-story-img" src="http://gonylab7.speedgabia.com/havet/final/room/3/2.jpg" alt="HAVET 자연" loading="lazy" />
-    <div class="about-story-text">
-      <p class="about-story-eyebrow">The Nature</p>
-      <h2 class="about-story-title">동해의 사계절,<br>모두 다른 아름다움</h2>
-      <p class="about-story-desc">
-        여름의 코발트빛 바다, 겨울의 설경과 파도 소리 — 하벳은 사계절 내내 다른 얼굴을 보여줍니다. 영덕의 청정 해안에서 즐기는 수영, 스노클링, 그리고 해변 산책은 도심에서는 경험할 수 없는 순수한 자연의 선물입니다.
-      </p>
-      <br>
-      <p class="about-story-desc">
-        중정의 인피니티 풀에서 바라보는 동해의 수평선, 히노끼탕에서 맞이하는 새벽 — 하벳에서의 시간은 자연과 함께 흐릅니다.
-      </p>
+  <div class="about-split fade-in" style="direction: rtl;">
+    <div class="about-split-img" style="direction: ltr;">
+      <div class="about-split-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/final/about/design/3.jpg')"></div>
     </div>
-  </div>
-</section>
-
-<!-- Story 3: 미식 -->
-<section class="about-story">
-  <div class="about-story-grid fade-up">
-    <img class="about-story-img" src="http://gonylab7.speedgabia.com/havet/final/room/2/3.jpg" alt="HAVET 레스토랑" loading="lazy" />
-    <div class="about-story-text">
-      <p class="about-story-eyebrow">The Dining</p>
-      <h2 class="about-story-title">레스토랑 베르데,<br>바다의 맛</h2>
-      <p class="about-story-desc">
-        하벳의 레스토랑 베르데(VERDE)는 영덕의 신선한 해산물과 제철 식재료를 중심으로 한 파인 다이닝을 선보입니다. 동해를 바라보며 즐기는 조식, 영덕 대게와 제철 해산물로 구성된 디너 코스는 미식 여행의 완성입니다.
+    <div class="about-split-content" style="direction: ltr;">
+      <span class="section-label">Materials</span>
+      <h2 class="section-title">소재 &amp; 질감</h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">
+        이집트 써니베이지 스톤은 하벳의 상징적인 소재입니다. 따뜻한 베이지 톤의 천연석은 동해의 모래사장과 자연스럽게 어우러지며, 시간이 지날수록 더욱 깊은 아름다움을 발합니다.
       </p>
-      <br>
-      <p class="about-story-desc">
-        BBQ 테라스에서의 저녁, 선셋 칵테일 — 하벳의 모든 식사는 특별한 기억이 됩니다.
+      <p class="section-desc" style="margin-top: 16px;">
+        90년산 일본 기소산 무절목재로 제작된 히노끼탕은 하벳의 또 다른 자랑입니다. 히노끼 특유의 향기와 온기는 몸과 마음을 동시에 치유하는 하벳만의 경험을 완성합니다.
       </p>
     </div>
   </div>
 </section>
 
-<!-- Values -->
-<section class="about-values">
-  <div class="about-values-header">
-    <p class="about-values-eyebrow fade-up">Our Values</p>
-    <h2 class="about-values-title fade-up">하벳이 추구하는 것</h2>
-    <div class="section-divider fade-up" style="margin: 24px auto;"></div>
+<!-- Exterior Gallery -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-label fade-up">Exterior</span>
+    <h2 class="section-title fade-up fade-up-delay-1">외부 전경</h2>
+    <p class="section-desc fade-up fade-up-delay-2">동해와 맞닿은 하벳의 외관. 계절마다 다른 표정으로 여러분을 맞이합니다.</p>
   </div>
-  <div class="about-values-grid">
-    <div class="about-value-card fade-up">
-      <span class="about-value-icon">🌊</span>
-      <h3 class="about-value-name">Nature First</h3>
-      <p class="about-value-desc">동해의 자연을 훼손하지 않고, 자연과 함께하는 공간을 만듭니다. 지속 가능한 럭셔리를 추구합니다.</p>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 40px; max-width: var(--max-width); margin-left: auto; margin-right: auto; padding: 0 40px;">
+    <div style="aspect-ratio: 4/3; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/1.jpg" alt="하벳 외관 1" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>
-    <div class="about-value-card fade-up">
-      <span class="about-value-icon">✨</span>
-      <h3 class="about-value-name">Quiet Luxury</h3>
-      <p class="about-value-desc">과시하지 않는 고급스러움. 섬세한 디테일과 정제된 공간에서 진정한 럭셔리를 경험합니다.</p>
+    <div style="aspect-ratio: 4/3; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/2.jpg" alt="하벳 외관 2" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>
-    <div class="about-value-card fade-up">
-      <span class="about-value-icon">🤍</span>
-      <h3 class="about-value-name">Pure Hospitality</h3>
-      <p class="about-value-desc">모든 게스트를 위한 개인화된 서비스. 당신의 특별한 순간을 함께 만들어 드립니다.</p>
+    <div style="aspect-ratio: 4/3; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/3.jpg" alt="하벳 외관 3" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>
-  </div>
-</section>
-
-<!-- Numbers -->
-<section class="about-numbers">
-  <div class="about-numbers-grid">
-    <div class="about-number-item fade-up">
-      <div class="about-number-value">6</div>
-      <div class="about-number-label">Room Types</div>
+    <div style="aspect-ratio: 4/3; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/4.jpg" alt="하벳 외관 4" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>
-    <div class="about-number-item fade-up">
-      <div class="about-number-value">100%</div>
-      <div class="about-number-label">Ocean View</div>
+    <div style="aspect-ratio: 4/3; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/5.jpg" alt="하벳 외관 5" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>
-    <div class="about-number-item fade-up">
-      <div class="about-number-value">365</div>
-      <div class="about-number-label">Days Open</div>
-    </div>
-    <div class="about-number-item fade-up">
-      <div class="about-number-value">∞</div>
-      <div class="about-number-label">Sea Horizon</div>
+    <div style="aspect-ratio: 4/3; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/final/exterior/6.jpg" alt="하벳 외관 6" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="about-cta">
-  <h2 class="about-cta-title fade-up">지금 하벳을 경험하세요</h2>
-  <p class="about-cta-desc fade-up">동해안의 가장 아름다운 곳에서, 잊지 못할 시간을 만들어 드립니다.</p>
-  <div class="about-cta-btns fade-up">
-    <a href="rooms.html" class="btn btn-primary">EXPLORE ROOMS</a>
-    <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn btn-outline">BOOK NOW</a>
+<section class="book-section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">Reservation</span>
+      <h2 class="book-title">하벳을 경험하세요</h2>
+    </div>
+    <div class="book-buttons fade-up fade-up-delay-1">
+      <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn btn-primary">예약하기</a>
+      <a href="rooms.html" class="btn btn-outline">객실 보기</a>
+    </div>
   </div>
 </section>
 
@@ -483,7 +202,7 @@
       <div>
         <p class="footer-nav-title">Information</p>
         <ul class="footer-nav-list">
-          <li><a href="reservation.html">Reservation</a></li>
+          <li><a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener">Reservation</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="community.html">Community</a></li>
           <li><a href="access.html">Access</a></li>
@@ -491,8 +210,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>Copyright © HAVET Resort. All Rights Reserved.</p>
-      <div class="footer-bottom-links">
+      <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
+      <div class="footer-links">
         <a href="community.html">공지사항</a>
         <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener">예약하기</a>
         <a href="access.html">오시는 길</a>
@@ -500,14 +219,9 @@
     </div>
   </div>
 </footer>
-<a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="floating-book" id="floatingBook">예약하기</a>
+
+<a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="floating-book">예약하기</a>
+
 <script src="js/main.js"></script>
-<script>
-  // Hero bg loaded animation
-  window.addEventListener('load', function() {
-    var bg = document.getElementById('aboutHeroBg');
-    if (bg) bg.classList.add('loaded');
-  });
-</script>
 </body>
 </html>
