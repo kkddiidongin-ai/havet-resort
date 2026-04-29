@@ -10,6 +10,17 @@
 
 ---
 
+## [2026-04-29] 영문 폰트 Playfair Display → Raleway 전체 변경
+
+### 변경됨 (Changed)
+- `css/style.css` Google Fonts import에서 `Playfair Display` 제거, `Raleway` 추가
+- `css/style.css` `--font-serif-en` 값을 `'Playfair Display', Georgia, serif` → `'Raleway', sans-serif`로 변경
+- `index.html` 인라인 스타일 내 `'Playfair Display'` 26곳 → `'Raleway'`로 변경
+- `reservation.html` 인라인 스타일 내 `'Playfair Display'` 4곳 → `'Raleway'`로 변경
+- 한글 폰트(Noto Sans KR) 및 기타 코드 변경 없음
+
+---
+
 ## [2026-04-29] access.html 지도 중심 좌표 수정
 
 ### 변경됨 (Changed)
