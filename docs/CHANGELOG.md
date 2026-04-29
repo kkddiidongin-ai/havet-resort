@@ -10,6 +10,16 @@
 
 ---
 
+## [2026-04-29] index.html rooms-section 위치 이동
+
+### 변경됨 (Changed)
+- `index.html` `.rooms-section` 블록을 `.seasonal-banner` 바로 아래로 이동
+- 변경 전 순서: seasonal-banner → EXPLORE → SPECIAL OFFERS → VERDE → **ROOMS** → EAT&DRINK
+- 변경 후 순서: seasonal-banner → **ROOMS** → EXPLORE → SPECIAL OFFERS → VERDE → EAT&DRINK
+- 수정 파일: `index.html` 단 1개 / 코드 내용 변경 없음 (블록 순서만 이동)
+
+---
+
 ## [2026-04-29] index.html 시즌 오픈 배너 높이 수정
 
 ### 변경됨 (Changed)
