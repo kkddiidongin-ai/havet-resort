@@ -10,6 +10,18 @@
 
 ---
 
+## [2026-04-29] 전체 페이지 헤더 LOCATION 메뉴 추가 및 통일
+
+### 추가됨 (Added)
+- 데스크탑 nav: `index.html`, `community.html`, `facility.html`, `gallery.html`, `restaurant.html`, `room_royal.html` — LOCATION 항목 추가
+- 모바일 nav: `community.html`, `facility.html`, `gallery.html`, `restaurant.html`, `room_royal.html`, `enjoy_summer.html`, `enjoy_winter.html`, `room_grand.html`, `room_ocean_a.html`, `room_ocean_b.html`, `room_skyloft_a.html`, `room_skyloft_b.html` — LOCATION 항목 추가
+
+### 변경됨 (Changed)
+- 모바일 nav: `about.html`, `index.html`, `rooms.html` — ACCESS 텍스트를 LOCATION으로 통일
+- 수정 파일: 전체 16개 HTML (access.html 제외)
+
+---
+
 ## [2026-04-29] index.html weather-widget 제거
 
 ### 삭제됨 (Removed)
