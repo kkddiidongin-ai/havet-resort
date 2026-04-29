@@ -10,6 +10,16 @@
 
 ---
 
+## [2026-04-29] 사이트 전체 한글 폰트 Noto Sans KR 통일
+
+### 변경됨 (Changed)
+- `css/style.css` `--font-serif-ko` 값을 `'Noto Serif KR'`에서 `'Noto Sans KR'`로 변경
+- `index.html` 인라인 `<style>` 내 `'Cormorant Garamond', serif` 26곳에 `'Noto Sans KR'` fallback 추가
+- `reservation.html` 인라인 `<style>` 내 `'Cormorant Garamond',serif` 4곳에 `'Noto Sans KR'` fallback 추가
+- 수정 파일: `css/style.css`, `index.html`, `reservation.html` / 폰트 외 코드 변경 없음
+
+---
+
 ## [2026-04-29] index.html SPECIAL OFFERS 섹션 위치 이동
 
 ### 변경됨 (Changed)
