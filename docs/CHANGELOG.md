@@ -10,6 +10,16 @@
 
 ---
 
+## [2026-04-29] index.html WELCOME 섹션 본문 텍스트 수정
+
+### 변경됨 (Changed)
+- `index.html` WELCOME 섹션 본문 텍스트를 3줄 요약 + 환대 문구 1줄로 교체
+- 기존 긴 단락 2개 → 3줄 본문 + 빈 줄 + 환대 문구 구조로 변경
+- 가운데 정렬은 기존 `.welcome-section { text-align: center }` 그대로 유지
+- 수정 파일: `index.html` 단 1개 / 텍스트 외 코드 변경 없음
+
+---
+
 ## [2026-04-29] 사이트 전체 한글 폰트 Noto Sans KR 통일
 
 ### 변경됨 (Changed)
