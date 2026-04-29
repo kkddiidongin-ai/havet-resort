@@ -7,6 +7,15 @@
 
 ### 추가됨 (Added)
 - AI 에이전트 작업 수칙 문서 (`agents.md`) 신규 생성
+
+---
+
+## [2026-04-29] index.html 시즌 오픈 배너 높이 수정
+
+### 변경됨 (Changed)
+- `index.html` `.seasonal-banner` 세로 높이 수정: `height: 60vh` → `height: 80vh`, `min-height: 400px` → `min-height: 500px`
+- `.verde-hero`와 동일한 세로 높이로 맞춤 (`height: 80vh`, `min-height: 500px`)
+- 수정 파일: `index.html` 단 1개 / 수정 라인: 242~243줄
 - 디지털나우(PMS) 연동 스크립트 (`js/digitalnow.js`) 및 스타일 (`css/digitalnow.css`) 초기 구조
 - `enjoy_summer.html` 및 `enjoy_winter.html` 간의 시즌 토글 버튼 기능
 - 스페셜 오퍼 6개 카드 이미지 로컬 파일 교체 (`images/special/`)
