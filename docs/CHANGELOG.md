@@ -6,6 +6,7 @@
 ## [Unreleased]
 
 ### 추가됨 (Added)
+- AI 에이전트 작업 수칙 문서 (`agents.md`) 신규 생성
 - 디지털나우(PMS) 연동 스크립트 (`js/digitalnow.js`) 및 스타일 (`css/digitalnow.css`) 초기 구조
 - `enjoy_summer.html` 및 `enjoy_winter.html` 간의 시즌 토글 버튼 기능
 - 스페셜 오퍼 6개 카드 이미지 로컬 파일 교체 (`images/special/`)
