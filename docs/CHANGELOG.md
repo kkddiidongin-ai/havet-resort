@@ -10,6 +10,17 @@
 
 ---
 
+## [2026-05-04] index.html Signature Menu 이미지 3장 교체
+
+### 변경됨 (Changed)
+- `index.html` Signature Menu 섹션 이미지 3장을 업주 제공 음식 사진으로 교체
+- 1번 카드 (Breakfast): `t_img_02_01.jpg` → `images/sig_chicken_steak.jpg` (치킨스테이크)
+- 2번 카드 (Main): `t_img_02_02.jpg` → `images/sig_pasta.jpg` (백고동알리오올리오파스타)
+- 3번 카드 (Bar & Cocktail): `t_img_02_03.jpg` → `images/sig_octopus.jpg` (문어카르파초)
+- 이미지 경로 외 코드 변경 없음 (음식명·설명 텍스트는 추후 업주 전달 후 별도 반영 예정)
+
+---
+
 ## [2026-04-29] 영문 폰트 Playfair Display → Raleway 전체 변경
 
 ### 변경됨 (Changed)
