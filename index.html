@@ -26,7 +26,8 @@
       position: absolute; inset: 0;
       z-index: 0;
     }
-    .hero-video-wrap iframe {
+    .hero-video-wrap iframe,
+    .hero-video-wrap video {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
@@ -1580,8 +1581,8 @@
 // 영상이 로드되면 폴백 슬라이드 숨김
 (function() {
   const slidesWrap = document.getElementById('heroSlides');
-  const iframe = document.querySelector('.hero-video-wrap iframe');
-  // 영상 iframe이 있으면 폴백 슬라이드는 숨김 유지
+  const iframe = document.querySelector('.hero-video-wrap iframe, .hero-video-wrap video');
+  // 영상 iframe/video이 있으면 폴백 슬라이드는 숨김 유지
   if (iframe) {
     if (slidesWrap) slidesWrap.style.opacity = '0';
   } else {
