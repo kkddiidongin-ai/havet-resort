@@ -43,6 +43,95 @@
 .enjoy-toggle-btn:hover:not(.active) {
   color: #F5F0E8;
 }
+
+/* ===== NEARBY ATTRACTIONS ===== */
+.attractions-section {
+  background: #F5F0E8;
+  padding: 80px 0 80px;
+}
+.attractions-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.attractions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  justify-content: center;
+}
+.attraction-card {
+  flex: 0 0 calc(25% - 9px);
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+@media (max-width: 1100px) {
+  .attraction-card { flex: 0 0 calc(50% - 6px); }
+}
+@media (max-width: 640px) {
+  .attractions-grid { padding: 0 12px; gap: 8px; }
+  .attraction-card { flex: 0 0 calc(50% - 4px); }
+  .attractions-section { padding: 40px 0; }
+  .attraction-card-content { padding: 16px 12px 14px; }
+  .attraction-card-type { font-size: 0.5rem; letter-spacing: 0.15em; margin-bottom: 4px; }
+  .attraction-card-name { font-size: 0.88rem; margin-bottom: 4px; line-height: 1.25; }
+  .attraction-card-dist { font-size: 0.52rem; margin-bottom: 6px; }
+  .attraction-card-desc { font-size: 0.62rem; line-height: 1.55; }
+  .mob-br { display: block; }
+}
+.attraction-card-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.7s ease;
+}
+.attraction-card:hover .attraction-card-bg {
+  transform: scale(1.06);
+}
+.attraction-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.18) 55%, transparent 100%);
+}
+.attraction-card-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px 22px 24px;
+  color: #fff;
+}
+.attraction-card-type {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C4A472;
+  margin-bottom: 6px;
+}
+.attraction-card-name {
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.attraction-card-dist {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 10px;
+}
+.attraction-card-desc {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+  font-weight: 300;
+}
 </style>
 </head>
 <body>
@@ -244,6 +333,86 @@
     <div class="book-buttons fade-up fade-up-delay-1">
       <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="btn btn-primary">여름 패키지 예약하기</a>
       <a href="rooms.html" class="btn btn-outline">객실 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEARBY ATTRACTIONS ===== -->
+<section class="attractions-section">
+  <div class="attractions-header fade-up">
+    <span class="explore-label">Around HAVET</span>
+    <h2 class="explore-title" style="color: #1a1a1a;">Nearby Attractions</h2>
+  </div>
+  <div class="attractions-grid fade-in">
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/goraebul_beach.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Beach</p>
+        <h3 class="attraction-card-name">고래불<span class="mob-br"></span>해수욕장</h3>
+        <p class="attraction-card-dist">차로 약 3분</p>
+        <p class="attraction-card-desc">20리 해안선을 따라 펼쳐진 울창한 송림과 금빛 모래사장. 동해안 대표 해수욕장.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/blueroad.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Trekking</p>
+        <h3 class="attraction-card-name">블루로드<span class="mob-br"></span>트래킹</h3>
+        <p class="attraction-card-dist">차로 약 3분</p>
+        <p class="attraction-card-desc">쪽빛 바다를 따라 걷는 동해안 해안 도보 여행길. 바닷바람과 파도 소리가 함께하는 힐링 코스.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/parkgolf.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Golf</p>
+        <h3 class="attraction-card-name">고래불<span class="mob-br"></span>파크골프장</h3>
+        <p class="attraction-card-dist">차로 약 5분</p>
+        <p class="attraction-card-desc">동해 바다를 배경으로 즐기는 천연잔디 27홀 파크골프장. 고래불해수욕장 바로 옆 위치.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/hupo_port.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Seafood</p>
+        <h3 class="attraction-card-name">후포항<span class="mob-br"></span>대게·회센터</h3>
+        <p class="attraction-card-dist">차로 약 10분</p>
+        <p class="attraction-card-desc">신선한 대게와 활어회를 맛볼 수 있는 동해안 대표 어항. 갓 잡은 해산물을 현장에서 즐기는 미식 명소.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/skywalk.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Skywalk</p>
+        <h3 class="attraction-card-name">후포<span class="mob-br"></span>스카이워크</h3>
+        <p class="attraction-card-dist">차로 약 10분</p>
+        <p class="attraction-card-desc">높이 20m, 길이 135m의 해상 스카이워크. 강화유리 바닥 아래 동해 바다를 내려다보는 짜릿한 체험.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/yeonghae_market.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Market</p>
+        <h3 class="attraction-card-name">영해만세시장</h3>
+        <p class="attraction-card-dist">차로 약 35분</p>
+        <p class="attraction-card-desc">1965년 개설된 유서 깊은 전통시장. 상설시장과 5일장이 함께 운영되며 풍부한 농수산물로 활기찬 분위기.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/goesi_village.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Heritage Village</p>
+        <h3 class="attraction-card-name">괴시리<span class="mob-br"></span>전통마을</h3>
+        <p class="attraction-card-dist">차로 약 10분</p>
+        <p class="attraction-card-desc">목은 이색의 탄생지이자 400여 년 역사의 영양 남씨 집성촌. 잘 보존된 전통 가옥과 고즈넉한 옛 정취.</p>
+      </div>
     </div>
   </div>
 </section>
