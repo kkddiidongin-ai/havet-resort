@@ -18,10 +18,10 @@
   --color-overlay-dark: rgba(26, 26, 24, 0.75);
   --color-border:    rgba(212, 197, 169, 0.25);
 
-  --font-serif-en:   'Raleway', sans-serif;
-  --font-sans-en:    'Montserrat', sans-serif;
-  --font-serif-ko:   'Noto Sans KR', sans-serif;
-  --font-sans-ko:    'Noto Sans KR', sans-serif;
+  --font-serif-en:   'Cormorant Garamond', serif;
+  --font-sans-en:    'Cormorant Garamond', serif;
+  --font-serif-ko:   'Noto Serif KR', serif;
+  --font-sans-ko:    'Noto Serif KR', serif;
 
   --transition-base: 0.4s ease;
   --transition-slow: 0.7s ease;
