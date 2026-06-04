@@ -282,18 +282,37 @@
   const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   const galleryItems = document.querySelectorAll('.gallery-masonry-item');
 
+  // ALL 탭: 각 카테고리별 랜덤 3장 선별
+  function applyAllFilter() {
+    const categories = ['exterior','room','pool','restaurant','spa'];
+    categories.forEach(cat => {
+      const items = Array.from(galleryItems).filter(el => el.dataset.category === cat);
+      // 랜덤 셔플
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      items.forEach((item, idx) => {
+        item.style.display = idx < 3 ? 'block' : 'none';
+      });
+    });
+  }
+
+  // 초기 로드: ALL 탭 적용
+  applyAllFilter();
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const filter = btn.dataset.filter;
-      galleryItems.forEach(item => {
-        if (filter === 'all' || item.dataset.category === filter) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+      if (filter === 'all') {
+        applyAllFilter();
+      } else {
+        galleryItems.forEach(item => {
+          item.style.display = item.dataset.category === filter ? 'block' : 'none';
+        });
+      }
     });
   });
 
