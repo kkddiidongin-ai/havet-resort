@@ -6,6 +6,17 @@
   <title>RESTAURANT VERDE — HAVET RESORT</title>
   <meta name="description" content="레스토랑 베르데 — 동해안 유일의 정통 이탈리안 레스토랑. 영덕의 신선한 제철 식재료로 완성한 스테이크, 파스타, 피자." />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    @media (max-width: 640px) {
+      .rst-food-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .rst-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .rst-ops-inner { margin-left: 20px !important; }
+    }
+    @media (max-width: 1024px) {
+      .rst-food-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .rst-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -207,7 +218,7 @@
     <span class="section-label fade-up">Gallery</span>
     <h2 class="section-title fade-up fade-up-delay-1">Food Gallery</h2>
   </div>
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 40px; max-width: var(--max-width); margin-left: auto; margin-right: auto; padding: 0 40px;">
+  <div class="rst-food-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 40px; max-width: var(--max-width); margin-left: auto; margin-right: auto; padding: 0 40px;">
     <div style="aspect-ratio: 1; overflow: hidden;">
       <img src="http://gonylab7.speedgabia.com/havet/restaurant/food/1.jpg" alt="푸드 갤러리 1" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>
@@ -238,7 +249,7 @@
 <!-- Operating Info -->
 <section class="section" style="padding-top: 80px; padding-bottom: 80px; background-image: url('http://gonylab7.speedgabia.com/havet/restaurant/4.jpg'); background-size: cover; background-position: center; position: relative;">
   <div style="position: absolute; inset: 0; background: rgba(20,18,16,0.72);"></div>
-  <div class="section-inner" style="max-width: 760px; margin: 0 auto 0 40px; position: relative; z-index: 1; text-align: left;">
+  <div class="section-inner rst-ops-inner" style="max-width: 760px; margin: 0 auto 0 40px; position: relative; z-index: 1; text-align: left;">
     <span class="section-label fade-up">Information</span>
     <h2 class="section-title fade-up fade-up-delay-1">운영 안내</h2>
     <table class="room-info-table fade-up" style="margin-top: 32px;">
@@ -280,7 +291,7 @@
     <span class="section-label fade-up">Gallery</span>
     <h2 class="section-title fade-up fade-up-delay-1">Restaurant Gallery</h2>
   </div>
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 40px; max-width: var(--max-width); margin-left: auto; margin-right: auto; padding: 0 40px;">
+  <div class="rst-gallery-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 40px; max-width: var(--max-width); margin-left: auto; margin-right: auto; padding: 0 40px;">
     <div style="aspect-ratio: 1; overflow: hidden;">
       <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/1.jpg" alt="레스토랑 갤러리 1" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
     </div>

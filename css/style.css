@@ -2504,3 +2504,193 @@ ul, ol {
   height: 100%;
   pointer-events: none;
 }
+
+/* ============================================================
+   MOBILE RESPONSIVE SUPPLEMENT — 640px 이하
+   PC 레이아웃 유지, 모바일 전용 보완
+   ============================================================ */
+@media (max-width: 640px) {
+
+  /* ── 공통 텍스트 ── */
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+  .section-title {
+    font-size: 1.8rem;
+    line-height: 1.25;
+    word-break: keep-all;
+  }
+  .section-desc {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    word-break: keep-all;
+  }
+
+  /* ── 네비게이션 ── */
+  .nav-logo-text {
+    font-size: 1rem;
+  }
+
+  /* ── 히어로 (메인) ── */
+  .hero-title {
+    font-size: clamp(2.4rem, 10vw, 4rem);
+    word-break: keep-all;
+  }
+  .hero-sub {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+  }
+  .hero-desc {
+    font-size: 0.8rem;
+    word-break: keep-all;
+  }
+  .hero-scroll {
+    bottom: 24px;
+  }
+
+  /* ── page-hero (서브 페이지 최상단) ── */
+  .page-hero-title {
+    font-size: clamp(2rem, 9vw, 3rem);
+    word-break: keep-all;
+  }
+  .page-hero-desc {
+    font-size: 0.78rem;
+    word-break: keep-all;
+    padding: 0 20px;
+  }
+
+  /* ── about-split (좌우 분할) ── */
+  .about-split {
+    grid-template-columns: 1fr !important;
+  }
+  .about-split-img {
+    height: 280px !important;
+    order: -1;
+  }
+  .about-split-content {
+    padding: 40px 20px !important;
+    text-align: left;
+  }
+
+  /* ── about 외부전경 그리드 (3열 → 2열) ── */
+  .about-exterior-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── rooms 목록 ── */
+  .room-item {
+    grid-template-columns: 1fr !important;
+  }
+  .room-item-img {
+    height: 260px !important;
+  }
+  .room-item-content {
+    padding: 32px 20px !important;
+  }
+  .room-item-title {
+    font-size: 1.4rem;
+    word-break: keep-all;
+  }
+
+  /* ── 객실 상세 슬라이더 ── */
+  .room-slider {
+    height: 55vw !important;
+    min-height: 220px;
+  }
+
+  /* ── 객실 상세 Other Rooms ── */
+  .other-rooms-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── restaurant 섹션 ── */
+  .rst-section-inner {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── facility 카드 그리드 ── */
+  .fac-card-grid-3,
+  .fac-card-grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+  .fac-slider {
+    height: 220px !important;
+  }
+
+  /* ── story section (enjoy 페이지) ── */
+  .story-section-content {
+    padding: 40px 20px !important;
+    text-align: left;
+  }
+  .story-section-title {
+    font-size: 1.6rem;
+    word-break: keep-all;
+  }
+  .story-section-desc {
+    font-size: 0.82rem;
+    word-break: keep-all;
+  }
+
+  /* ── gallery 그리드 ── */
+  .gallery-masonry {
+    grid-template-columns: repeat(2, 1fr) !important;
+    padding: 20px !important;
+    gap: 3px !important;
+  }
+
+  /* ── reservation 슬라이더 ── */
+  .reservation-slide-title {
+    font-size: 1.6rem;
+    word-break: keep-all;
+  }
+  .reservation-slide-desc {
+    font-size: 0.8rem;
+    word-break: keep-all;
+  }
+
+  /* ── footer ── */
+  .footer-logo {
+    font-size: 1rem;
+  }
+  .footer-address {
+    font-size: 0.78rem;
+    line-height: 1.8;
+    word-break: keep-all;
+  }
+
+  /* ── floating book ── */
+  .floating-book {
+    font-size: 0.65rem;
+    padding: 11px 16px;
+  }
+}
+
+/* ── 태블릿 보완 (641px ~ 1024px) ── */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section-title {
+    font-size: 2.2rem;
+    word-break: keep-all;
+  }
+  .about-split {
+    grid-template-columns: 1fr !important;
+  }
+  .about-split-img {
+    height: 360px !important;
+  }
+  .room-item {
+    grid-template-columns: 1fr !important;
+  }
+  .room-item-img {
+    height: 360px !important;
+  }
+  .other-rooms-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .fac-card-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .fac-card-grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}

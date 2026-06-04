@@ -70,6 +70,20 @@
 .fac-dot.active {
   background: #F5F0E8;
 }
+@media (max-width: 640px) {
+  .fac-pool-grid { grid-template-columns: 1fr !important; }
+  .fac-hinoki-grid { grid-template-columns: 1fr !important; }
+  .fac-other-grid { grid-template-columns: 1fr !important; }
+  .fac-slider { height: 220px !important; }
+  .welcome-section { padding: 60px 20px !important; }
+  .section { padding-left: 20px !important; padding-right: 20px !important; }
+  .section > div { padding-left: 20px !important; padding-right: 20px !important; }
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .fac-pool-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .fac-hinoki-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .fac-other-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
 </style>
 </head>
 <body>
@@ -160,7 +174,7 @@
       <h2 class="section-title fade-up fade-up-delay-1">수영장</h2>
       <p class="section-desc fade-up fade-up-delay-2">하벳의 세 가지 수영장 — 중정풀, 해수풀, 그리고 개별 수영장.</p>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
+      <div class="fac-pool-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
         <!-- Jungjeong Pool -->
         <div class="facility-card fade-in">
           <div class="fac-slider" data-index="0">
@@ -228,7 +242,7 @@
       <h2 class="section-title fade-up fade-up-delay-1">히노끼탕</h2>
       <p class="section-desc fade-up fade-up-delay-2">90년산 일본 기소산 무절목재로 제작된 대형 히노끼탕. 모든 객실에 개별 히노끼탕이 설치되어 있습니다.</p>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
+      <div class="fac-hinoki-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
         <!-- Royal Suite -->
         <div class="facility-card fade-in">
           <div class="fac-slider" data-index="0">
@@ -293,7 +307,7 @@
       <span class="section-label fade-up">Others</span>
       <h2 class="section-title fade-up fade-up-delay-1">기타 시설</h2>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
+      <div class="fac-other-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
         <!-- BBQ -->
         <div class="facility-card fade-in">
           <div class="fac-slider" data-index="0">
