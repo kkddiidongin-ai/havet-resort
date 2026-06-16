@@ -133,7 +133,9 @@
       </tr>
       <tr>
         <td>면적</td>
-        <td>약 95㎡</td>
+        <td>약 95㎡
+          <button class="floorplan-btn" onclick="document.getElementById('floorplan-grand').classList.add('active')">+ 도면보기</button>
+        </td>
       </tr>
       <tr>
         <td>침실 타입</td>
@@ -278,6 +280,15 @@
 </footer>
 
 <a href="https://digitalnow.co.kr/booking/stepA1/havet" target="_blank" rel="noopener" class="floating-book">예약하기</a>
+
+<!-- Floor Plan Popup -->
+<div class="floorplan-overlay" id="floorplan-grand" onclick="this.classList.remove('active')">
+  <div class="floorplan-popup" onclick="event.stopPropagation()">
+    <button class="floorplan-close" onclick="document.getElementById('floorplan-grand').classList.remove('active')">✕</button>
+    <img src="http://gonylab7.speedgabia.com/havet/final/images/room/layout_02.png" alt="Grand Ocean Suite 도면">
+    <div class="floorplan-label">Grand Ocean Suite · Floor Plan</div>
+  </div>
+</div>
 
 <script src="js/main.js"></script>
 </body>

@@ -2709,3 +2709,107 @@ ul, ol {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
+
+/* ============================================================
+   FLOOR PLAN POPUP (도면보기)
+   ============================================================ */
+.floorplan-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  font-family: var(--font-sans-en);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.floorplan-btn:hover {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  border-color: var(--color-secondary);
+}
+
+.floorplan-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.floorplan-overlay.active {
+  display: flex;
+}
+
+.floorplan-popup {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  background: #1a1a18;
+  border: 1px solid var(--color-border);
+}
+
+.floorplan-popup img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.floorplan-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: rgba(245, 240, 232, 0.15);
+  border: 1px solid rgba(245, 240, 232, 0.3);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.floorplan-close:hover {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+.floorplan-label {
+  padding: 14px 20px;
+  font-family: var(--font-sans-en);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.5);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .floorplan-popup {
+    max-width: 100%;
+  }
+  .floorplan-close {
+    top: -40px;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  .floorplan-label {
+    font-size: 0.6rem;
+    padding: 10px 16px;
+  }
+}

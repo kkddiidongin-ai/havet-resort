@@ -144,7 +144,9 @@
       </tr>
       <tr>
         <td>면적</td>
-        <td>약 120㎡ (전용 풀 포함)</td>
+        <td>약 120㎡ (전용 풀 포함)
+          <button class="floorplan-btn" onclick="document.getElementById('floorplan-royal').classList.add('active')">+ 도면보기</button>
+        </td>
       </tr>
       <tr>
         <td>침실 타입</td>
@@ -318,6 +320,15 @@
 </footer>
 
 <a href="reservation.html" class="floating-book">예약하기</a>
+
+<!-- Floor Plan Popup -->
+<div class="floorplan-overlay" id="floorplan-royal" onclick="this.classList.remove('active')">
+  <div class="floorplan-popup" onclick="event.stopPropagation()">
+    <button class="floorplan-close" onclick="document.getElementById('floorplan-royal').classList.remove('active')">✕</button>
+    <img src="http://gonylab7.speedgabia.com/havet/final/images/room/layout_01.png" alt="Royal Suite 도면">
+    <div class="floorplan-label">Royal Suite · Floor Plan</div>
+  </div>
+</div>
 
 <script src="js/main.js"></script>
 </body>
