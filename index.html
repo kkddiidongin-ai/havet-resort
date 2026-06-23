@@ -1705,5 +1705,43 @@ function toggleHeroSound() {
   }
 }
 </script>
+
+<!-- ===== DIGITALNOWPLUS POPUP SYSTEM ===== -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function () {
+    const isMobile = () => {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+    $.ajax({
+        url: 'https://popup.digitalnowplus.com/api/popupidxapi/havet',
+        type: 'POST',
+        success: function (data) {
+            if (data.length > 0) {
+                cookiedata = document.cookie;
+                var arrPopupId = [];
+                $(data).each(function (k, v) {
+                    if (cookiedata.indexOf(v + "=none") !== -1) {
+                        var splitId = v.split('_');
+                        arrPopupId.push(parseInt(splitId[0]));
+                    }
+                });
+                var param = {};
+                param.MOBILE = isMobile() ? 'Y' : 'N';
+                param.EXCEPTION_ID = arrPopupId;
+                $.ajax({
+                    url: 'https://popup.digitalnowplus.com/api/popup/havet',
+                    data: param,
+                    type: 'POST',
+                    success: function (data) {
+                        $('body').append(data);
+                    }
+                });
+            }
+        }
+    });
+});
+</script>
+<!-- ===== /DIGITALNOWPLUS POPUP SYSTEM ===== -->
 </body>
 </html>
