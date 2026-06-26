@@ -1740,9 +1740,7 @@ $(function () {
                     data: param,
                     type: 'POST',
                     success: function (data) {
-                        // 팝업 HTML에서 popup.css 링크 제거 후 삽입 (CSS 충돌 방지)
-                        var cleanData = data.replace(/<link[^>]*popup\.css[^>]*>/gi, '');
-                        $('body').append(cleanData);
+                        $('body').append(data);
                     }
                 });
             }
