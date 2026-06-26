@@ -1740,7 +1740,29 @@ $(function () {
                     data: param,
                     type: 'POST',
                     success: function (data) {
-                        $('body').append(data);
+                        // 팝업 HTML에서 script 태그 제거 후 삽입 (jQuery ready 중복 실행 방지)
+                        var cleanData = data.replace(/<script[\s\S]*?<\/script>/gi, '');
+                        $('body').append(cleanData);
+
+                        // 팝업 닫기 이벤트 직접 바인딩
+                        $(document).off('click.popupClose').on('click.popupClose', '.popup-close', function (e) {
+                            e.preventDefault();
+                            $(this).closest('.digitalnow-plus-popup-wrap').remove();
+                        });
+
+                        // 창닫기(오늘 하루 보지 않기) 이벤트 직접 바인딩
+                        $(document).off('click.todayClose').on('click.todayClose', '.today-popup-close', function (e) {
+                            e.preventDefault();
+                            var $popup = $(this).closest('.digitalnow-plus-popup-wrap');
+                            var isChecked = $popup.find('input:checkbox').is(':checked');
+                            if (isChecked) {
+                                var objId = $popup.attr('id');
+                                var d = new Date();
+                                d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
+                                document.cookie = objId + '=none; expires=' + d.toUTCString() + '; path=/';
+                            }
+                            $popup.remove();
+                        });
                     }
                 });
             }
