@@ -1735,6 +1735,18 @@ $(function () {
                     type: 'POST',
                     success: function (data) {
                         $('body').append(data);
+                        // 팝업 닫기 버튼 클릭 시 오버레이 잔존 문제 해결
+                        $(document).on('click', '[class*="close"], [class*="Close"], [id*="close"], [id*="Close"], [class*="btn_close"], [class*="popup_close"], [class*="layer_close"]', function () {
+                            setTimeout(function () {
+                                $('body').css({'overflow': '', 'height': ''});
+                                $('[class*="overlay"], [class*="Overlay"], [class*="dim"], [class*="Dim"], [class*="backdrop"], [class*="bg_pop"], [class*="pop_bg"]').each(function () {
+                                    var $el = $(this);
+                                    if ($el.css('position') === 'fixed' && parseFloat($el.css('opacity')) > 0) {
+                                        $el.remove();
+                                    }
+                                });
+                            }, 100);
+                        });
                     }
                 });
             }
