@@ -1708,6 +1708,12 @@ function toggleHeroSound() {
 
 <!-- ===== DIGITALNOWPLUS POPUP SYSTEM ===== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+/* 팝업 CSS가 body 배경을 덮어쓰지 못하도록 강제 유지 */
+html, body {
+    background-color: #0a0a0a !important;
+}
+</style>
 <script>
 $(function () {
     const isMobile = () => {
@@ -1734,19 +1740,9 @@ $(function () {
                     data: param,
                     type: 'POST',
                     success: function (data) {
-                        $('body').append(data);
-                        // 팝업 닫기 버튼 클릭 시 오버레이 잔존 문제 해결
-                        $(document).on('click', '[class*="close"], [class*="Close"], [id*="close"], [id*="Close"], [class*="btn_close"], [class*="popup_close"], [class*="layer_close"]', function () {
-                            setTimeout(function () {
-                                $('body').css({'overflow': '', 'height': ''});
-                                $('[class*="overlay"], [class*="Overlay"], [class*="dim"], [class*="Dim"], [class*="backdrop"], [class*="bg_pop"], [class*="pop_bg"]').each(function () {
-                                    var $el = $(this);
-                                    if ($el.css('position') === 'fixed' && parseFloat($el.css('opacity')) > 0) {
-                                        $el.remove();
-                                    }
-                                });
-                            }, 100);
-                        });
+                        // 팝업 HTML에서 popup.css 링크 제거 후 삽입 (CSS 충돌 방지)
+                        var cleanData = data.replace(/<link[^>]*popup\.css[^>]*>/gi, '');
+                        $('body').append(cleanData);
                     }
                 });
             }
