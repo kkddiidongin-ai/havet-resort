@@ -27,7 +27,7 @@ const PageTransition = {
       const link = e.target.closest('a[href]');
       if (!link) return;
       const href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http') || link.target === '_blank') return;
+      if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('javascript') || link.target === '_blank') return;
       e.preventDefault();
       this.overlay.style.opacity = '1';
       this.overlay.style.pointerEvents = 'all';
