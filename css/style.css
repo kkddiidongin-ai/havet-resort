@@ -2624,9 +2624,51 @@ ul, ol {
   }
 
   /* ── story section (enjoy 페이지) ── */
+  .story-section {
+    min-height: auto !important;
+    flex-direction: column;
+  }
+  .story-section-bg {
+    position: relative !important;
+    inset: auto !important;
+    width: 100%;
+    height: 56vw;
+    min-height: 220px;
+    background-attachment: scroll !important;
+  }
+  .story-section-overlay {
+    display: none !important;
+  }
   .story-section-content {
-    padding: 40px 20px !important;
+    position: relative !important;
+    z-index: 2;
+    padding: 32px 20px !important;
     text-align: left;
+    background: #1A1A18;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .story-section-content.align-right {
+    justify-content: flex-start !important;
+  }
+  .story-text-box {
+    max-width: 100% !important;
+  }
+  .story-number {
+    font-size: 3rem;
+    margin-bottom: -12px;
+  }
+  .story-title {
+    font-size: 1.5rem !important;
+    word-break: keep-all;
+  }
+  .story-title-ko {
+    font-size: 0.95rem;
+  }
+  .story-body {
+    font-size: 0.82rem !important;
+    line-height: 1.9;
+    word-break: keep-all;
   }
   .story-section-title {
     font-size: 1.6rem;
