@@ -38,6 +38,8 @@ const PageTransition = {
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href]');
       if (!link) return;
+      // 모바일 서브메뉴 토글 링크는 페이지 이동 제외
+      if (link.closest('.mobile-nav-has-sub') && link.parentElement.classList.contains('mobile-nav-has-sub')) return;
       const href = link.getAttribute('href');
       if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('javascript') || link.target === '_blank') return;
       e.preventDefault();
