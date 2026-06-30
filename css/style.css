@@ -329,13 +329,29 @@ ul, ol {
 }
 
 .mobile-nav-sub {
+  display: none;
   padding-left: 16px;
+  overflow: hidden;
+}
+
+.mobile-nav-sub.open {
+  display: block;
 }
 
 .mobile-nav-sub li a {
   font-size: 0.7rem !important;
   color: var(--color-secondary) !important;
   padding: 10px 0 !important;
+}
+
+.mobile-nav-has-sub > a::after {
+  content: ' +';
+  font-size: 0.75rem;
+  color: var(--color-secondary);
+}
+
+.mobile-nav-has-sub.open > a::after {
+  content: ' −';
 }
 
 .mobile-nav-book {

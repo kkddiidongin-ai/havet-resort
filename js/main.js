@@ -81,6 +81,28 @@ const Nav = {
     if (this.closeBtn) {
       this.closeBtn.addEventListener('click', () => this.closeMobile());
     }
+
+    // 모바일 서브메뉴 토글
+    if (this.mobileNav) {
+      this.mobileNav.querySelectorAll('.mobile-nav-has-sub > a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const parent = link.parentElement;
+          const sub = parent.querySelector('.mobile-nav-sub');
+          const isOpen = parent.classList.contains('open');
+          // 다른 열린 서브메뉴 닫기
+          this.mobileNav.querySelectorAll('.mobile-nav-has-sub.open').forEach(el => {
+            el.classList.remove('open');
+            const s = el.querySelector('.mobile-nav-sub');
+            if (s) s.classList.remove('open');
+          });
+          if (!isOpen) {
+            parent.classList.add('open');
+            if (sub) sub.classList.add('open');
+          }
+        });
+      });
+    }
   },
 
   handleScroll() {
