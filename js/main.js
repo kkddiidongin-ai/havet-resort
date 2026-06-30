@@ -20,6 +20,18 @@ const PageTransition = {
     // Fade in on load
     window.addEventListener('load', () => {
       this.overlay.style.opacity = '0';
+      this.overlay.style.pointerEvents = 'none';
+    });
+
+    // 뒤로가기(bfcache) 복원 시 오버레이 즉시 제거
+    window.addEventListener('pageshow', (e) => {
+      this.overlay.style.transition = 'none';
+      this.overlay.style.opacity = '0';
+      this.overlay.style.pointerEvents = 'none';
+      // transition 복원
+      setTimeout(() => {
+        this.overlay.style.transition = 'opacity 0.5s ease';
+      }, 50);
     });
 
     // Intercept internal links
