@@ -329,13 +329,14 @@ ul, ol {
 }
 
 .mobile-nav-sub {
-  display: none;
-  padding-left: 16px;
+  max-height: 0;
   overflow: hidden;
+  padding-left: 16px;
+  transition: max-height 0.6s ease;
 }
 
 .mobile-nav-sub.open {
-  display: block;
+  max-height: 400px;
 }
 
 .mobile-nav-sub li a {
