@@ -345,6 +345,10 @@ ul, ol {
   padding: 10px 0 !important;
 }
 
+.mobile-nav-has-sub > a {
+  padding: 16px 0 !important;
+}
+
 .mobile-nav-has-sub > a::after {
   content: ' +';
   font-size: 0.75rem;
