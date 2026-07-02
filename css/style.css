@@ -142,6 +142,13 @@ ul, ol {
   margin-top: -2px;
 }
 
+.nav-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
 .nav-menu {
   display: flex;
   align-items: center;
@@ -2556,6 +2563,10 @@ ul, ol {
   /* ── 네비게이션 ── */
   .nav-logo-text {
     font-size: 1rem;
+  }
+
+  .nav-logo-img {
+    height: 26px;
   }
 
   /* ── 히어로 (메인) ── */
