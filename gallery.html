@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GALLERY — HAVET RESORT</title>
+  <meta name="description" content="하벳 리조트 갤러리 — 동해와 함께하는 하벳의 모든 순간." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .gallery-filter {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 40px 40px 0;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .gallery-filter-btn {
+      font-family: var(--font-sans-en);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      background: transparent;
+      border: 1px solid var(--color-border);
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .gallery-filter-btn.active,
+    .gallery-filter-btn:hover {
+      color: var(--color-text);
+      border-color: var(--color-accent);
+      background: rgba(196,164,114,0.1);
+    }
+    .gallery-masonry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      padding: 40px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .gallery-masonry { grid-template-columns: repeat(2, 1fr); padding: 20px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-masonry { grid-template-columns: 1fr; }
+    }
+    .gallery-masonry-item {
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      aspect-ratio: 4 / 3;
+    }
+    .gallery-masonry-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gallery-masonry-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-masonry-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26,26,24,0);
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-masonry-item:hover .gallery-masonry-item-overlay {
+      background: rgba(26,26,24,0.4);
+    }
+    .gallery-masonry-item-overlay span {
+      font-family: var(--font-sans-en);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-masonry-item:hover .gallery-masonry-item-overlay span {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-transition"></div>
+
+<nav id="nav" class="scrolled">
+  <div class="nav-logo">
+    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="reservation.html" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a></li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY — SUMMER</a></li>
+    <li><a href="enjoy_winter.html">ENJOY — WINTER</a></li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- Page Header -->
+<div style="padding: 140px 40px 60px; text-align: center;">
+  <span class="section-label fade-up">Gallery</span>
+  <h1 class="section-title fade-up fade-up-delay-1" style="font-size: clamp(2rem, 5vw, 3.5rem);">Moments at HAVET</h1>
+  <p class="section-desc fade-up fade-up-delay-2">하벳의 모든 순간을 담았습니다</p>
+</div>
+
+<!-- Filter Buttons -->
+<div class="gallery-filter fade-up">
+  <button class="gallery-filter-btn active" data-filter="all">ALL</button>
+  <button class="gallery-filter-btn" data-filter="exterior">EXTERIOR</button>
+  <button class="gallery-filter-btn" data-filter="room">ROOM</button>
+  <button class="gallery-filter-btn" data-filter="pool">POOL</button>
+  <button class="gallery-filter-btn" data-filter="restaurant">RESTAURANT</button>
+  <button class="gallery-filter-btn" data-filter="spa">SPA</button>
+</div>
+
+<!-- Gallery Grid -->
+<div class="gallery-masonry" id="gallery-masonry">
+
+  <!-- Exterior 12장 -->
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/1.jpg" alt="하벳 외관 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/2_new.jpg" alt="하벳 외관 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/3.jpg" alt="하벳 외관 3" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/4.jpg" alt="하벳 외관 4" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/5.jpg" alt="하벳 외관 5" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/6.jpg" alt="하벳 외관 6" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/7.jpg" alt="하벳 외관 7" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/8.jpg" alt="하벳 외관 8" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/9.jpg" alt="하벳 외관 9" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/10.jpg" alt="하벳 외관 10" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/11.jpg" alt="하벳 외관 11" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="exterior"><img src="http://gonylab7.speedgabia.com/havet/exterior/12.jpg" alt="하벳 외관 12" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+
+  <!-- Room 12장 (6개 객실 × 2장) -->
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/1/1.jpg" alt="로얄 스위트 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/1/2.jpg" alt="로얄 스위트 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/2/1.jpg" alt="그랜드 오션 스위트 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/2/2.jpg" alt="그랜드 오션 스위트 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/3/1.jpg" alt="오션 스위트 A 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/3/2.jpg" alt="오션 스위트 A 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/4/1.jpg" alt="오션 스위트 B 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/4/2.jpg" alt="오션 스위트 B 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/5/1.jpg" alt="스카이 로프트 A 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/5/2.jpg" alt="스카이 로프트 A 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/6/1.jpg" alt="스카이 로프트 B 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="room"><img src="http://gonylab7.speedgabia.com/havet/room/6/2.jpg" alt="스카이 로프트 B 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+
+  <!-- Pool 6장 (3개 수영장 × 2장) -->
+  <div class="gallery-masonry-item fade-in" data-category="pool"><img src="http://gonylab7.speedgabia.com/havet/special/1/1_new.jpg" alt="중정풀 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="pool"><img src="http://gonylab7.speedgabia.com/havet/special/1/2_new.jpg" alt="중정풀 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="pool"><img src="http://gonylab7.speedgabia.com/havet/special/2/1.jpg" alt="해수풀 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="pool"><img src="http://gonylab7.speedgabia.com/havet/special/2/2_new.jpg" alt="해수풀 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="pool"><img src="http://gonylab7.speedgabia.com/havet/special/3/1.jpg" alt="개별 수영장 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="pool"><img src="http://gonylab7.speedgabia.com/havet/special/3/2_new.jpg" alt="개별 수영장 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+
+  <!-- Restaurant 6장 -->
+  <div class="gallery-masonry-item fade-in" data-category="restaurant"><img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/1.jpg" alt="레스토랑 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="restaurant"><img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/2.jpg" alt="레스토랑 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="restaurant"><img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/3.jpg" alt="레스토랑 3" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="restaurant"><img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/4.jpg" alt="레스토랑 4" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="restaurant"><img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/5.jpg" alt="레스토랑 5" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="restaurant"><img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/6.jpg" alt="레스토랑 6" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+
+  <!-- Spa 8장 (4개 스파 × 2장) -->
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/4/1.jpg" alt="로얄 스위트 스파 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/4/2.jpg" alt="로얄 스위트 스파 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/5/1.jpg" alt="그랜드 오션 스파 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/5/2.jpg" alt="그랜드 오션 스파 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/6/1.jpg" alt="오션A&스카이A 스파 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/6/2.jpg" alt="오션A&스카이A 스파 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/7/1.jpg" alt="오션B&스카이B 스파 1" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+  <div class="gallery-masonry-item fade-in" data-category="spa"><img src="http://gonylab7.speedgabia.com/havet/special/7/2.jpg" alt="오션B&스카이B 스파 2" loading="lazy" /><div class="gallery-masonry-item-overlay"><span>VIEW</span></div></div>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">✕</button>
+  <button class="lightbox-prev">←</button>
+  <img class="lightbox-img" src="" alt="Gallery" />
+  <button class="lightbox-next">→</button>
+</div>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 16:00 / 체크아웃 12:00
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+          <li><a href="enjoy_summer.html">Enjoy — Summer</a></li>
+          <li><a href="enjoy_winter.html">Enjoy — Winter</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="reservation.html">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="reservation.html" class="floating-book">예약하기</a>
+
+<script src="js/main.js"></script>
+<script>
+  // Gallery Filter
+  const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-masonry-item');
+
+  // ALL 탭: 각 카테고리별 랜덤 3장 선별
+  function applyAllFilter() {
+    const categories = ['exterior','room','pool','restaurant','spa'];
+    categories.forEach(cat => {
+      const items = Array.from(galleryItems).filter(el => el.dataset.category === cat);
+      // 랜덤 셔플
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      items.forEach((item, idx) => {
+        item.style.display = idx < 3 ? 'block' : 'none';
+      });
+    });
+  }
+
+  // 초기 로드: ALL 탭 적용
+  applyAllFilter();
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      if (filter === 'all') {
+        applyAllFilter();
+      } else {
+        galleryItems.forEach(item => {
+          item.style.display = item.dataset.category === filter ? 'block' : 'none';
+        });
+      }
+    });
+  });
+
+  // Lightbox for gallery
+  const galleryImgs = document.querySelectorAll('.gallery-masonry-item img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('.lightbox-img');
+  let currentIdx = 0;
+  const visibleImgs = () => Array.from(galleryImgs).filter(img => img.closest('.gallery-masonry-item').style.display !== 'none');
+
+  galleryImgs.forEach((img, idx) => {
+    img.addEventListener('click', () => {
+      const visible = visibleImgs();
+      currentIdx = visible.indexOf(img);
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+
+  lightbox.querySelector('.lightbox-close').addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+  lightbox.querySelector('.lightbox-prev').addEventListener('click', () => {
+    const visible = visibleImgs();
+    currentIdx = (currentIdx - 1 + visible.length) % visible.length;
+    lightboxImg.src = visible[currentIdx].src;
+  });
+  lightbox.querySelector('.lightbox-next').addEventListener('click', () => {
+    const visible = visibleImgs();
+    currentIdx = (currentIdx + 1) % visible.length;
+    lightboxImg.src = visible[currentIdx].src;
+  });
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+</script>
+</body>
+</html>

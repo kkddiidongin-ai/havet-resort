@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RESTAURANT VERDE — HAVET RESORT</title>
+  <meta name="description" content="레스토랑 베르데 — 동해안 유일의 정통 이탈리안 레스토랑. 영덕의 신선한 제철 식재료로 완성한 스테이크, 파스타, 피자." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    @media (max-width: 640px) {
+      .rst-food-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .rst-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .rst-ops-inner { margin-left: 20px !important; }
+      .rst-menu-img { height: auto !important; aspect-ratio: unset !important; }
+      .rst-menu-img img { width: 100%; height: auto !important; object-fit: contain !important; display: block; }
+    }
+    @media (max-width: 1024px) {
+      .rst-food-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .rst-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-transition"></div>
+
+<nav id="nav" class="transparent">
+  <div class="nav-logo">
+    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="reservation.html" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="rooms.html">ROOMS</a></li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li><a href="enjoy_summer.html">ENJOY — SUMMER</a></li>
+    <li><a href="enjoy_winter.html">ENJOY — WINTER</a></li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-video-wrap">
+    <div style="position: absolute; inset: 0; background: #1a1a18; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/0_new.jpg"
+           alt="Restaurant Verde"
+           style="width: 100%; height: 100%; object-fit: contain; object-position: center;" />
+    </div>
+  </div>
+  <div class="hero-overlay" style="background: rgba(26,26,24,0.45);"></div>
+  <div style="position: relative; z-index: 2; text-align: center; padding-bottom: 80px; width: 100%;">
+    <span style="font-family: var(--font-sans-en); font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 20px;">Dining</span>
+    <h1 style="font-family: var(--font-serif-en); font-size: clamp(2.5rem, 7vw, 6rem); font-weight: 300; color: var(--color-text); line-height: 1; letter-spacing: 0.03em; margin-bottom: 16px;">RESTAURANT<br>VERDE</h1>
+    <p style="font-family: var(--font-sans-ko); font-size: 1rem; color: var(--color-secondary);">동해안 유일의 정통 이탈리안 레스토랑</p>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"></div>
+    <span>SCROLL</span>
+  </div>
+</div>
+
+<!-- Intro -->
+<section class="welcome-section" style="padding: 100px 40px;">
+  <div class="section-inner">
+    <span class="section-label fade-up">Restaurant Verde</span>
+    <h2 class="welcome-title fade-up fade-up-delay-1">VERDE</h2>
+    <div class="section-divider fade-up fade-up-delay-2" style="margin: 24px auto;"></div>
+    <p class="welcome-body fade-up fade-up-delay-2">
+      이탈리아어로 '녹색(Green)'을 의미하는 베르데. 영덕의 신선한 자연과 동해의 청정 식재료를 이탈리안 요리로 풀어냅니다. 동해안 유일의 정통 이탈리안 레스토랑에서 스테이크, 파스타, 피자, 그리고 동해 노을과 함께하는 칵테일까지— 하벳의 식사는 그 자체로 하나의 경험입니다.
+    </p>
+  </div>
+</section>
+
+<!-- Menu Sections -->
+<section class="section" style="padding-top: 0;">
+  <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
+
+    <!-- Breakfast -->
+    <div class="about-split fade-in" style="margin-bottom: 2px;">
+      <div class="about-split-img rst-menu-img">
+        <img src="http://gonylab7.speedgabia.com/havet/restaurant/1_new.jpg" alt="조식" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;">
+      </div>
+      <div class="about-split-content">
+        <span class="section-label">Breakfast</span>
+        <h2 class="section-title">조식</h2>
+        <div class="section-divider"></div>
+        <p class="section-desc" style="margin-top: 16px;">
+          투숙객 전용으로 제공하는 전복죽과, 조식 및 런치메뉴로 BBQ플레터가 준비되어 있습니다. 전날 오후 7시 전까지는 사전 예약해 주셔야 하며, 당일 8:30~10시까지 베르데 레스토랑에서 식사가 가능합니다.
+        </p>
+        <div class="menu-list" style="margin-top: 24px;">
+          <div class="menu-item">
+            <span class="menu-name">VERDE 뷔페</span>
+            <span class="menu-desc">동해의 아침을 바라보며 즐기는 베르데의 조식 뷔페</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">아메리칸 BBQ 플레터</span>
+            <span class="menu-name" style="font-size:0.78em; color:var(--color-secondary); font-weight:400;">American BBQ Platter</span>
+            <span class="menu-desc">슬라이드번 풀드포크 베이컨 치킨 토마토 치즈 양배추샐러드 절임양파 감자튀김 피클 음료</span>
+            <span class="menu-desc" style="margin-top:8px;">조식 1인 ₩18,000 / 2인 ₩30,000</span>
+            <span class="menu-desc">런치 1인 ₩25,000 / 2인 ₩45,000</span>
+            <span class="menu-desc" style="color:var(--color-secondary); font-size:0.85em;">(커피추가 ₩3,000)</span>
+            <span class="menu-desc" style="color:var(--color-secondary); font-size:0.85em;">※조식의 경우 일부 구성이 제외됩니다</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">전복죽</span>
+            <span class="menu-name" style="font-size:0.78em; color:var(--color-secondary); font-weight:400;">Premium Abalone Rice Porridge</span>
+            <span class="menu-desc">신선한 전복으로 정성껏 끓여 낸 보양 전복죽</span>
+            <span class="menu-desc" style="margin-top:8px;">₩15,000</span>
+          </div>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--color-secondary); margin-top: 16px;">
+          운영 시간: 08:30 — 10:00 (숙박객 전용, 전날 오후 7시 전 사전 예약 필수)
+        </p>
+      </div>
+    </div>
+
+    <!-- Lunch & Dinner -->
+    <div class="about-split fade-in" style="direction: rtl; margin-bottom: 2px;">
+      <div class="about-split-img rst-menu-img" style="direction: ltr;">
+        <img src="http://gonylab7.speedgabia.com/havet/restaurant/2_new.jpg" alt="런치 &amp; 디너" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;">
+      </div>
+      <div class="about-split-content" style="direction: ltr;">
+        <span class="section-label">Lunch &amp; Dinner</span>
+        <h2 class="section-title">런치 &amp; 디너</h2>
+        <div class="section-divider"></div>
+        <p class="section-desc">
+          영덕의 신선한 제철 식재료와 동해 수산물로 완성하는 정통 이탈리안 요리. 파스타, 피자, 스테이크, 해산물 요리까지 다양한 메뉴를 즐기세요.
+        </p>
+        <div class="menu-list" style="margin-top: 24px;">
+          <div class="menu-item">
+            <span class="menu-name">VERDE 스테이크</span>
+            <span class="menu-desc">한우 채끝 스테이크, 청정한우, 구운버섯, 마늘</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">영덕대게 로제 파스타</span>
+            <span class="menu-desc">영덕대게살로 만든 베르데 시그니처 메뉴</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">콰트로 치즈 피자</span>
+            <span class="menu-desc">4종(브리, 모짜렐라, 체다, 고르곤졸라)의 치즈와 천연꿀의 조합</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">영덕 활 전복 리조또</span>
+            <span class="menu-desc">동해 활 전복의 신선함과 내장의 풍미를 즐길 수 있는 보양 리조또</span>
+          </div>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--color-secondary); margin-top: 16px;">
+          런치: 12:00 — 14:30 / 디너: 18:00 — 20:00 / 주말 18:00 — 21:00 (사전 예약 권장)
+        </p>
+      </div>
+    </div>
+
+    <!-- Cocktail Bar -->
+    <div class="about-split fade-in">
+      <div class="about-split-img">
+        <div class="about-split-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/restaurant/3.jpg')"></div>
+      </div>
+      <div class="about-split-content">
+        <span class="section-label">Bar</span>
+        <h2 class="section-title">테라스 바</h2>
+        <div class="section-divider"></div>
+        <p class="section-desc">
+          동해의 노을이 수평선으로 내려앉는 시간, 테라스 바에서 칵테일 한 잔을 즐기세요. 하벳의 테라스 바는 동해안에서 가장 아름다운 선셋 뷰를 자랑합니다.
+        </p>
+        <div class="menu-list" style="margin-top: 24px;">
+          <div class="menu-item">
+            <span class="menu-name">시그니처 칵테일</span>
+            <span class="menu-desc">진토닉, 마티니, 모히토</span>
+          </div>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--color-secondary); margin-top: 16px;">
+          운영 시간: 17:00 — 22:00
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Food Gallery -->
+<section class="section" style="padding-top: 80px;">
+  <div class="section-inner">
+    <span class="section-label fade-up">Gallery</span>
+    <h2 class="section-title fade-up fade-up-delay-1">Food Gallery</h2>
+  </div>
+  <div class="rst-food-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 40px; max-width: var(--max-width); margin-left: auto; margin-right: auto; padding: 0 40px;">
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="https://gonylab7.speedgabia.com/havet/restaurant/food/1_new.jpg" alt="푸드 갤러리 1" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/food/2_new.jpg" alt="푸드 갤러리 2" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/food/3.jpg" alt="푸드 갤러리 3" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/food/4.jpg" alt="푸드 갤러리 4" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/food/5.jpg" alt="푸드 갤러리 5" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/food/6.jpg" alt="푸드 갤러리 6" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="https://gonylab7.speedgabia.com/havet/restaurant/food/7_new.jpg" alt="푸드 갤러리 7" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/food/8.jpg" alt="푸드 갤러리 8" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+  </div>
+</section>
+
+<!-- Operating Info -->
+<section class="section" style="padding-top: 80px; padding-bottom: 80px; background-image: url('http://gonylab7.speedgabia.com/havet/restaurant/4.jpg'); background-size: cover; background-position: center; position: relative;">
+  <div style="position: absolute; inset: 0; background: rgba(20,18,16,0.72);"></div>
+  <div class="section-inner rst-ops-inner" style="max-width: 760px; margin: 0 auto 0 40px; position: relative; z-index: 1; text-align: left;">
+    <span class="section-label fade-up">Information</span>
+    <h2 class="section-title fade-up fade-up-delay-1">운영 안내</h2>
+    <table class="room-info-table fade-up" style="margin-top: 32px;">
+      <tr>
+        <td>조식</td>
+        <td>08:00 — 10:30 (숙박객 전용, 1인 22,000원~)</td>
+      </tr>
+      <tr>
+        <td>런치</td>
+        <td>12:00 — 14:30</td>
+      </tr>
+      <tr>
+        <td>디너</td>
+        <td>18:00 — 20:00 / 주말 18:00 — 21:00</td>
+      </tr>
+      <tr>
+        <td>테라스 바</td>
+        <td>17:00 — 22:00</td>
+      </tr>
+      <tr>
+        <td>예약</td>
+        <td>사전 예약 권장 (전화: +82-054-732-0200)</td>
+      </tr>
+      <tr>
+        <td>주차</td>
+        <td>리조트 내 무료 주차 가능</td>
+      </tr>
+      <tr>
+        <td>드레스 코드</td>
+        <td>스마트 캐주얼 권장</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- Restaurant Gallery -->
+<section class="section" style="padding-top: 80px; padding-bottom: 80px;">
+  <div class="section-inner">
+    <span class="section-label fade-up">Gallery</span>
+    <h2 class="section-title fade-up fade-up-delay-1">Restaurant Gallery</h2>
+  </div>
+  <div class="rst-gallery-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 40px; max-width: var(--max-width); margin-left: auto; margin-right: auto; padding: 0 40px;">
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/1.jpg" alt="레스토랑 갤러리 1" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/2.jpg" alt="레스토랑 갤러리 2" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/3.jpg" alt="레스토랑 갤러리 3" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/4.jpg" alt="레스토랑 갤러리 4" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/5.jpg" alt="레스토랑 갤러리 5" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/6.jpg" alt="레스토랑 갤러리 6" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/7.jpg" alt="레스토랑 갤러리 7" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+    <div style="aspect-ratio: 1; overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/restaurant/gallery/8.jpg" alt="레스토랑 갤러리 8" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 16:00 / 체크아웃 12:00
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+          <li><a href="enjoy_summer.html">Enjoy — Summer</a></li>
+          <li><a href="enjoy_winter.html">Enjoy — Winter</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="reservation.html">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="reservation.html" class="floating-book">예약하기</a>
+
+<script src="js/main.js"></script>
+</body>
+</html>

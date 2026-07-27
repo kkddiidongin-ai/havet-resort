@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FACILITY — HAVET RESORT</title>
+  <meta name="description" content="하벳 리조트의 시설 안내. 중정풀, 해수풀, 히노끼탕, BBQ, 캠프파이어, 전기차 충전기." />
+  <link rel="stylesheet" href="css/style.css" />
+<style>
+/* fac-slider: facility card image slider */
+.fac-slider {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  background: #111;
+}
+.fac-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.fac-slide.active {
+  opacity: 1;
+}
+.fac-prev, .fac-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(26,26,24,0.55);
+  border: none;
+  color: #F5F0E8;
+  font-size: 1.6rem;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.fac-slider:hover .fac-prev,
+.fac-slider:hover .fac-next {
+  opacity: 1;
+}
+.fac-prev { left: 8px; }
+.fac-next { right: 8px; }
+.fac-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+.fac-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(245,240,232,0.45);
+  transition: background 0.3s;
+}
+.fac-dot.active {
+  background: #F5F0E8;
+}
+@media (max-width: 640px) {
+  .fac-pool-grid { grid-template-columns: 1fr !important; }
+  .fac-hinoki-grid { grid-template-columns: 1fr !important; }
+  .fac-other-grid { grid-template-columns: 1fr !important; }
+  .fac-slider { height: 220px !important; }
+  .welcome-section { padding: 60px 20px !important; }
+  .section { padding-left: 20px !important; padding-right: 20px !important; }
+  .section > div { padding-left: 20px !important; padding-right: 20px !important; }
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .fac-pool-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .fac-hinoki-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .fac-other-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="page-transition"></div>
+
+<nav id="nav" class="scrolled">
+  <div class="nav-logo">
+    <a href="index.html"><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="reservation.html" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <ul class="mobile-nav-sub">
+      <li><a href="rooms.html">All Rooms</a></li>
+      <li><a href="room_royal.html">Royal Suite</a></li>
+      <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+      <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+      <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+      <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+      <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+    </ul>
+  </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <ul class="mobile-nav-sub">
+      <li><a href="enjoy_summer.html">Summer</a></li>
+      <li><a href="enjoy_winter.html">Winter</a></li>
+    </ul>
+  </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/1/1_new.jpg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-sub">Facility</p>
+    <h1 class="page-hero-title">FACILITY</h1>
+    <p class="page-hero-desc">하벳의 모든 시설은 동해와 함께합니다</p>
+  </div>
+</div>
+
+<!-- Facility Intro -->
+<section class="welcome-section" style="padding: 100px 40px;">
+  <div class="section-inner">
+    <p class="welcome-body fade-up">
+      중정풀, 해수풀, 히노끼탕, 바베큐, 캠프파이어, 테라스 바— 하벳의 모든 시설은 동해의 자연과 연결되어 있습니다. 리조트 안에서 모든 것이 해결되는 올인클루시브 경험을 제공합니다.
+    </p>
+  </div>
+</section>
+
+<!-- Facility Grid -->
+<section class="section" style="padding-top: 0;">
+  <div style="max-width: var(--max-width); margin: 0 auto; padding: 0 40px;">
+
+    <!-- Pool Section -->
+    <div style="margin-bottom: 80px;">
+      <span class="section-label fade-up">Pool</span>
+      <h2 class="section-title fade-up fade-up-delay-1">수영장</h2>
+      <p class="section-desc fade-up fade-up-delay-2">하벳의 세 가지 수영장 — 중정풀, 해수풀, 그리고 개별 수영장.</p>
+
+      <div class="fac-pool-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
+        <!-- Jungjeong Pool -->
+        <div class="facility-card fade-in">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/1/1_new.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/1/2_new.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">중정풀 (Jungjeong Pool)</h3>
+            <p class="facility-card-desc">스페인 알함브라 정원에서 영감을 받은 25m 중정 수영장. 아치형 회랑과 수면이 만들어내는 빛의 반영이 아름다운 공간. 객실 투숙객 전용 무료 이용.</p>
+            <div class="facility-info-row">
+              <span>규모: 25m × 4.5m</span>
+              <span>온수: 4~10월 온수 운영</span>
+              <span>운영: 08:00 — 22:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seawater Pool -->
+        <div class="facility-card fade-in fade-up-delay-1">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/2/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/2/2_new.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">해수풀 (Seawater Pool)</h3>
+            <p class="facility-card-desc">동해 해수를 그대로 담은 지름 10m 이상의 원형풀로, 유아풀과 성인풀을 기하학적 형태로 연결한 대형 해수 수영장. 사계절 오픈.</p>
+            <div class="facility-info-row">
+              <span>규모: 지름 10m+</span>
+              <span>해수: 동해 청정 해수</span>
+              <span>운영: 사계절 오픈</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Private Pool -->
+        <div class="facility-card fade-in fade-up-delay-2">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/3/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/3/2.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">개별 수영장 (Private Pool)</h3>
+            <p class="facility-card-desc">1층 로얄스위트에 마련된 프라이빗풀. 동해 전망을 독점하며 온전한 휴식을 즐기세요.</p>
+            <div class="facility-info-row">
+              <span>운영: 5~10월</span>
+              <span>이용: 로얄스위트 투숙객 전용, 24시간 무료 이용 가능</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hinoki Section -->
+    <div style="margin-bottom: 80px;">
+      <span class="section-label fade-up">Hinoki Spa</span>
+      <h2 class="section-title fade-up fade-up-delay-1">히노끼탕</h2>
+      <p class="section-desc fade-up fade-up-delay-2">90년산 일본 기소산 무절목재로 제작된 대형 히노끼탕. 모든 객실에 개별 히노끼탕이 설치되어 있습니다.</p>
+
+      <div class="fac-hinoki-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
+        <!-- Royal Suite -->
+        <div class="facility-card fade-in">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/4/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/4/2.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">로얄 스위트</h3>
+            <p class="facility-card-desc">폭 1.9m × 길이 2.0m의 대형 히노끼탕. 전용 테라스와 연결.</p>
+          </div>
+        </div>
+        <!-- Grand Ocean Suite -->
+        <div class="facility-card fade-in fade-up-delay-1">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/5/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/5/2.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">그랜드 오션 스위트</h3>
+            <p class="facility-card-desc">폭 1.7m × 길이 1.9m. 오션뷰와 함께하는 히노끼 스파.</p>
+          </div>
+        </div>
+        <!-- Ocean A & Sky Loft A -->
+        <div class="facility-card fade-in fade-up-delay-2">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/6/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/6/2.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">오션 스위트A &amp; 스카이 로프트A</h3>
+            <p class="facility-card-desc">폭 1.4m × 길이 1.7m. 2인 입욕 가능한 아늑한 히노끼탕.</p>
+          </div>
+        </div>
+        <!-- Ocean B & Sky Loft B -->
+        <div class="facility-card fade-in fade-up-delay-3">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/7.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/4/8.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">오션 스위트B &amp; 스카이 로프트B</h3>
+            <p class="facility-card-desc">폭 1.4m × 길이 1.7m. 프라이빗한 공간에서 즐기는 히노끼 스파.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other Facilities (Outdoor) -->
+    <div style="margin-bottom: 80px;">
+      <span class="section-label fade-up">Others</span>
+      <h2 class="section-title fade-up fade-up-delay-1">기타 시설</h2>
+
+      <div class="fac-other-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 40px;">
+        <!-- BBQ -->
+        <div class="facility-card fade-in">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/8/3.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/8/3_new.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/8/3_new1.png')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">바베큐장 (BBQ)</h3>
+            <p class="facility-card-desc">동해 바람과 파도 소리를 배경으로, 하벳의 야외 바베큐장에서 특별한 저녁을 경험해 보세요. 고급 원목 대형 테이블과 바베큐 그릴이 완비되어 있으며, 사전 예약을 통해 이용 가능합니다.</p>
+          </div>
+        </div>
+        <!-- Lobby -->
+        <div class="facility-card fade-in fade-up-delay-1">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/9/3.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">로비 (Lobby)</h3>
+            <p class="facility-card-desc">하벳의 첫인상을 만드는 공간입니다. teal - bianco 컬러의 이태리 대리석과 호텔급 리셉션데스크, 고급 라운지 가구가 어우러져 도착하는 순간부터 럭셔리한 리조트의 분위기를 느끼실 수 있습니다.</p>
+          </div>
+        </div>
+        <!-- Garden -->
+        <div class="facility-card fade-in fade-up-delay-2">
+          <div class="fac-slider" data-index="0">
+            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/10/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/10/2.jpg')"></div>
+            <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
+            <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
+            <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
+          </div>
+          <div class="facility-card-content">
+            <h3 class="facility-card-title">정원 (Garden)</h3>
+            <p class="facility-card-desc">동해와 맞닿은 곳, 저녁노을이 물드는 하늘과 끝없이 펼쳐진 수평선을 바라보며 한없이 여유로운 시간을 보낼 수 있습니다. 객실에서 바라보는 바다를 넘어, 발끝으로 체험하는 진짜 바다의 시간을 경험해 보시기 바랍니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<!-- Resort Map -->
+<section style="background: var(--color-primary); padding: 80px 40px;">
+  <div style="max-width: var(--max-width); margin: 0 auto;">
+    <div class="fade-up" style="text-align: center; margin-bottom: 40px;">
+      <span class="section-label">Resort Guide</span>
+      <h2 class="section-title" style="font-size: clamp(1.6rem, 3vw, 2.4rem); margin-top: 12px;">리조트 안내도</h2>
+    </div>
+    <div class="fade-in" style="border: 1px solid var(--color-border); overflow: hidden;">
+      <img src="http://gonylab7.speedgabia.com/havet/final/about/service/havet_map.jpg"
+           alt="하벳 풀빌라 리조트 안내도"
+           style="width: 100%; height: auto; display: block;" />
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="book-section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">Reservation</span>
+      <h2 class="book-title">하벳의 모든 시설을 경험하세요</h2>
+    </div>
+    <div class="book-buttons fade-up fade-up-delay-1">
+      <a href="reservation.html" class="btn btn-primary">예약하기</a>
+      <a href="rooms.html" class="btn btn-outline">객실 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 16:00 / 체크아웃 12:00
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+          <li><a href="enjoy_summer.html">Enjoy — Summer</a></li>
+          <li><a href="enjoy_winter.html">Enjoy — Winter</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="reservation.html">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="reservation.html" class="floating-book">예약하기</a>
+
+<script src="js/main.js"></script>
+<script>
+function facSlide(btn, dir) {
+  var slider = btn.closest('.fac-slider');
+  var slides = slider.querySelectorAll('.fac-slide');
+  var dots = slider.querySelectorAll('.fac-dot');
+  var idx = parseInt(slider.dataset.index) || 0;
+  slides[idx].classList.remove('active');
+  dots[idx].classList.remove('active');
+  idx = (idx + dir + slides.length) % slides.length;
+  slides[idx].classList.add('active');
+  dots[idx].classList.add('active');
+  slider.dataset.index = idx;
+}
+</script>
+</body>
+</html>
