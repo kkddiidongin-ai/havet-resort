@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WINTER IN HAVET — HAVET RESORT</title>
+  <meta name="description" content="겨울, 하벳에서만 가능한 경험. 히노끼탕, 캠프파이어, 레스토랑 베르데의 겨울 식탁." />
+  <link rel="stylesheet" href="css/style.css" />
+<style>
+.enjoy-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 36px 0 20px;
+  background: var(--color-primary, #1A1A18);
+}
+.enjoy-toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(196, 164, 114, 0.5);
+  border-radius: 50px;
+  overflow: hidden;
+  background: transparent;
+}
+.enjoy-toggle-btn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 32px;
+  color: rgba(245, 240, 232, 0.5);
+  transition: all 0.3s ease;
+  border-radius: 50px;
+}
+.enjoy-toggle-btn.active {
+  background: rgba(196, 164, 114, 0.15);
+  color: #C4A472;
+  border: 1px solid #C4A472;
+  margin: 3px;
+}
+.enjoy-toggle-btn:hover:not(.active) {
+  color: #F5F0E8;
+}
+
+/* ===== NEARBY ATTRACTIONS ===== */
+.attractions-section {
+  background: #F5F0E8;
+  padding: 80px 0 80px;
+}
+.attractions-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.attractions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  justify-content: center;
+}
+.attraction-card {
+  flex: 0 0 calc(25% - 9px);
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+@media (max-width: 1100px) {
+  .attraction-card { flex: 0 0 calc(50% - 6px); }
+}
+@media (max-width: 640px) {
+  .attractions-grid { padding: 0 12px; gap: 8px; }
+  .attraction-card { flex: 0 0 calc(50% - 4px); }
+  .attractions-section { padding: 40px 0; }
+  .attraction-card-content { padding: 16px 12px 14px; }
+  .attraction-card-type { font-size: 0.5rem; letter-spacing: 0.15em; margin-bottom: 4px; }
+  .attraction-card-name { font-size: 0.88rem; margin-bottom: 4px; line-height: 1.25; }
+  .attraction-card-dist { font-size: 0.52rem; margin-bottom: 6px; }
+  .attraction-card-desc { font-size: 0.62rem; line-height: 1.55; }
+  .mob-br { display: block; }
+}
+.attraction-card-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.7s ease;
+}
+.attraction-card:hover .attraction-card-bg {
+  transform: scale(1.06);
+}
+.attraction-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.18) 55%, transparent 100%);
+}
+.attraction-card-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px 22px 24px;
+  color: #fff;
+}
+.attraction-card-type {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C4A472;
+  margin-bottom: 6px;
+}
+.attraction-card-name {
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.attraction-card-dist {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 10px;
+}
+.attraction-card-desc {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+<div id="page-transition"></div>
+
+<nav id="nav" class="transparent">
+  <div class="nav-logo">
+    <a href="index.html"><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="about.html">ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+      <ul class="nav-dropdown">
+        <li><a href="rooms.html">All Rooms</a></li>
+        <li><a href="room_royal.html">Royal Suite</a></li>
+        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      </ul>
+    </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+      <ul class="nav-dropdown">
+        <li><a href="enjoy_summer.html">Summer</a></li>
+        <li><a href="enjoy_winter.html">Winter</a></li>
+      </ul>
+    </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-tel">+82-054-732-0200</span>
+    <a href="reservation.html" class="btn-book-nav">BOOK NOW</a>
+    <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <ul>
+    <li><a href="about.html">ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <ul class="mobile-nav-sub">
+      <li><a href="rooms.html">All Rooms</a></li>
+      <li><a href="room_royal.html">Royal Suite</a></li>
+      <li><a href="room_grand.html">Grand Ocean Suite</a></li>
+      <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
+      <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
+      <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
+      <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+    </ul>
+  </li>
+    <li><a href="restaurant.html">RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <ul class="mobile-nav-sub">
+      <li><a href="enjoy_summer.html">Summer</a></li>
+      <li><a href="enjoy_winter.html">Winter</a></li>
+    </ul>
+  </li>
+    <li><a href="facility.html">FACILITY</a></li>
+    <li><a href="reservation.html">RESERVATION</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="access.html">LOCATION</a></li>
+  </ul>
+  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
+</div>
+
+<!-- HERO — WINTER -->
+<div class="hero">
+  <div class="hero-video-wrap">
+    <div style="position: absolute; inset: 0; background-image: url('http://gonylab7.speedgabia.com/havet/exterior/winter/1.jpg'); background-size: cover; background-position: center;"></div>
+  </div>
+  <div class="hero-overlay" style="background: rgba(26,26,24,0.55);"></div>
+  <div style="position: relative; z-index: 2; text-align: center; padding-bottom: 80px; width: 100%;">
+    <span style="font-family: var(--font-sans-en); font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 20px;">Enjoy in HAVET</span>
+    <h1 style="font-family: var(--font-serif-en); font-size: clamp(3rem, 8vw, 7rem); font-weight: 300; color: var(--color-text); line-height: 1; letter-spacing: 0.03em; margin-bottom: 16px;">WINTER<br>IN HAVET</h1>
+    <p style="font-family: var(--font-sans-ko); font-size: 1rem; color: var(--color-secondary);">겨울, 하벳에서만 가능한 경험</p>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"></div>
+    <span>SCROLL</span>
+  </div>
+</div>
+
+<!-- Intro Text -->
+<section class="welcome-section" style="padding: 100px 40px;">
+  <div class="section-inner">
+    <p class="welcome-body fade-up">
+      차가운 겨울 바람이 동해를 스쳐 지나는 계절. 히노끼탕의 따뜻한 온기, 베르데의 뜨거운 한 끼, 그리고 캠프파이어의 불빛이 하벳의 겨울을 특별하게 만듭니다.
+    </p>
+  </div>
+</section>
+
+<!-- SECTION 1: HINOKI SPA -->
+
+<!-- SUMMER / WINTER TOGGLE BAR -->
+<div class="enjoy-toggle-wrap">
+  <div class="enjoy-toggle">
+    <a href="enjoy_summer.html" class="enjoy-toggle-btn">SUMMER</a>
+    <a href="enjoy_winter.html" class="enjoy-toggle-btn active">WINTER</a>
+  </div>
+</div>
+<div class="story-section">
+  <div class="story-section-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/exterior/winter/2.jpg')"></div>
+  <div class="story-section-overlay left"></div>
+  <div class="story-section-content">
+    <div class="story-text-box fade-up">
+      <span class="story-number">01</span>
+      <span class="story-label">Hinoki Spa</span>
+      <h2 class="story-title">HINOKI SPA</h2>
+      <p class="story-title-ko">겨울의 온기</p>
+      <p class="story-body">
+        90년산 일본 기소산 무절목재로 제작한 대형 히노끼탕. 겨울 하벳에서 가장 특별한 경험입니다. 폭 1.4~1.9m, 길이 1.7~2.0m의 넉넉한 크기로 3~4인 가족이 동시에 입욕 가능하며, 뜨거운 물에 몸을 담그고 동해의 겨울 풍경을 바라보는 것— 이것이 하벳 겨울의 진짜 매력입니다.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: WINTER GARDEN -->
+<div class="story-section">
+  <div class="story-section-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/exterior/winter/3.jpg')"></div>
+  <div class="story-section-overlay right"></div>
+  <div class="story-section-content align-right">
+    <div class="story-text-box fade-up">
+      <span class="story-number">02</span>
+      <span class="story-label">Garden</span>
+      <h2 class="story-title">GARDEN IN WINTER</h2>
+      <p class="story-title-ko">겨울 정원</p>
+      <p class="story-body">
+        해송, 백일홍, 이팝나무, 사철나무가 어우러진 하벳의 정원. 겨울에도 푸른 상록수들이 동해안의 차가운 바람 속에서 리조트를 감싸 안습니다. 고요한 겨울 정원을 거닐며 동해안의 시간에 온전히 머물러 보세요.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: WINTER CAMPFIRE -->
+<div class="story-section">
+  <div class="story-section-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/exterior/winter/4.jpg')"></div>
+  <div class="story-section-overlay left"></div>
+  <div class="story-section-content">
+    <div class="story-text-box fade-up">
+      <span class="story-number">03</span>
+      <span class="story-label">Campfire</span>
+      <h2 class="story-title">WINTER CAMPFIRE</h2>
+      <p class="story-title-ko">겨울 캠프파이어</p>
+      <p class="story-body">
+        겨울 바다의 파도 소리가 배경음이 되는 캠프파이어. 활활 타오르는 불꽃 주위로 모여 앉아 동해안의 밤하늘을 올려다보세요. 수백 개의 별이 쏟아지는 병곡 앞바다의 겨울 밤은 어디서도 경험할 수 없는 하벳만의 시간입니다.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: VERDE WINTER -->
+<div class="story-section">
+  <div class="story-section-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/exterior/winter/5.jpg')"></div>
+  <div class="story-section-overlay right"></div>
+  <div class="story-section-content align-right">
+    <div class="story-text-box fade-up">
+      <span class="story-number">04</span>
+      <span class="story-label">Restaurant</span>
+      <h2 class="story-title">VERDE — 겨울 식탁</h2>
+      <p class="story-title-ko">레스토랑 베르데 겨울 메뉴</p>
+      <p class="story-body">
+        영해 만세시장, 후포리 수산물 시장의 겨울 제철 식재료로 완성되는 레스토랑 베르데의 겨울 메뉴. 동해의 차가운 겨울 바다가 창 너머로 펼쳐지는 실내에서 따뜻한 파스타와 스테이크, 와인 한 잔의 여유를 즐기세요.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: WINTER STAY -->
+<div class="story-section">
+  <div class="story-section-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/exterior/winter/6.jpg')"></div>
+  <div class="story-section-overlay left"></div>
+  <div class="story-section-content">
+    <div class="story-text-box fade-up">
+      <span class="story-number">05</span>
+      <span class="story-label">Winter Stay</span>
+      <h2 class="story-title">WINTER STAY<br>IN HAVET</h2>
+      <p class="story-title-ko">하벳에서의 겨울 숙박</p>
+      <p class="story-body">
+        겨울 동해는 더 극적입니다. 하얀 파도가 넘실대는 바다를 객실 창으로 바라보며, 히노끼탕에 온수를 채우고, 조식을 기다리는 하벳의 겨울 아침. 성수기의 번잡함 없이 오롯이 하벳을 즐길 수 있는 계절입니다.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA Section -->
+<section class="book-section">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">Winter Package</span>
+      <h2 class="book-title">하벳의 겨울을 예약하세요</h2>
+    </div>
+    <div class="book-buttons fade-up fade-up-delay-1">
+      <a href="reservation.html" class="btn btn-primary">겨울 패키지 예약하기</a>
+      <a href="rooms.html" class="btn btn-outline">객실 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEARBY ATTRACTIONS ===== -->
+<section class="attractions-section">
+  <div class="attractions-header fade-up">
+    <span class="explore-label">Around HAVET</span>
+    <h2 class="explore-title" style="color: #1a1a1a;">Nearby Attractions</h2>
+  </div>
+  <div class="attractions-grid fade-in">
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/goraebul_beach.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Beach</p>
+        <h3 class="attraction-card-name">고래불<span class="mob-br"></span>해수욕장</h3>
+        <p class="attraction-card-dist">차로 약 3분</p>
+        <p class="attraction-card-desc">20리 해안선을 따라 펼쳐진 울창한 송림과 금빛 모래사장. 동해안 대표 해수욕장.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/blueroad.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Trekking</p>
+        <h3 class="attraction-card-name">블루로드<span class="mob-br"></span>트래킹</h3>
+        <p class="attraction-card-dist">차로 약 3분</p>
+        <p class="attraction-card-desc">쪽빛 바다를 따라 걷는 동해안 해안 도보 여행길. 바닷바람과 파도 소리가 함께하는 힐링 코스.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/parkgolf.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Golf</p>
+        <h3 class="attraction-card-name">고래불<span class="mob-br"></span>파크골프장</h3>
+        <p class="attraction-card-dist">차로 약 5분</p>
+        <p class="attraction-card-desc">동해 바다를 배경으로 즐기는 천연잔디 27홀 파크골프장. 고래불해수욕장 바로 옆 위치.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/hupo_port.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Seafood</p>
+        <h3 class="attraction-card-name">후포항<span class="mob-br"></span>대게·회센터</h3>
+        <p class="attraction-card-dist">차로 약 10분</p>
+        <p class="attraction-card-desc">신선한 대게와 활어회를 맛볼 수 있는 동해안 대표 어항. 갓 잡은 해산물을 현장에서 즐기는 미식 명소.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/skywalk.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Skywalk</p>
+        <h3 class="attraction-card-name">후포<span class="mob-br"></span>스카이워크</h3>
+        <p class="attraction-card-dist">차로 약 10분</p>
+        <p class="attraction-card-desc">높이 20m, 길이 135m의 해상 스카이워크. 강화유리 바닥 아래 동해 바다를 내려다보는 짜릿한 체험.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/yeonghae_market.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Market</p>
+        <h3 class="attraction-card-name">영해만세시장</h3>
+        <p class="attraction-card-dist">차로 약 35분</p>
+        <p class="attraction-card-desc">1965년 개설된 유서 깊은 전통시장. 상설시장과 5일장이 함께 운영되며 풍부한 농수산물로 활기찬 분위기.</p>
+      </div>
+    </div>
+    <div class="attraction-card">
+      <div class="attraction-card-bg" style="background-image:url('images/attractions/goesi_village.jpg')"></div>
+      <div class="attraction-card-overlay"></div>
+      <div class="attraction-card-content">
+        <p class="attraction-card-type">Heritage Village</p>
+        <h3 class="attraction-card-name">괴시리<span class="mob-br"></span>전통마을</h3>
+        <p class="attraction-card-dist">차로 약 10분</p>
+        <p class="attraction-card-desc">목은 이색의 탄생지이자 400여 년 역사의 영양 남씨 집성촌. 잘 보존된 전통 가옥과 고즈넉한 옛 정취.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HAVET<span>RESORT · YEONGDEOK</span></div>
+        <div class="footer-address">
+          <strong>Address</strong>
+          경북 영덕군 병곡면 흰돌로 46 (병곡리 360)<br><br>
+          <strong>Contact</strong>
+          TEL. +82-054-732-0200<br><br>
+          <strong>Hours</strong>
+          체크인 16:00 / 체크아웃 12:00
+        </div>
+      </div>
+      <div>
+        <p class="footer-nav-title">Pages</p>
+        <ul class="footer-nav-list">
+          <li><a href="about.html">About HAVET</a></li>
+          <li><a href="rooms.html">Accommodation</a></li>
+          <li><a href="restaurant.html">Restaurant Verde</a></li>
+          <li><a href="facility.html">Facility</a></li>
+          <li><a href="enjoy_summer.html">Enjoy — Summer</a></li>
+          <li><a href="enjoy_winter.html">Enjoy — Winter</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-nav-title">Information</p>
+        <ul class="footer-nav-list">
+          <li><a href="reservation.html">Reservation</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="access.html">Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="reservation.html" class="floating-book">예약하기</a>
+
+<script src="js/main.js"></script>
+</body>
+</html>

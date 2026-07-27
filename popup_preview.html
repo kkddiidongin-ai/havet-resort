@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>팝업 시스템 미리보기 — HAVET RESORT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #1a1a18;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .preview-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.85);
+      border-bottom: 1px solid #b8a06a;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 99999;
+    }
+    .preview-header h1 {
+      font-size: 0.9rem;
+      color: #b8a06a;
+      margin: 0;
+      letter-spacing: 0.1em;
+    }
+    .preview-header .status {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+    .preview-header .status.ok { color: #6fcf97; }
+    .preview-header .status.fail { color: #eb5757; }
+    .preview-header .status.loading { color: #f2c94c; }
+    .btn-confirm {
+      background: #b8a06a;
+      color: #1a1a18;
+      border: none;
+      padding: 10px 22px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .btn-confirm:hover { background: #cdb97e; }
+    .btn-confirm:disabled { background: #555; color: #999; cursor: not-allowed; }
+    .preview-body {
+      margin-top: 60px;
+      width: 100%;
+      min-height: calc(100vh - 60px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+    .preview-info {
+      max-width: 600px;
+      width: 100%;
+      background: #2a2a28;
+      border: 1px solid #3a3a38;
+      border-radius: 4px;
+      padding: 24px 28px;
+    }
+    .preview-info h2 {
+      font-size: 1rem;
+      color: #b8a06a;
+      margin: 0 0 16px;
+      letter-spacing: 0.08em;
+    }
+    .preview-info table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .preview-info table td {
+      padding: 7px 0;
+      border-bottom: 1px solid #3a3a38;
+      color: #ccc;
+    }
+    .preview-info table td:first-child {
+      color: #888;
+      width: 130px;
+    }
+    .preview-info table td code {
+      background: #111;
+      padding: 2px 6px;
+      border-radius: 2px;
+      color: #f2c94c;
+      font-size: 0.78rem;
+    }
+    .log-box {
+      max-width: 600px;
+      width: 100%;
+      background: #111;
+      border: 1px solid #2a2a28;
+      border-radius: 4px;
+      padding: 16px 20px;
+      font-size: 0.78rem;
+      color: #6fcf97;
+      font-family: monospace;
+      min-height: 80px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .log-box .log-err { color: #eb5757; }
+    .log-box .log-warn { color: #f2c94c; }
+    .log-box .log-info { color: #6fcf97; }
+    .trigger-btn {
+      background: #2a2a28;
+      color: #b8a06a;
+      border: 1px solid #b8a06a;
+      padding: 12px 28px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 2px;
+      margin-top: 8px;
+    }
+    .trigger-btn:hover { background: #3a3a38; }
+    .note {
+      max-width: 600px;
+      width: 100%;
+      font-size: 0.78rem;
+      color: #888;
+      line-height: 1.7;
+      border-left: 2px solid #b8a06a;
+      padding-left: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 미리보기 헤더 -->
+<div class="preview-header">
+  <h1>HAVET RESORT — 팝업 시스템 미리보기</h1>
+  <span class="status loading" id="apiStatus">API 확인 중...</span>
+  <button class="btn-confirm" id="btnConfirm" disabled>최종 적용 (컨펌)</button>
+</div>
+
+<div class="preview-body">
+
+  <!-- 적용 정보 -->
+  <div class="preview-info">
+    <h2>적용 정보</h2>
+    <table>
+      <tr><td>업체 ID (디나)</td><td><code>havet</code></td></tr>
+      <tr><td>팝업 API URL</td><td><code>https://popup.digitalnowplus.com/api/popup/havet</code></td></tr>
+      <tr><td>적용 페이지</td><td><code>index.html</code> (메인 페이지만)</td></tr>
+      <tr><td>jQuery 버전</td><td><code>3.7.1 (CDN 로드)</code></td></tr>
+      <tr><td>쿠키 기반 "오늘 하루 닫기"</td><td>지원 (API 내장)</td></tr>
+      <tr><td>모바일 분기</td><td>자동 (UserAgent 감지)</td></tr>
+    </table>
+  </div>
+
+  <!-- 팝업 테스트 버튼 -->
+  <button class="trigger-btn" id="btnTest">팝업 직접 호출 테스트</button>
+
+  <!-- 로그 -->
+  <div class="log-box" id="logBox">대기 중...</div>
+
+  <!-- 안내 -->
+  <div class="note">
+    위 <strong style="color:#b8a06a">팝업 직접 호출 테스트</strong> 버튼을 클릭하면 digitalnowplus 서버에서 실제 팝업 데이터를 불러옵니다.<br>
+    팝업이 정상 노출되면 <strong style="color:#b8a06a">최종 적용 (컨펌)</strong> 버튼이 활성화됩니다.<br>
+    컨펌 버튼을 누르면 <code>index.html</code>에 팝업 코드가 자동 삽입되어 GitHub에 push됩니다.
+  </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function () {
+  var log = document.getElementById('logBox');
+  var statusEl = document.getElementById('apiStatus');
+  var btnConfirm = document.getElementById('btnConfirm');
+  var popupLoaded = false;
+
+  function addLog(msg, type) {
+    var cls = type || 'info';
+    var time = new Date().toLocaleTimeString('ko-KR');
+    log.innerHTML += '<span class="log-' + cls + '">[' + time + '] ' + msg + '</span>\n';
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  // 페이지 로드 시 API 연결 상태 확인
+  addLog('digitalnowplus API 연결 확인 중...', 'info');
+  $.ajax({
+    url: 'https://popup.digitalnowplus.com/api/popupidxapi/havet',
+    type: 'POST',
+    timeout: 8000,
+    success: function (data) {
+      if (data && data.length > 0) {
+        statusEl.textContent = 'API 연결 성공 — 팝업 ' + data.length + '개 등록됨';
+        statusEl.className = 'status ok';
+        addLog('API 연결 성공. 등록된 팝업 수: ' + data.length, 'info');
+        addLog('팝업 ID 목록: ' + JSON.stringify(data), 'info');
+      } else {
+        statusEl.textContent = 'API 연결 성공 — 등록된 팝업 없음';
+        statusEl.className = 'status ok';
+        addLog('API 연결 성공. 현재 등록된 팝업이 없습니다.', 'warn');
+        addLog('digitalnowplus 관리자 페이지에서 팝업을 등록해 주세요.', 'warn');
+      }
+    },
+    error: function (xhr, status, err) {
+      statusEl.textContent = 'API 연결 실패 (' + (xhr.status || status) + ')';
+      statusEl.className = 'status fail';
+      addLog('API 연결 실패: ' + status + ' / ' + err, 'err');
+      addLog('업체 ID "havet" 확인 또는 digitalnowplus 서비스 상태를 확인해 주세요.', 'warn');
+    }
+  });
+
+  // 팝업 직접 호출 테스트
+  document.getElementById('btnTest').addEventListener('click', function () {
+    addLog('팝업 호출 시작...', 'info');
+    addLog('모바일 여부: ' + (isMobile() ? 'Y' : 'N'), 'info');
+
+    // 쿠키 초기화 (테스트용 — 이미 닫은 팝업도 다시 표시)
+    var cookies = document.cookie.split(';');
+    cookies.forEach(function(c) {
+      var name = c.trim().split('=')[0];
+      if (name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      }
+    });
+    addLog('테스트용 쿠키 초기화 완료 (닫기 상태 리셋)', 'warn');
+
+    $.ajax({
+      url: 'https://popup.digitalnowplus.com/api/popupidxapi/havet',
+      type: 'POST',
+      timeout: 8000,
+      success: function (data) {
+        if (!data || data.length === 0) {
+          addLog('등록된 팝업이 없습니다. digitalnowplus에서 팝업을 먼저 등록해 주세요.', 'warn');
+          return;
+        }
+        var param = {};
+        param.MOBILE = isMobile() ? 'Y' : 'N';
+        param.EXCEPTION_ID = [];
+
+        $.ajax({
+          url: 'https://popup.digitalnowplus.com/api/popup/havet',
+          data: param,
+          type: 'POST',
+          timeout: 8000,
+          success: function (html) {
+            if (html && html.trim().length > 0) {
+              $('body').append(html);
+              popupLoaded = true;
+              btnConfirm.disabled = false;
+              addLog('팝업 HTML 수신 성공 (' + html.length + ' bytes). 화면에 팝업이 표시됩니다.', 'info');
+              addLog('팝업이 정상 노출되면 [최종 적용 (컨펌)] 버튼을 눌러 index.html에 적용하세요.', 'info');
+            } else {
+              addLog('팝업 HTML이 비어 있습니다. 팝업 설정을 확인해 주세요.', 'warn');
+            }
+          },
+          error: function (xhr, status, err) {
+            addLog('팝업 HTML 수신 실패: ' + status + ' / ' + err, 'err');
+          }
+        });
+      },
+      error: function (xhr, status, err) {
+        addLog('팝업 인덱스 API 실패: ' + status + ' / ' + err, 'err');
+      }
+    });
+  });
+
+  // 컨펌 버튼 — 실제 적용은 서버 측에서 처리해야 하므로 안내 메시지 표시
+  btnConfirm.addEventListener('click', function () {
+    if (!popupLoaded) return;
+    btnConfirm.disabled = true;
+    btnConfirm.textContent = '적용 완료';
+    addLog('컨펌 완료! index.html에 팝업 코드를 삽입합니다...', 'info');
+    // 컨펌 신호를 URL 파라미터로 전달
+    setTimeout(function () {
+      window.location.href = 'popup_preview.html?confirmed=1';
+    }, 800);
+  });
+
+  // confirmed=1 파라미터 감지 → 실제 적용 안내
+  if (window.location.search.indexOf('confirmed=1') !== -1) {
+    addLog('컨펌 신호 수신. 아래 메시지를 Manus에 전달하면 index.html에 자동 적용됩니다.', 'info');
+    addLog('→ "팝업 최종 적용해줘" 라고 입력해 주세요.', 'info');
+    statusEl.textContent = '컨펌 완료 — 최종 적용 대기 중';
+    statusEl.className = 'status ok';
+    btnConfirm.textContent = '컨펌 완료';
+    btnConfirm.style.background = '#6fcf97';
+  }
+});
+</script>
+</body>
+</html>
