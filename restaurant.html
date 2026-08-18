@@ -18,6 +18,16 @@
       .rst-food-grid { grid-template-columns: repeat(2, 1fr) !important; }
       .rst-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
+    .credit-menu-title {
+      white-space: nowrap;
+      font-size: clamp(1.75rem, 3vw, 2.8rem);
+    }
+    @media (max-width: 640px) {
+      .credit-menu-title {
+        font-size: clamp(1.45rem, 6vw, 1.8rem);
+        letter-spacing: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -157,7 +167,7 @@
       </div>
       <div class="about-split-content" style="direction: ltr;">
         <span class="section-label">Credit Lunch &amp; Dinner</span>
-        <h2 class="section-title">크레딧 런치 &amp; 디너</h2>
+        <h2 class="section-title credit-menu-title">크레딧 런치 &amp; 디너</h2>
         <div class="section-divider"></div>
         <div class="menu-list" style="margin-top: 24px;">
           <div class="menu-item">
@@ -166,14 +176,12 @@
           </div>
           <div class="menu-item">
             <span class="menu-name">디너(2인)-------------119,000</span>
-            <span class="menu-desc">이베리코목살스테이크(200g) 2개</span>
-            <span class="menu-desc">+파스타+샐러드+음료2잔</span>
+            <span class="menu-desc">이베리코목살스테이크(200g) 2개+파스타+샐러드+음료2잔</span>
             <span class="menu-desc">*파스타는 피자로 변경가능</span>
           </div>
           <div class="menu-item">
             <span class="menu-name">프리미엄 디너(2인)------139,000</span>
-            <span class="menu-desc">한우채끝스테이크(180g) 2개</span>
-            <span class="menu-desc">+파스타+샐러드+음료2잔</span>
+            <span class="menu-desc">한우채끝스테이크(180g) 2개+파스타+샐러드+음료2잔</span>
             <span class="menu-desc">*파스타는 피자로 변경가능</span>
           </div>
         </div>
