@@ -53,6 +53,29 @@ const PageTransition = {
 };
 
 /* ============================================================
+   NAVER CONVERSION — BOOK NOW (custom001)
+   ============================================================ */
+const NaverConversion = {
+  init() {
+    const bookNowButtons = document.querySelectorAll('.btn-book-nav');
+    if (!bookNowButtons.length) return;
+
+    bookNowButtons.forEach((button) => {
+      button.addEventListener('mousedown', () => {
+        try {
+          if (!window.wcs || typeof window.wcs.trans !== 'function') return;
+          if (!window.wcs_add) window.wcs_add = {};
+          window.wcs_add.wa = 's_b0d608dd7fd';
+          window.wcs.trans({ type: 'custom001' });
+        } catch (e) {
+          // 전환 로그 오류가 기존 예약 이동을 방해하지 않도록 처리
+        }
+      });
+    });
+  }
+};
+
+/* ============================================================
    NAVIGATION
    ============================================================ */
 const Nav = {
@@ -547,6 +570,7 @@ const Newsletter = {
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   PageTransition.init();
+  NaverConversion.init();
   Nav.init();
   ScrollAnimations.init();
   GallerySlider.init();
