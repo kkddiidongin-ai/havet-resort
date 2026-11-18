@@ -3,6 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- HAVET DISPLAY SAFETY: animation failure must never hide content -->
+  <script>
+  (function () {
+    var root = document.documentElement;
+    var safety = { failed: false, ready: false };
+    safety.failOpen = function () {
+      safety.failed = true;
+      root.classList.remove('havet-motion-ready');
+      root.classList.add('havet-motion-failed');
+    };
+    safety.markReady = function () {
+      if (safety.failed) return;
+      safety.ready = true;
+      window.clearTimeout(safety.timer);
+    };
+    window.havetMotionSafety = safety;
+    try {
+      if (!window.IntersectionObserver) { safety.failOpen(); return; }
+      root.classList.add('havet-motion-ready');
+      safety.timer = window.setTimeout(function () {
+        if (!safety.ready) safety.failOpen();
+      }, 4000);
+    } catch (error) { safety.failOpen(); }
+  }());
+  </script>
+
   <title>SKY LOFT SUITE B — HAVET RESORT</title>
   <meta name="description" content="하벳 스카이 로프트 스위트 B — 복층 구조와 루프탑 테라스, 가족 여행에 최적화된 넓은 공간." />
   <link rel="stylesheet" href="css/style.css" />
@@ -22,36 +48,36 @@
 
 <nav id="nav" class="scrolled">
   <div class="nav-logo">
-    <a href="index.html"><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
+    <a href='/'><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
   </div>
   <ul class="nav-menu">
-    <li><a href="about.html">ABOUT</a></li>
-    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/rooms'>ROOMS</a>
       <ul class="nav-dropdown">
-        <li><a href="rooms.html">All Rooms</a></li>
-        <li><a href="room_royal.html">Royal Suite</a></li>
-        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+        <li><a href='/rooms'>All Rooms</a></li>
+        <li><a href='/room_royal'>Royal Suite</a></li>
+        <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+        <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+        <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+        <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+        <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
       </ul>
     </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/enjoy_summer'>ENJOY</a>
       <ul class="nav-dropdown">
-        <li><a href="enjoy_summer.html">Summer</a></li>
-        <li><a href="enjoy_winter.html">Winter</a></li>
+        <li><a href='/enjoy_summer'>Summer</a></li>
+        <li><a href='/enjoy_winter'>Winter</a></li>
       </ul>
     </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
   <div class="nav-right">
     <span class="nav-tel">+82-054-732-0200</span>
-    <a href="reservation.html" class="btn-book-nav">BOOK NOW</a>
+    <a class='btn-book-nav' href='/reservation'>BOOK NOW</a>
     <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -60,45 +86,45 @@
 <div class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
   <ul>
-    <li><a href="about.html">ABOUT</a></li>
-    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/rooms'>ROOMS</a>
     <ul class="mobile-nav-sub">
-      <li><a href="rooms.html">All Rooms</a></li>
-      <li><a href="room_royal.html">Royal Suite</a></li>
-      <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-      <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-      <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-      <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-      <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      <li><a href='/rooms'>All Rooms</a></li>
+      <li><a href='/room_royal'>Royal Suite</a></li>
+      <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+      <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+      <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+      <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+      <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
     </ul>
   </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/enjoy_summer'>ENJOY</a>
     <ul class="mobile-nav-sub">
-      <li><a href="enjoy_summer.html">Summer</a></li>
-      <li><a href="enjoy_winter.html">Winter</a></li>
+      <li><a href='/enjoy_summer'>Summer</a></li>
+      <li><a href='/enjoy_winter'>Winter</a></li>
     </ul>
   </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
-  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a class='mobile-nav-book' href='/reservation'>BOOK NOW</a>
   <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
 </div>
 
 <!-- Room Slider -->
 <div class="room-slider">
   <div class="room-slider-track">
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/1.jpg')"></div>
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/2.jpg')"></div>
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/3.jpg')"></div>
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/4.jpg')"></div>
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/5.jpg')"></div>
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/6.jpg')"></div>
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/7.jpg')"></div>
-    <div class="room-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/8.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/1.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/2.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/3.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/4.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/5.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/6.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/7.jpg')"></div>
+    <div class="room-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/8.jpg')"></div>
   </div>
   <div class="room-slider-dots">
     <button class="room-slider-dot active"></button>
@@ -192,7 +218,7 @@
         최대 인원: 4인 (기준 2인)
       </div>
       <a href="tel:+82054732020" class="booking-card-tel">📞 +82-054-732-0200</a>
-      <a href="reservation.html" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">예약하기</a>
+      <a class='btn btn-primary' href='/reservation' style='width: 100%; text-align: center; display: block;'>예약하기</a>
       <a href="tel:+82054732020" class="btn btn-outline" style="width: 100%; text-align: center; display: block; margin-top: 8px;">문의하기</a>
     </div>
 
@@ -205,37 +231,37 @@
     <span style="font-family: var(--font-sans-en); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 12px;">Explore</span>
     <h2 style="font-family: var(--font-serif-en); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300; color: var(--color-text); margin-bottom: 48px; letter-spacing: 0.04em;">Other Rooms</h2>
     <div class="other-rooms-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
-      <a href="room_royal.html" style="text-decoration: none; display: block;">
+      <a href='/room_royal' style='text-decoration: none; display: block;'>
         <div style="aspect-ratio: 3/4; overflow: hidden; margin-bottom: 14px;">
-          <div style="width: 100%; height: 100%; background-image: url('http://gonylab7.speedgabia.com/havet/room/1/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div style="width: 100%; height: 100%; background-image: url('https://gonylab7.speedgabia.com/havet/room/1/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
         </div>
         <p style="font-family: var(--font-sans-en); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 4px;">Royal Suite</p>
         <p style="font-family: var(--font-sans-ko); font-size: 0.8rem; color: var(--color-text);">로얄 스위트</p>
       </a>
-      <a href="room_grand.html" style="text-decoration: none; display: block;">
+      <a href='/room_grand' style='text-decoration: none; display: block;'>
         <div style="aspect-ratio: 3/4; overflow: hidden; margin-bottom: 14px;">
-          <div style="width: 100%; height: 100%; background-image: url('http://gonylab7.speedgabia.com/havet/room/2/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div style="width: 100%; height: 100%; background-image: url('https://gonylab7.speedgabia.com/havet/room/2/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
         </div>
         <p style="font-family: var(--font-sans-en); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 4px;">Grand Ocean Suite</p>
         <p style="font-family: var(--font-sans-ko); font-size: 0.8rem; color: var(--color-text);">그랜드 오션 스위트</p>
       </a>
-      <a href="room_ocean_a.html" style="text-decoration: none; display: block;">
+      <a href='/room_ocean_a' style='text-decoration: none; display: block;'>
         <div style="aspect-ratio: 3/4; overflow: hidden; margin-bottom: 14px;">
-          <div style="width: 100%; height: 100%; background-image: url('http://gonylab7.speedgabia.com/havet/room/3/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div style="width: 100%; height: 100%; background-image: url('https://gonylab7.speedgabia.com/havet/room/3/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
         </div>
         <p style="font-family: var(--font-sans-en); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 4px;">Ocean Suite A</p>
         <p style="font-family: var(--font-sans-ko); font-size: 0.8rem; color: var(--color-text);">오션 스위트 A</p>
       </a>
-      <a href="room_ocean_b.html" style="text-decoration: none; display: block;">
+      <a href='/room_ocean_b' style='text-decoration: none; display: block;'>
         <div style="aspect-ratio: 3/4; overflow: hidden; margin-bottom: 14px;">
-          <div style="width: 100%; height: 100%; background-image: url('http://gonylab7.speedgabia.com/havet/room/4/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div style="width: 100%; height: 100%; background-image: url('https://gonylab7.speedgabia.com/havet/room/4/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
         </div>
         <p style="font-family: var(--font-sans-en); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 4px;">Ocean Suite B</p>
         <p style="font-family: var(--font-sans-ko); font-size: 0.8rem; color: var(--color-text);">오션 스위트 B</p>
       </a>
-      <a href="room_skyloft_a.html" style="text-decoration: none; display: block;">
+      <a href='/room_skyloft_a' style='text-decoration: none; display: block;'>
         <div style="aspect-ratio: 3/4; overflow: hidden; margin-bottom: 14px;">
-          <div style="width: 100%; height: 100%; background-image: url('http://gonylab7.speedgabia.com/havet/room/5/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+          <div style="width: 100%; height: 100%; background-image: url('https://gonylab7.speedgabia.com/havet/room/5/1.jpg'); background-size: cover; background-position: center; transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
         </div>
         <p style="font-family: var(--font-sans-en); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 4px;">Sky Loft A</p>
         <p style="font-family: var(--font-sans-ko); font-size: 0.8rem; color: var(--color-text);">스카이 로프트 A</p>
@@ -269,21 +295,21 @@
       <div>
         <p class="footer-nav-title">Rooms</p>
         <ul class="footer-nav-list">
-          <li><a href="room_royal.html">Royal Suite</a></li>
-          <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-          <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-          <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-          <li><a href="room_skyloft_a.html">Sky Loft Suite A</a></li>
-          <li><a href="room_skyloft_b.html">Sky Loft Suite B</a></li>
+          <li><a href='/room_royal'>Royal Suite</a></li>
+          <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+          <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+          <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+          <li><a href='/room_skyloft_a'>Sky Loft Suite A</a></li>
+          <li><a href='/room_skyloft_b'>Sky Loft Suite B</a></li>
         </ul>
       </div>
       <div>
         <p class="footer-nav-title">Information</p>
         <ul class="footer-nav-list">
-          <li><a href="reservation.html">Reservation</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="community.html">Community</a></li>
-          <li><a href="access.html">Access</a></li>
+          <li><a href='/reservation'>Reservation</a></li>
+          <li><a href='/gallery'>Gallery</a></li>
+          <li><a href='/community'>Community</a></li>
+          <li><a href='/access'>Access</a></li>
         </ul>
       </div>
     </div>
@@ -293,13 +319,13 @@
   </div>
 </footer>
 
-<a href="reservation.html" class="floating-book">예약하기</a>
+<a class='floating-book' href='/reservation'>예약하기</a>
 
 <!-- Floor Plan Popup -->
 <div class="floorplan-overlay" id="floorplan-skyloft-b" onclick="this.classList.remove('active')">
   <div class="floorplan-popup" onclick="event.stopPropagation()">
     <button class="floorplan-close" onclick="document.getElementById('floorplan-skyloft-b').classList.remove('active')">✕</button>
-    <img src="http://gonylab7.speedgabia.com/havet/final/images/room/layout_06.png" alt="Sky Loft B 도면">
+    <img src="https://gonylab7.speedgabia.com/havet/final/images/room/layout_06.png" alt="Sky Loft B 도면">
     <div class="floorplan-label">Sky Loft Suite B · Floor Plan</div>
   </div>
 </div>
@@ -315,5 +341,6 @@ wcs.inflow();
 wcs_do();
 }
 </script>
+<script src="js/image-safety.js" defer></script>
 </body>
 </html>

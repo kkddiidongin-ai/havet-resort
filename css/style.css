@@ -2887,3 +2887,14 @@ ul, ol {
     padding: 10px 16px;
   }
 }
+
+
+/* HAVET DISPLAY SAFETY — retain all layout, ratios and normal animations.
+   Only unfinished fade elements fail open when animation JS is unavailable. */
+html:not(.havet-motion-ready) .fade-up:not(.visible) {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+html:not(.havet-motion-ready) .fade-in:not(.visible) {
+  opacity: 1 !important;
+}

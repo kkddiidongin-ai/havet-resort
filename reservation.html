@@ -3,6 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- HAVET DISPLAY SAFETY: animation failure must never hide content -->
+  <script>
+  (function () {
+    var root = document.documentElement;
+    var safety = { failed: false, ready: false };
+    safety.failOpen = function () {
+      safety.failed = true;
+      root.classList.remove('havet-motion-ready');
+      root.classList.add('havet-motion-failed');
+    };
+    safety.markReady = function () {
+      if (safety.failed) return;
+      safety.ready = true;
+      window.clearTimeout(safety.timer);
+    };
+    window.havetMotionSafety = safety;
+    try {
+      if (!window.IntersectionObserver) { safety.failOpen(); return; }
+      root.classList.add('havet-motion-ready');
+      safety.timer = window.setTimeout(function () {
+        if (!safety.ready) safety.failOpen();
+      }, 4000);
+    } catch (error) { safety.failOpen(); }
+  }());
+  </script>
+
   <title>RESERVATION — HAVET RESORT</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
@@ -110,32 +136,32 @@
 <div id="page-transition"></div>
 <nav id="nav">
   <div class="nav-logo">
-    <a href="index.html"><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
+    <a href='/'><span class="nav-logo-text">HAVET<span>RESORT · YEONGDEOK</span></span></a>
   </div>
   <ul class="nav-menu">
-    <li><a href="about.html">ABOUT</a></li>
-    <li><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li><a href='/rooms'>ROOMS</a>
       <ul class="nav-dropdown">
-        <li><a href="rooms.html">All Rooms</a></li>
-        <li><a href="room_royal.html">Royal Suite</a></li>
-        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+        <li><a href='/rooms'>All Rooms</a></li>
+        <li><a href='/room_royal'>Royal Suite</a></li>
+        <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+        <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+        <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+        <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+        <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
       </ul>
     </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li><a href='/enjoy_summer'>ENJOY</a>
       <ul class="nav-dropdown">
-        <li><a href="enjoy_summer.html">Summer</a></li>
-        <li><a href="enjoy_winter.html">Winter</a></li>
+        <li><a href='/enjoy_summer'>Summer</a></li>
+        <li><a href='/enjoy_winter'>Winter</a></li>
       </ul>
     </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
   <div class="nav-right">
     <span class="nav-tel">+82-054-732-0200</span>
@@ -147,31 +173,31 @@
 <div class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
   <ul>
-    <li><a href="about.html">ABOUT</a></li>
-    <li><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li><a href='/rooms'>ROOMS</a>
     <ul class="mobile-nav-sub">
-      <li><a href="rooms.html">All Rooms</a></li>
-      <li><a href="room_royal.html">Royal Suite</a></li>
-      <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-      <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-      <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-      <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-      <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      <li><a href='/rooms'>All Rooms</a></li>
+      <li><a href='/room_royal'>Royal Suite</a></li>
+      <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+      <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+      <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+      <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+      <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
     </ul>
   </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li><a href='/enjoy_summer'>ENJOY</a>
     <ul class="mobile-nav-sub">
-      <li><a href="enjoy_summer.html">Summer</a></li>
-      <li><a href="enjoy_winter.html">Winter</a></li>
+      <li><a href='/enjoy_summer'>Summer</a></li>
+      <li><a href='/enjoy_winter'>Winter</a></li>
     </ul>
   </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
-  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a class='mobile-nav-book' href='/reservation'>BOOK NOW</a>
   <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
 </div>
 <div class="resv-split">
@@ -294,12 +320,12 @@
     </div>
   </div>
   <div class="resv-right">
-    <div id="resvSlide0" class="resv-slide active" style="background-image:url('http://gonylab7.speedgabia.com/havet/banner/1.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 101</p><h3 class="resv-slide-caption-title">Royal Suite</h3></div></div>
-    <div id="resvSlide1" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/banner/2.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 201</p><h3 class="resv-slide-caption-title">Grand Ocean Suite</h3></div></div>
-    <div id="resvSlide2" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/banner/3.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 301</p><h3 class="resv-slide-caption-title">Ocean Suite A</h3></div></div>
-    <div id="resvSlide3" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/banner/4.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 302</p><h3 class="resv-slide-caption-title">Ocean Suite B</h3></div></div>
-    <div id="resvSlide4" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/banner/1.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Loft 401</p><h3 class="resv-slide-caption-title">Sky Loft A</h3></div></div>
-    <div id="resvSlide5" class="resv-slide" style="background-image:url('http://gonylab7.speedgabia.com/havet/banner/2.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Loft 402</p><h3 class="resv-slide-caption-title">Sky Loft B</h3></div></div>
+    <div id="resvSlide0" class="resv-slide active" style="background-image:url('https://gonylab7.speedgabia.com/havet/banner/1.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 101</p><h3 class="resv-slide-caption-title">Royal Suite</h3></div></div>
+    <div id="resvSlide1" class="resv-slide" style="background-image:url('https://gonylab7.speedgabia.com/havet/banner/2.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 201</p><h3 class="resv-slide-caption-title">Grand Ocean Suite</h3></div></div>
+    <div id="resvSlide2" class="resv-slide" style="background-image:url('https://gonylab7.speedgabia.com/havet/banner/3.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 301</p><h3 class="resv-slide-caption-title">Ocean Suite A</h3></div></div>
+    <div id="resvSlide3" class="resv-slide" style="background-image:url('https://gonylab7.speedgabia.com/havet/banner/4.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Suite 302</p><h3 class="resv-slide-caption-title">Ocean Suite B</h3></div></div>
+    <div id="resvSlide4" class="resv-slide" style="background-image:url('https://gonylab7.speedgabia.com/havet/banner/1.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Loft 401</p><h3 class="resv-slide-caption-title">Sky Loft A</h3></div></div>
+    <div id="resvSlide5" class="resv-slide" style="background-image:url('https://gonylab7.speedgabia.com/havet/banner/2.jpg')"><div class="resv-slide-overlay"></div><div class="resv-slide-caption"><p class="resv-slide-caption-label">Loft 402</p><h3 class="resv-slide-caption-title">Sky Loft B</h3></div></div>
     <button class="resv-slider-btn prev" id="resvPrev">&#8592;</button>
     <button class="resv-slider-btn next" id="resvNext">&#8594;</button>
     <div class="resv-slider-dots" id="resvDots">
@@ -340,5 +366,6 @@ wcs.inflow();
 wcs_do();
 }
 </script>
+<script src="js/image-safety.js" defer></script>
 </body>
 </html>

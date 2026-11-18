@@ -3,6 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- HAVET DISPLAY SAFETY: animation failure must never hide content -->
+  <script>
+  (function () {
+    var root = document.documentElement;
+    var safety = { failed: false, ready: false };
+    safety.failOpen = function () {
+      safety.failed = true;
+      root.classList.remove('havet-motion-ready');
+      root.classList.add('havet-motion-failed');
+    };
+    safety.markReady = function () {
+      if (safety.failed) return;
+      safety.ready = true;
+      window.clearTimeout(safety.timer);
+    };
+    window.havetMotionSafety = safety;
+    try {
+      if (!window.IntersectionObserver) { safety.failOpen(); return; }
+      root.classList.add('havet-motion-ready');
+      safety.timer = window.setTimeout(function () {
+        if (!safety.ready) safety.failOpen();
+      }, 4000);
+    } catch (error) { safety.failOpen(); }
+  }());
+  </script>
+
   <title>ACCOMMODATION — HAVET RESORT</title>
   <meta name="description" content="하벳 리조트의 6가지 럭셔리 스위트 객실. 로얄 스위트, 그랜드 오션 스위트, 오션 스위트, 스카이 로프트 스위트." />
   <link rel="stylesheet" href="css/style.css" />
@@ -13,36 +39,36 @@
 
 <nav id="nav" class="scrolled">
   <div class="nav-logo">
-    <a href="index.html"><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
+    <a href='/'><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
   </div>
   <ul class="nav-menu">
-    <li><a href="about.html">ABOUT</a></li>
-    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/rooms'>ROOMS</a>
       <ul class="nav-dropdown">
-        <li><a href="rooms.html">All Rooms</a></li>
-        <li><a href="room_royal.html">Royal Suite</a></li>
-        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+        <li><a href='/rooms'>All Rooms</a></li>
+        <li><a href='/room_royal'>Royal Suite</a></li>
+        <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+        <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+        <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+        <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+        <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
       </ul>
     </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/enjoy_summer'>ENJOY</a>
       <ul class="nav-dropdown">
-        <li><a href="enjoy_summer.html">Summer</a></li>
-        <li><a href="enjoy_winter.html">Winter</a></li>
+        <li><a href='/enjoy_summer'>Summer</a></li>
+        <li><a href='/enjoy_winter'>Winter</a></li>
       </ul>
     </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
   <div class="nav-right">
     <span class="nav-tel">+82-054-732-0200</span>
-    <a href="reservation.html" class="btn-book-nav">BOOK NOW</a>
+    <a class='btn-book-nav' href='/reservation'>BOOK NOW</a>
     <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -51,37 +77,37 @@
 <div class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
   <ul>
-    <li><a href="about.html">ABOUT</a></li>
-    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/rooms'>ROOMS</a>
     <ul class="mobile-nav-sub">
-      <li><a href="rooms.html">All Rooms</a></li>
-      <li><a href="room_royal.html">Royal Suite</a></li>
-      <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-      <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-      <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-      <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-      <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      <li><a href='/rooms'>All Rooms</a></li>
+      <li><a href='/room_royal'>Royal Suite</a></li>
+      <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+      <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+      <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+      <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+      <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
     </ul>
   </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/enjoy_summer'>ENJOY</a>
     <ul class="mobile-nav-sub">
-      <li><a href="enjoy_summer.html">Summer</a></li>
-      <li><a href="enjoy_winter.html">Winter</a></li>
+      <li><a href='/enjoy_summer'>Summer</a></li>
+      <li><a href='/enjoy_winter'>Winter</a></li>
     </ul>
   </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
-  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a class='mobile-nav-book' href='/reservation'>BOOK NOW</a>
   <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
 </div>
 
 <!-- Page Hero -->
 <div class="page-hero">
-  <div class="page-hero-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/1/1.jpg')"></div>
+  <div class="page-hero-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/1/1.jpg')"></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <p class="page-hero-sub">Accommodation</p>
@@ -96,7 +122,7 @@
   <!-- Room 1: Royal Suite -->
   <div class="room-item fade-in">
     <div class="room-item-img">
-      <div class="room-item-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/1/0.jpg')"></div>
+      <div class="room-item-img-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/1/0.jpg')"></div>
     </div>
     <div class="room-item-content">
       <span class="room-type">Private Pool Villa</span>
@@ -109,14 +135,14 @@
         <span class="room-feature-tag">독립 빌라</span>
       </div>
       <p class="room-desc">하벳에서 가장 럭셔리한 단독 빌라. 바다와 마주한 개인 풀장에서 동해의 일출을 맞이하고, 히노끼 스파에서 하루를 마무리하세요. 이집트 써니베이지 스톤으로 완성된 프라이빗 공간에서 오롯이 당신만의 시간을 누리세요.</p>
-      <a href="room_royal.html" class="btn btn-outline" style="width: fit-content;">VIEW ROOM →</a>
+      <a class='btn btn-outline' href='/room_royal' style='width: fit-content;'>VIEW ROOM →</a>
     </div>
   </div>
 
   <!-- Room 2: Grand Ocean Suite -->
   <div class="room-item fade-in">
     <div class="room-item-img">
-      <div class="room-item-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/2/0.jpg')"></div>
+      <div class="room-item-img-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/2/0.jpg')"></div>
     </div>
     <div class="room-item-content">
       <span class="room-type">Ocean View Suite</span>
@@ -128,14 +154,14 @@
         <span class="room-feature-tag">독립 거실</span>
       </div>
       <p class="room-desc">광활한 동해를 파노라마로 품은 프리미엄 스위트. 대형 히노끼탕에서 바다를 바라보며 즐기는 입욕의 시간. 넓은 독립 거실과 함께 가족 여행에도 완벽한 공간입니다.</p>
-      <a href="room_grand.html" class="btn btn-outline" style="width: fit-content;">VIEW ROOM →</a>
+      <a class='btn btn-outline' href='/room_grand' style='width: fit-content;'>VIEW ROOM →</a>
     </div>
   </div>
 
   <!-- Room 3: Ocean Suite A -->
   <div class="room-item fade-in">
     <div class="room-item-img">
-      <div class="room-item-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/3/0.jpg')"></div>
+      <div class="room-item-img-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/3/0.jpg')"></div>
     </div>
     <div class="room-item-content">
       <span class="room-type">Ocean View Suite</span>
@@ -147,14 +173,14 @@
         <span class="room-feature-tag">테라스</span>
       </div>
       <p class="room-desc">동해의 푸른 바다를 창 너머로 바라보며 즐기는 오션 스위트. 히노끼탕의 따뜻한 온기와 함께하는 하벳만의 특별한 휴식 공간입니다.</p>
-      <a href="room_ocean_a.html" class="btn btn-outline" style="width: fit-content;">VIEW ROOM →</a>
+      <a class='btn btn-outline' href='/room_ocean_a' style='width: fit-content;'>VIEW ROOM →</a>
     </div>
   </div>
 
   <!-- Room 4: Ocean Suite B -->
   <div class="room-item fade-in">
     <div class="room-item-img">
-      <div class="room-item-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/4/0.jpg')"></div>
+      <div class="room-item-img-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/4/0.jpg')"></div>
     </div>
     <div class="room-item-content">
       <span class="room-type">Ocean View Suite</span>
@@ -166,14 +192,14 @@
         <span class="room-feature-tag">테라스</span>
       </div>
       <p class="room-desc">Ocean Suite A와 같은 감성의 공간이지만, 각기 다른 레이아웃과 뷰 각도로 구성된 또 다른 오션 스위트. 커플 여행에 최적화된 아늑한 공간입니다.</p>
-      <a href="room_ocean_b.html" class="btn btn-outline" style="width: fit-content;">VIEW ROOM →</a>
+      <a class='btn btn-outline' href='/room_ocean_b' style='width: fit-content;'>VIEW ROOM →</a>
     </div>
   </div>
 
   <!-- Room 5: Sky Loft A -->
   <div class="room-item fade-in">
     <div class="room-item-img">
-      <div class="room-item-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/5/0.jpg')"></div>
+      <div class="room-item-img-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/5/0.jpg')"></div>
     </div>
     <div class="room-item-content">
       <span class="room-type">Loft Suite</span>
@@ -186,14 +212,14 @@
         <span class="room-feature-tag">루프탑 테라스</span>
       </div>
       <p class="room-desc">하늘과 바다를 동시에 품는 복층 로프트 스위트. 1층의 아늑한 거실과 2층의 침실, 그리고 루프탑 테라스에서 바라보는 동해의 파노라마 뷰는 하벳에서만 경험할 수 있는 특별함입니다.</p>
-      <a href="room_skyloft_a.html" class="btn btn-outline" style="width: fit-content;">VIEW ROOM →</a>
+      <a class='btn btn-outline' href='/room_skyloft_a' style='width: fit-content;'>VIEW ROOM →</a>
     </div>
   </div>
 
   <!-- Room 6: Sky Loft B -->
   <div class="room-item fade-in">
     <div class="room-item-img">
-      <div class="room-item-img-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/0.jpg')"></div>
+      <div class="room-item-img-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/0.jpg')"></div>
     </div>
     <div class="room-item-content">
       <span class="room-type">Loft Suite</span>
@@ -206,7 +232,7 @@
         <span class="room-feature-tag">루프탑 테라스</span>
       </div>
       <p class="room-desc">Sky Loft A와 같은 복층 구조이지만 다른 방향의 뷰와 독특한 인테리어로 구성된 스카이 로프트 스위트 B. 가족 여행과 소규모 그룹에 최적화된 넓은 공간을 제공합니다.</p>
-      <a href="room_skyloft_b.html" class="btn btn-outline" style="width: fit-content;">VIEW ROOM →</a>
+      <a class='btn btn-outline' href='/room_skyloft_b' style='width: fit-content;'>VIEW ROOM →</a>
     </div>
   </div>
 
@@ -220,7 +246,7 @@
       <h2 class="book-title">Your Perfect Stay</h2>
     </div>
     <div class="book-buttons fade-up fade-up-delay-1">
-      <a href="reservation.html" class="btn btn-primary">실시간 예약</a>
+      <a class='btn btn-primary' href='/reservation'>실시간 예약</a>
       <a href="tel:+82054732020" class="btn btn-outline">📞 +82-054-732-0200</a>
     </div>
   </div>
@@ -247,36 +273,36 @@
       <div>
         <p class="footer-nav-title">Rooms</p>
         <ul class="footer-nav-list">
-          <li><a href="room_royal.html">Royal Suite</a></li>
-          <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-          <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-          <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-          <li><a href="room_skyloft_a.html">Sky Loft Suite A</a></li>
-          <li><a href="room_skyloft_b.html">Sky Loft Suite B</a></li>
+          <li><a href='/room_royal'>Royal Suite</a></li>
+          <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+          <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+          <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+          <li><a href='/room_skyloft_a'>Sky Loft Suite A</a></li>
+          <li><a href='/room_skyloft_b'>Sky Loft Suite B</a></li>
         </ul>
       </div>
       <div>
         <p class="footer-nav-title">Information</p>
         <ul class="footer-nav-list">
-          <li><a href="reservation.html">Reservation</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="community.html">Community</a></li>
-          <li><a href="access.html">Access</a></li>
+          <li><a href='/reservation'>Reservation</a></li>
+          <li><a href='/gallery'>Gallery</a></li>
+          <li><a href='/community'>Community</a></li>
+          <li><a href='/access'>Access</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-copy">Copyright © HAVET Resort. All Rights Reserved.</p>
       <div class="footer-links">
-        <a href="community.html">공지사항</a>
-        <a href="reservation.html">예약하기</a>
-        <a href="access.html">오시는 길</a>
+        <a href='/community'>공지사항</a>
+        <a href='/reservation'>예약하기</a>
+        <a href='/access'>오시는 길</a>
       </div>
     </div>
   </div>
 </footer>
 
-<a href="reservation.html" class="floating-book">예약하기</a>
+<a class='floating-book' href='/reservation'>예약하기</a>
 
 <script src="js/main.js"></script>
     <script src="js/digitalnow.js"></script>
@@ -290,5 +316,6 @@ wcs.inflow();
 wcs_do();
 }
 </script>
+<script src="js/image-safety.js" defer></script>
 </body>
 </html>

@@ -3,6 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- HAVET DISPLAY SAFETY: animation failure must never hide content -->
+  <script>
+  (function () {
+    var root = document.documentElement;
+    var safety = { failed: false, ready: false };
+    safety.failOpen = function () {
+      safety.failed = true;
+      root.classList.remove('havet-motion-ready');
+      root.classList.add('havet-motion-failed');
+    };
+    safety.markReady = function () {
+      if (safety.failed) return;
+      safety.ready = true;
+      window.clearTimeout(safety.timer);
+    };
+    window.havetMotionSafety = safety;
+    try {
+      if (!window.IntersectionObserver) { safety.failOpen(); return; }
+      root.classList.add('havet-motion-ready');
+      safety.timer = window.setTimeout(function () {
+        if (!safety.ready) safety.failOpen();
+      }, 4000);
+    } catch (error) { safety.failOpen(); }
+  }());
+  </script>
+
   <title>팝업 시스템 미리보기 — HAVET RESORT</title>
   <style>
     body {

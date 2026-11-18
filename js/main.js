@@ -53,29 +53,6 @@ const PageTransition = {
 };
 
 /* ============================================================
-   NAVER CONVERSION — BOOK NOW (custom001)
-   ============================================================ */
-const NaverConversion = {
-  init() {
-    const bookNowButtons = document.querySelectorAll('.btn-book-nav');
-    if (!bookNowButtons.length) return;
-
-    bookNowButtons.forEach((button) => {
-      button.addEventListener('mousedown', () => {
-        try {
-          if (!window.wcs || typeof window.wcs.trans !== 'function') return;
-          if (!window.wcs_add) window.wcs_add = {};
-          window.wcs_add.wa = 's_b0d608dd7fd';
-          window.wcs.trans({ type: 'custom001' });
-        } catch (e) {
-          // 전환 로그 오류가 기존 예약 이동을 방해하지 않도록 처리
-        }
-      });
-    });
-  }
-};
-
-/* ============================================================
    NAVIGATION
    ============================================================ */
 const Nav = {
@@ -164,24 +141,72 @@ const Nav = {
    ============================================================ */
 const ScrollAnimations = {
   observer: null,
+  initialized: false,
 
   init() {
-    const elements = document.querySelectorAll('.fade-up, .fade-in');
-    if (!elements.length) return;
-
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          this.observer.unobserve(entry.target);
-        }
+    if (this.initialized) return;
+    this.initialized = true;
+    const elements = Array.from(document.querySelectorAll('.fade-up, .fade-in'));
+    const safety = window.havetMotionSafety;
+    const reveal = (el) => {
+      el.classList.add('visible');
+      if (this.observer) this.observer.unobserve(el);
+    };
+    const failOpen = () => {
+      if (this.observer) this.observer.disconnect();
+      if (safety) safety.failOpen();
+      elements.forEach(el => el.classList.add('visible'));
+    };
+    if (!elements.length) {
+      if (safety) safety.markReady();
+      return;
+    }
+    if (!window.IntersectionObserver || (safety && safety.failed)) {
+      failOpen();
+      return;
+    }
+    try {
+      this.observer = new IntersectionObserver((entries) => {
+        try {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) reveal(entry.target);
+          });
+        } catch (error) { failOpen(); }
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
       });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px'
-    });
+      elements.forEach(el => this.observer.observe(el));
+      if (safety) safety.markReady();
+    } catch (error) {
+      failOpen();
+      return;
+    }
 
-    elements.forEach(el => this.observer.observe(el));
+    // A tall wrapper may never reach 12% intersection on a short/mobile screen.
+    // This viewport safety check also covers missed observer callbacks.
+    let framePending = false;
+    const checkViewport = () => {
+      framePending = false;
+      const height = window.innerHeight || document.documentElement.clientHeight;
+      const width = window.innerWidth || document.documentElement.clientWidth;
+      elements.forEach(el => {
+        if (el.classList.contains('visible')) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0 && rect.bottom > 0 &&
+            rect.top < height - Math.min(40, height / 4) &&
+            rect.right > 0 && rect.left < width) reveal(el);
+      });
+    };
+    const scheduleCheck = () => {
+      if (framePending) return;
+      framePending = true;
+      (window.requestAnimationFrame || window.setTimeout)(checkViewport);
+    };
+    window.addEventListener('scroll', scheduleCheck, { passive: true });
+    window.addEventListener('resize', scheduleCheck);
+    window.addEventListener('pageshow', scheduleCheck);
+    scheduleCheck();
   }
 };
 
@@ -568,17 +593,24 @@ const Newsletter = {
 /* ============================================================
    INIT ALL
    ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
-  PageTransition.init();
-  NaverConversion.init();
-  Nav.init();
-  ScrollAnimations.init();
-  GallerySlider.init();
-  RoomSlider.init();
-  Weather.init();
-  Lightbox.init();
-  CommunityTabs.init();
-  LazyLoad.init();
-  Parallax.init();
-  Newsletter.init();
-});
+let havetComponentsInitialized = false;
+function initHavetComponents() {
+  if (havetComponentsInitialized) return;
+  havetComponentsInitialized = true;
+  // Isolate an initialization exception without changing successful behavior.
+  [PageTransition, Nav, ScrollAnimations, GallerySlider, RoomSlider, Weather,
+   Lightbox, CommunityTabs, LazyLoad, Parallax, Newsletter].forEach(component => {
+    try { component.init(); }
+    catch (error) {
+      if (component === ScrollAnimations && window.havetMotionSafety) {
+        window.havetMotionSafety.failOpen();
+      }
+      console.warn('HAVET component initialization failed:', error);
+    }
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHavetComponents, { once: true });
+} else {
+  initHavetComponents();
+}

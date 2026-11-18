@@ -3,6 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- HAVET DISPLAY SAFETY: animation failure must never hide content -->
+  <script>
+  (function () {
+    var root = document.documentElement;
+    var safety = { failed: false, ready: false };
+    safety.failOpen = function () {
+      safety.failed = true;
+      root.classList.remove('havet-motion-ready');
+      root.classList.add('havet-motion-failed');
+    };
+    safety.markReady = function () {
+      if (safety.failed) return;
+      safety.ready = true;
+      window.clearTimeout(safety.timer);
+    };
+    window.havetMotionSafety = safety;
+    try {
+      if (!window.IntersectionObserver) { safety.failOpen(); return; }
+      root.classList.add('havet-motion-ready');
+      safety.timer = window.setTimeout(function () {
+        if (!safety.ready) safety.failOpen();
+      }, 4000);
+    } catch (error) { safety.failOpen(); }
+  }());
+  </script>
+
   <title>FACILITY — HAVET RESORT</title>
   <meta name="description" content="하벳 리조트의 시설 안내. 중정풀, 해수풀, 히노끼탕, BBQ, 캠프파이어, 전기차 충전기." />
   <link rel="stylesheet" href="css/style.css" />
@@ -92,36 +118,36 @@
 
 <nav id="nav" class="scrolled">
   <div class="nav-logo">
-    <a href="index.html"><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
+    <a href='/'><img src="images/logo_havet.png" alt="HAVET RESORT YEONGDEOK" class="nav-logo-img" /></a>
   </div>
   <ul class="nav-menu">
-    <li><a href="about.html">ABOUT</a></li>
-    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/rooms'>ROOMS</a>
       <ul class="nav-dropdown">
-        <li><a href="rooms.html">All Rooms</a></li>
-        <li><a href="room_royal.html">Royal Suite</a></li>
-        <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-        <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-        <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-        <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-        <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+        <li><a href='/rooms'>All Rooms</a></li>
+        <li><a href='/room_royal'>Royal Suite</a></li>
+        <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+        <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+        <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+        <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+        <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
       </ul>
     </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/enjoy_summer'>ENJOY</a>
       <ul class="nav-dropdown">
-        <li><a href="enjoy_summer.html">Summer</a></li>
-        <li><a href="enjoy_winter.html">Winter</a></li>
+        <li><a href='/enjoy_summer'>Summer</a></li>
+        <li><a href='/enjoy_winter'>Winter</a></li>
       </ul>
     </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
   <div class="nav-right">
     <span class="nav-tel">+82-054-732-0200</span>
-    <a href="reservation.html" class="btn-book-nav">BOOK NOW</a>
+    <a class='btn-book-nav' href='/reservation'>BOOK NOW</a>
     <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -130,37 +156,37 @@
 <div class="mobile-nav" id="mobile-nav">
   <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
   <ul>
-    <li><a href="about.html">ABOUT</a></li>
-    <li class="mobile-nav-has-sub"><a href="rooms.html">ROOMS</a>
+    <li><a href='/about'>ABOUT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/rooms'>ROOMS</a>
     <ul class="mobile-nav-sub">
-      <li><a href="rooms.html">All Rooms</a></li>
-      <li><a href="room_royal.html">Royal Suite</a></li>
-      <li><a href="room_grand.html">Grand Ocean Suite</a></li>
-      <li><a href="room_ocean_a.html">Ocean Suite A</a></li>
-      <li><a href="room_ocean_b.html">Ocean Suite B</a></li>
-      <li><a href="room_skyloft_a.html">Sky Loft A</a></li>
-      <li><a href="room_skyloft_b.html">Sky Loft B</a></li>
+      <li><a href='/rooms'>All Rooms</a></li>
+      <li><a href='/room_royal'>Royal Suite</a></li>
+      <li><a href='/room_grand'>Grand Ocean Suite</a></li>
+      <li><a href='/room_ocean_a'>Ocean Suite A</a></li>
+      <li><a href='/room_ocean_b'>Ocean Suite B</a></li>
+      <li><a href='/room_skyloft_a'>Sky Loft A</a></li>
+      <li><a href='/room_skyloft_b'>Sky Loft B</a></li>
     </ul>
   </li>
-    <li><a href="restaurant.html">RESTAURANT</a></li>
-    <li class="mobile-nav-has-sub"><a href="enjoy_summer.html">ENJOY</a>
+    <li><a href='/restaurant'>RESTAURANT</a></li>
+    <li class="mobile-nav-has-sub"><a href='/enjoy_summer'>ENJOY</a>
     <ul class="mobile-nav-sub">
-      <li><a href="enjoy_summer.html">Summer</a></li>
-      <li><a href="enjoy_winter.html">Winter</a></li>
+      <li><a href='/enjoy_summer'>Summer</a></li>
+      <li><a href='/enjoy_winter'>Winter</a></li>
     </ul>
   </li>
-    <li><a href="facility.html">FACILITY</a></li>
-    <li><a href="reservation.html">RESERVATION</a></li>
-    <li><a href="gallery.html">GALLERY</a></li>
-    <li><a href="access.html">LOCATION</a></li>
+    <li><a href='/facility'>FACILITY</a></li>
+    <li><a href='/reservation'>RESERVATION</a></li>
+    <li><a href='/gallery'>GALLERY</a></li>
+    <li><a href='/access'>LOCATION</a></li>
   </ul>
-  <a href="reservation.html" class="mobile-nav-book">BOOK NOW</a>
+  <a class='mobile-nav-book' href='/reservation'>BOOK NOW</a>
   <a href="tel:+82054732020" class="mobile-nav-tel">+82-054-732-0200</a>
 </div>
 
 <!-- Page Hero -->
 <div class="page-hero">
-  <div class="page-hero-bg" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/1/1_new.jpg')"></div>
+  <div class="page-hero-bg" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/1/1_new.jpg')"></div>
   <div class="page-hero-overlay"></div>
   <div class="page-hero-content">
     <p class="page-hero-sub">Facility</p>
@@ -192,8 +218,8 @@
         <!-- Jungjeong Pool -->
         <div class="facility-card fade-in">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/1/1_new.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/1/2_new.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/1/1_new.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/1/2_new.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -212,8 +238,8 @@
         <!-- Seawater Pool -->
         <div class="facility-card fade-in fade-up-delay-1">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/2/1.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/2/2_new.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/2/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/2/2_new.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -232,8 +258,8 @@
         <!-- Private Pool -->
         <div class="facility-card fade-in fade-up-delay-2">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/3/1.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/3/2.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/3/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/3/2.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -260,8 +286,8 @@
         <!-- Royal Suite -->
         <div class="facility-card fade-in">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/4/1.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/4/2.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/4/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/4/2.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -274,8 +300,8 @@
         <!-- Grand Ocean Suite -->
         <div class="facility-card fade-in fade-up-delay-1">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/5/1.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/5/2.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/5/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/5/2.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -288,8 +314,8 @@
         <!-- Ocean A & Sky Loft A -->
         <div class="facility-card fade-in fade-up-delay-2">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/6/1.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/6/2.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/6/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/6/2.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -302,8 +328,8 @@
         <!-- Ocean B & Sky Loft B -->
         <div class="facility-card fade-in fade-up-delay-3">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/6/7.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/room/4/8.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/6/7.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/room/4/8.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -325,9 +351,9 @@
         <!-- BBQ -->
         <div class="facility-card fade-in">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/8/3.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/8/3_new.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/8/3_new1.png')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/8/3.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/8/3_new.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/8/3_new1.png')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span><span class="fac-dot"></span></div>
@@ -340,7 +366,7 @@
         <!-- Lobby -->
         <div class="facility-card fade-in fade-up-delay-1">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/9/3.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/9/3.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -353,8 +379,8 @@
         <!-- Garden -->
         <div class="facility-card fade-in fade-up-delay-2">
           <div class="fac-slider" data-index="0">
-            <div class="fac-slide active" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/10/1.jpg')"></div>
-            <div class="fac-slide" style="background-image: url('http://gonylab7.speedgabia.com/havet/special/10/2.jpg')"></div>
+            <div class="fac-slide active" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/10/1.jpg')"></div>
+            <div class="fac-slide" style="background-image: url('https://gonylab7.speedgabia.com/havet/special/10/2.jpg')"></div>
             <button class="fac-prev" onclick="facSlide(this,-1)">&#8249;</button>
             <button class="fac-next" onclick="facSlide(this,1)">&#8250;</button>
             <div class="fac-dots"><span class="fac-dot active"></span><span class="fac-dot"></span></div>
@@ -380,7 +406,7 @@
       <h2 class="section-title" style="font-size: clamp(1.6rem, 3vw, 2.4rem); margin-top: 12px;">리조트 안내도</h2>
     </div>
     <div class="fade-in" style="border: 1px solid var(--color-border); overflow: hidden;">
-      <img src="http://gonylab7.speedgabia.com/havet/final/about/service/havet_map.jpg"
+      <img src="https://gonylab7.speedgabia.com/havet/final/about/service/havet_map.jpg"
            alt="하벳 풀빌라 리조트 안내도"
            style="width: 100%; height: auto; display: block;" />
     </div>
@@ -395,8 +421,8 @@
       <h2 class="book-title">하벳의 모든 시설을 경험하세요</h2>
     </div>
     <div class="book-buttons fade-up fade-up-delay-1">
-      <a href="reservation.html" class="btn btn-primary">예약하기</a>
-      <a href="rooms.html" class="btn btn-outline">객실 보기</a>
+      <a class='btn btn-primary' href='/reservation'>예약하기</a>
+      <a class='btn btn-outline' href='/rooms'>객실 보기</a>
     </div>
   </div>
 </section>
@@ -419,21 +445,21 @@
       <div>
         <p class="footer-nav-title">Pages</p>
         <ul class="footer-nav-list">
-          <li><a href="about.html">About HAVET</a></li>
-          <li><a href="rooms.html">Accommodation</a></li>
-          <li><a href="restaurant.html">Restaurant Verde</a></li>
-          <li><a href="facility.html">Facility</a></li>
-          <li><a href="enjoy_summer.html">Enjoy — Summer</a></li>
-          <li><a href="enjoy_winter.html">Enjoy — Winter</a></li>
+          <li><a href='/about'>About HAVET</a></li>
+          <li><a href='/rooms'>Accommodation</a></li>
+          <li><a href='/restaurant'>Restaurant Verde</a></li>
+          <li><a href='/facility'>Facility</a></li>
+          <li><a href='/enjoy_summer'>Enjoy — Summer</a></li>
+          <li><a href='/enjoy_winter'>Enjoy — Winter</a></li>
         </ul>
       </div>
       <div>
         <p class="footer-nav-title">Information</p>
         <ul class="footer-nav-list">
-          <li><a href="reservation.html">Reservation</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="community.html">Community</a></li>
-          <li><a href="access.html">Access</a></li>
+          <li><a href='/reservation'>Reservation</a></li>
+          <li><a href='/gallery'>Gallery</a></li>
+          <li><a href='/community'>Community</a></li>
+          <li><a href='/access'>Access</a></li>
         </ul>
       </div>
     </div>
@@ -443,7 +469,7 @@
   </div>
 </footer>
 
-<a href="reservation.html" class="floating-book">예약하기</a>
+<a class='floating-book' href='/reservation'>예약하기</a>
 
 <script src="js/main.js"></script>
 <script>
@@ -470,5 +496,6 @@ wcs.inflow();
 wcs_do();
 }
 </script>
+<script src="js/image-safety.js" defer></script>
 </body>
 </html>
